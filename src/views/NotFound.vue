@@ -25,4 +25,3 @@ onMounted(() => {
     .from('.btn-gothic', { opacity: 0, y: 20, duration: 0.3 }, '-=0.2')
 })
 </script>
-</style>
