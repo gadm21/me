@@ -1,0 +1,22 @@
+{
+  "name": "Gad Gad",
+  "title": "Ph.D. Student in Computer Science",
+  "institution": "Western University, Canada",
+  "email": "gmohamed@uwo.ca",
+  "github": "https://github.com/gadm21",
+  "scholar": "https://scholar.google.com/citations?user=bZRYJuAAAAAJ&hl=en",
+  "linkedin": "https://www.linkedin.com/in/gadm/",
+  "location": "London, ON, Canada",
+  "bio": {
+    "short": "Passionate researcher exploring the intersection of privacy-preserving machine learning, federated learning, and Wi-Fi sensing technologies. Currently pursuing a Ph.D. in Computer Science at Western University, focusing on developing innovative solutions for secure and efficient distributed learning systems.",
+    "full": "Gad Mohamed is a Ph.D. student in Computer Science at Western University, Canada. His research focuses on privacy-preserving machine learning, Wi-Fi sensing technologies, and federated learning systems. He holds a Master's degree from Lakehead University and a Bachelor's in Computer Engineering from Nile University, Egypt. His work has been published in top-tier venues including IEEE INFOCOM and ACM Computing Surveys. He is passionate about teaching and has received multiple awards for research and teaching excellence."
+  },
+  "stats": {
+    "yearsTeaching": 3,
+    "publications": 18,
+    "hIndex": 8,
+    "venues": 8,
+    "citations": 184,
+    "yearsExperience": 4
+  }
+}

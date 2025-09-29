@@ -1,0 +1,387 @@
+<!--
+---
+layout: home
+title: shallow thoughts on deep learning  
+---
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+
+
+
+    <meta charset="utf-8">
+    <title>Gad Mohamed</title>
+    <meta name="description" content="This is Gad's Homepage">
+    <meta name="author" content="Gad Mohamed">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="assets/img/me.jpg" />
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!--
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+      -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="computer_vision/assets/cv_style.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167607612-1"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-167607612-1');
+    </script>
+
+
+</head>
+
+<body>
+    <div id="particle-container"></div>
+
+
+
+    <div id="container">
+
+        <ul data-aos="fade-down" data-aos-duration="300">
+
+            <li><a href="index.html ">HOME</a></li>
+            <li>
+                <a>ISAC</a>
+                <ul>
+                    <li><a href="FL/whatwhyhow.html">Sensing</a></li>
+                    <li><a href="FL/KDFL.html">Communication</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Federated Learning</a>
+                <ul>
+                    <li><a href="FL/whatwhyhow.html">What? Why? How?</a></li>
+                    <li><a href="FL/KDFL.html">Knowledge-Distillation-based FL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Differential Privacy</a>
+                <ul>
+                    <li><a href="DP/dp_how.html">Applying DP</a></li>
+                    <li><a href="DP/dp_composition.html">DP composition</a></li>
+                    <li><a href="DP/dp_relaxations.html">DP relaxations</a></li>
+                    <!-- Add more submenu items here -->
+                </ul>
+            </li>
+            <li>
+                <a>Deep Learning</a>
+                <ul>
+                    <li><a class = "active" href="computer_vision_main.html">Computer Vision</a></li>
+                    <li><a href="nlp_main.html">Natural Language Processing</a></li>
+                    <li><a href="structured_data_main.html">Tabular Data</a></li>
+                    
+                </ul>
+            </li>
+            
+            <li><a href="ds_alg_main.html">DataStructures & Algorithms</a></li>
+            <li><a href="moocs_main.html">MOOCS</a></li>
+            <li><a href="publications_main.html">Publications</a></li>
+            <li><a href="books.html">Bookshelf</a></li>
+        </ul>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/faster_rcnn.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://towardsdatascience.com/object-detection-in-6-steps-using-detectron2-705b92575578">Post</a></li>
+                <li><a href="https://colab.research.google.com/drive/1YCmqjQHRThxJu0v-JmWbPvcl2qFVZYtE?usp=sharing">Code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Text object with Faster R-CNN from Detectron2</h1>
+            <h2> </h2>
+            <p>
+                Detectron2 is a DL framework built by Facebook to allow for easy implementation of the state-of-art models like Fast, Faster, and Mask R-CNN which are pretrained on COCO dataset. Here I will use Faster R-CNN to detect text and classify the language to
+                which the text belongs.
+            </p>
+            <p style="color: burlywood;">keywords: Detectron2, Faster R-CNN, text detection, COCO dataset </p>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/satellite2.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="computer_vision/posts/internship report.pdf">Report</a></li>
+                <li><a href="https://github.com/gadm21/satellite-imagery-analysis/tree/main/Unsupervised%20learning">Unsupervised learning code</a></li>
+                <li><a href="https://github.com/gadm21/satellite-imagery-analysis/tree/main/supervised%20learning">Supervised learning code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Urban areas segmentation of satellite images</h1>
+            <h2> </h2>
+            <p>
+                This is an end-to-end method of urban-area segmentation starting from acquiring and preprocessing satellite images, combining unsupervised learning (clustering) with manual labeling to generate a labeled dataset of urban area maps of the acquired images,
+                finally, building and training a binary segmentation model to predict urban area maps of new satellite images.
+            </p>
+            <p style="color: burlywood;">keywords: urban-areas detection, SegNet, PlanetScope </p>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/change_detection2.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://github.com/gadm21/change-detection-in-urban-areas/blob/main/change_detection_in_dubai.ipynb">Code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Detecting urban development in Dubai</h1>
+            <h2></h2>
+            <p>
+                Using temporal satellite imagery, I extract the difference by clustering the principle components of the difference image and using connected component analysis to sort developed areas to focus on the areas that witnessed the most change.
+            </p>
+            <p style="color: burlywood;">keywords: PCA, connectedComponentAnalysis, urban development detection </p>
+
+
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/brain_tumor.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://colab.research.google.com/drive/1WM0W2icPwG2zdL1NLNSHRd0UQojqzeZ0?usp=sharing">Code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>3D Brain tumor segmentation</h1>
+            <h2>segmentaiton of brain tumors for MRI using 3d-UNet</h2>
+            <p>
+                This project is still ongoing (live code can be found in the 'code' link). The aim of the project is to get familiar with 3D segmentation by buliding a multi-class segmentation model which identifies 3 abnormalities: edemas, non-enhancing tumors, and
+                enhancing tumors.
+            </p>
+            <p style="color: burlywood;">keywords: Brain tumor, MRI, tumor segmentation, 3D UNet </p>
+
+
+        </div>
+    </div>
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/xray_diagnosis.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="computer_vision/code/xray diagnosis.html">Code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Chest X-Ray Medical Diagnosis</h1>
+            <h2>using deeplearning to diagnose 14 pathological conditions</h2>
+            <p>
+                In this project, DenseNet121 is used to classify a chest x-ray image. Target classes include cardiomegaly, mass, infiltration, etc.. A custom weighted loss function was used to account for the high class imbalance present in the dataset In addition, advanced
+                evaluation and visualization tools, like AUROC and GradCAM, were used to further asses and understand the model's performance.
+            </p>
+            <p style="color: burlywood;">keywords: xray diagnosis, AUC curve, GradCAM, Data leakage, Data imbalance, DenseNet </p>
+
+
+        </div>
+    </div>
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/lane_instance_segmentation.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="publications/papers/Real-Time Lane Instance Segmentation Using SegNet and Image Processing.pdf">Paper</a></li>
+                <li><a href="https://github.com/gadm21/Real-time-lane-instance-segmentation">Code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Lane instance segmentation</h1>
+            <h2></h2>
+            <p>
+                This project was, dare I say it, an improvement on LaneNet's speed, from 0.7 FPS to 15 FPS on tesla k80, while being slightly less accurate, acheiving 91% compared to 96% by LaneNet on tuSimple dataset. This improvement was done by replacing the discriminative
+                loss function branch (which uses the computationally expensive DBSCAN and mean-shift algorithms) with a simpler and faster nested sliding windows extracting each lane from a lane binary segmentation map.
+            </p>
+            <p style="color: burlywood;">keywords: Lane detection, instance segmentation, SegNet, sliding window, TensorFLow</p>
+
+
+        </div>
+    </div>
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/lane_detection.jpg)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://github.com/gadm21/Lane-detectionn">Code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Lane detection</h1>
+            <h2>non-DL based method</h2>
+            <p>
+                Image processing techniques like canny edge detection, binary thresholding, perspective transformation, and histogram, are used to make a fast non-deeplearning based lane detection algorithm. The algorithm also fits the detected lanes in a 3rd order polynomial
+                function to be used in following frames as a starting point to detect lanes.
+            </p>
+            <p style="color: burlywood;">keywords: Lane detection, perspective transformation, histogram, opencv</p>
+
+
+        </div>
+    </div>
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/image_captioning.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://arxiv.org/abs/1411.4555">Paper</a></li>
+                <li><a href="computer_vision/code/simple_clean_working_image_captioning.html">Code</a></li>
+                <li><a href="https://research.googleblog.com/2014/11/a-picture-is-worth-thousand-coherent.html">Tutorial</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Image captioning</h1>
+            <h2>An implementation of Google's image captioning paper</h2>
+            <p> In this project, an end-to-end image captioning deep-learning-based architecture is presented based on Google's paper entitled "Show and Tell: A Neural Image Caption Generator". The architecture starts with extracting features from the input
+                image using a top-less pre-trained CNN (InceptionV3 is used here). Then, LSTM units are fed the image features as an initial state as well as the caption tokens one at a time.</p>
+            <p style="color: burlywood;">keywords: captioning, InceptionV3, LSTM, Keras</p>
+
+
+        </div>
+    </div>
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/face_recognition.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://github.com/gadm21/Face-recognition-using-PCA-and-SVD">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Face recognition with PCA</h1>
+            <h2>using haar cascade to detect and PCA to recognize!</h2>
+            <p>
+                PCA is a dimensionality reduction tool used, generally, to reduce the number of features in ML applications while preserving the VARIANCE between the reduced number of features (also called principle components), in this project, however, reducing features
+                also has the effect of obtaining a higher level representation of faces (higher than raw pixel values) which we can compare between faces to perform this complex task, even for DL, with reasonable accuracy and much faster than DL-based
+                methods.
+                <p style="color: burlywood;">keywords: PCA, haar cascade, dimensionality reduction, face recognition</p>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(https://csc.lsu.edu/~saikat/n-mnist/images/awgn_95.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="computer_vision/posts/knn_report.htm">Post</a></li>
+                <li><a href="computer_vision/code/noisy_mnist_code.rar">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Noisy MNIST classification</h1>
+            <h2>using KNN to classifiy a Noisy MNIST dataset</h2>
+            <p> KNN is a simple machine learning algorithm for classification tasks which requires no learning and works the best on medium-sized datasets. Here, I firstly clean the data using median filter and cropping, then I use PCA dimensionality reduction
+                tool to speed up KNN by reducing feature dimension as well as increase feature quality. Finally, the model's performance is evaluated using the Leave-one-out cross-validation algorithm and confusion matrix is calculated on the testset</p>
+            <p style="color: burlywood;">keywords: KNN, PCA, MNIST, median-filter, confusion matrix, Leave-one-out cross-validation</p>
+
+
+        </div>
+    </div>
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/horsevshuman.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://github.com/gadm21/AI/blob/master/horse_human_CNN.ipynb">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>simple CNN classifier</h1>
+            <h2>classifying images of horses vs humans with CNN</h2>
+            <p> In this project, I built a simple CNN classifier to classify human vs horses images (binary classfication). Image augmentation is used to increase the size of the dataset and introduce more variations and noise to the available samples. This
+                project was part of the tensorflow developer professional certificates and it's meant to introduce the concept of ImageDataGenerator of keras in a simple example. </p>
+            <p style="color: burlywood;">keywords: CNN, ImageDataGenerator, keras, Dropout, RMSprop, binary classification</p>
+
+
+        </div>
+    </div>
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/mojs/0.265.6/mo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/mojs-player/0.43.15/mojs-player.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- <script src="assets/js/mojs.js"></script> -->
+    <script src="assets/js/particle-script.js"></script>
+
+</body>
+
+
+
+</html>

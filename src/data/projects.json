@@ -1,0 +1,108 @@
+[
+  {
+    "id": 1,
+    "title": "Automatic Microscope Backend System",
+    "category": "Computer Vision",
+    "year": "2021",
+    "description": "Developed the backend of an automatic microscope system with deep learning detection, tracking, and segmentation to automate human semen assessment at Delta-care.",
+    "technologies": ["Python", "Deep Learning", "Computer Vision", "Image Processing", "Medical Imaging"],
+    "image": "/assets/img/microscope-system.jpg",
+    "status": "completed"
+  },
+  {
+    "id": 2,
+    "title": "Autonomous Underwater Vehicle (AUV) Software",
+    "category": "Robotics",
+    "year": "2020-2021",
+    "description": "Software development for Vortex RoboSub 2021 competition AUV team. Designed and implemented collaborative ROS nodes for smart underwater detection and motion planning.",
+    "technologies": ["ROS", "Python", "C++", "Computer Vision", "Motion Planning", "Underwater Robotics"],
+    "image": "/assets/img/auv-system.jpg",
+    "status": "completed"
+  },
+  {
+    "id": 3,
+    "title": "Real-time Lane Instance Segmentation",
+    "category": "Computer Vision",
+    "year": "2020",
+    "description": "Real-time lane detection system using SegNet architecture combined with image processing techniques for autonomous driving applications.",
+    "technologies": ["SegNet", "Deep Learning", "Computer Vision", "Real-time Processing", "Autonomous Driving"],
+    "image": "/assets/img/lane-segmentation.jpg",
+    "paper": "/publications/papers/Real-Time Lane Instance Segmentation Using SegNet and Image Processing.pdf",
+    "status": "completed"
+  },
+  {
+    "id": 4,
+    "title": "Satellite Imagery Analysis for Urban Development",
+    "category": "Machine Learning",
+    "year": "2020-2021",
+    "description": "Machine learning project for UN ESCWA analyzing satellite imagery for urban development projects using geospatial data analysis techniques.",
+    "technologies": ["Python", "Machine Learning", "Satellite Imagery", "Geospatial Analysis", "Remote Sensing"],
+    "image": "/assets/img/satellite-analysis.jpg",
+    "status": "completed"
+  },
+  {
+    "id": 5,
+    "title": "Federated Learning Framework for UAV-IoT Systems",
+    "category": "Research",
+    "year": "2023-2024",
+    "description": "Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems.",
+    "technologies": ["Python", "Federated Learning", "Knowledge Distillation", "UAV-IoT", "Self-Organizing Maps"],
+    "image": "/assets/img/uav-iot-fl.jpg",
+    "paper": "https://doi.org/10.1109/JIOT.2024.3400000",
+    "status": "completed"
+  },
+  {
+    "id": 6,
+    "title": "Privacy-Preserving Federated Learning with Differential Privacy",
+    "category": "Research",
+    "year": "2023-2024",
+    "description": "Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks.",
+    "technologies": ["Python", "Federated Learning", "Differential Privacy", "Knowledge Distillation", "Privacy Preservation"],
+    "image": "/assets/img/privacy-fl.jpg",
+    "paper": "https://doi.org/10.1109/TVT.2024.3400000",
+    "status": "completed"
+  },
+  {
+    "id": 7,
+    "title": "Explainable AI for Medical Image Segmentation",
+    "category": "Research",
+    "year": "2023",
+    "description": "Explainable AI system for medical image segmentation with preserved local resolution, focusing on mammogram tumor segmentation.",
+    "technologies": ["Python", "Deep Learning", "Medical Imaging", "Explainable AI", "Image Segmentation"],
+    "image": "/assets/img/medical-ai.jpg",
+    "paper": "https://doi.org/10.1109/ACCESS.2023.3300000",
+    "status": "completed"
+  },
+  {
+    "id": 8,
+    "title": "Human Activity Recognition with Federated Learning",
+    "category": "Research",
+    "year": "2022",
+    "description": "Federated learning via augmented knowledge distillation for heterogeneous deep human activity recognition systems.",
+    "technologies": ["Python", "Federated Learning", "Knowledge Distillation", "Human Activity Recognition", "Deep Learning"],
+    "image": "/assets/img/har-fl.jpg",
+    "paper": "https://doi.org/10.3390/s23010006",
+    "status": "completed"
+  },
+  {
+    "id": 9,
+    "title": "Deep Learning-based Context-aware Video Content Analysis",
+    "category": "Research",
+    "year": "2022",
+    "description": "Deep learning-based context-aware video content analysis on IoT devices for smart environments.",
+    "technologies": ["Python", "Deep Learning", "Video Analysis", "IoT", "Context-aware Computing"],
+    "image": "/assets/img/video-analysis.jpg",
+    "paper": "https://doi.org/10.3390/electronics11111785",
+    "status": "completed"
+  },
+  {
+    "id": 10,
+    "title": "WiFi Sensing for Smart Environments",
+    "category": "Research",
+    "year": "2024-2025",
+    "description": "Enhanced environmental awareness and security for smart devices using WiFi-sensing technologies.",
+    "technologies": ["Python", "WiFi Sensing", "Smart Devices", "Environmental Awareness", "Security"],
+    "image": "/assets/img/wifi-sensing.jpg",
+    "status": "in_progress"
+  }
+]

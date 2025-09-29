@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Sarala:700|Exo+2:300');
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    outline: 1px solid transparent;
+}
+
+
+/*
+body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-image: linear-gradient(-55deg, rgba(50, 45, 55, 1) 0%, rgba(101, 96, 106, 1) 100%);
+    color: #f5f5f5;
+    font-family: 'Exo 2';
+    font-weight: 300;
+    animation: fadeIn .5s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1;
+}
+*/
+
+.wrapper {
+    width: 280px;
+    height: 480px;
+    perspective: 800px;
+    position: relative;
+}
+
+.card {
+    margin: 50px;
+    width: 320px;
+    height: 450px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: translateZ(-140px);
+    transition: transform 350ms cubic-bezier(0.390, 0.575, 0.565, 1.000);
+    cursor: pointer;
+}
+
+.card>div {
+    position: absolute;
+    width: 320px;
+    height: 450px;
+    padding: 34px 21px;
+    transition: all 350ms cubic-bezier(0.390, 0.575, 0.565, 1.000);
+}
+
+.front {
+    background-image: linear-gradient(180deg, rgba(145, 141, 144, 1) 0%, rgba(92, 91, 94, 0) 100%);
+    transform: rotateY(0deg) translateZ(160px);
+    border-radius: 34px 3px 0 0;
+}
+
+h1,
+h2 {
+    margin: 0;
+    font-size: 38px;
+    letter-spacing: -.25px;
+    transform: translateX(-44px);
+    font-family: 'Sarala';
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 21px;
+    transform: translateX(-34px);
+}
+
+p {
+    margin: 0;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+span {
+    margin-left: 13px;
+    opacity: .55;
+}
+
+img {
+    transform-origin: top left;
+    transition: transform 300ms cubic-bezier(0.390, 0.575, 0.565, 1.000);
+    transition-delay: 100ms;
+    pointer-events: none;
+    width: 100%
+}
+
+.img-wrapper {
+    animation: float 4s cubic-bezier(0.390, 0.575, 0.565, 1.000) infinite alternate;
+    position: absolute;
+    pointer-events: none;
+    backface-visibility: hidden;
+}
+
+@keyframes float {
+    0% {
+        transform: translateZ(20px);
+    }
+    100% {
+        transform: translateY(-21px) translateX(-13px) translateZ(30px);
+    }
+}
+
+.price {
+    position: absolute;
+    bottom: 34px;
+    left: 21px;
+    font-size: 34px;
+    opacity: .34;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0.33;
+        transform: scale(.89);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        transform: scale(.67);
+    }
+}

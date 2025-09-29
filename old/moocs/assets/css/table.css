@@ -1,0 +1,54 @@
+.new-table {
+    min-height: 40px;
+    margin: 50px 0;
+    padding: 10px;
+    position: relative;
+}
+
+.table {
+    border-collapse: collapse;
+    border-radius: 20px;
+    /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);*/
+    color: rgb(255, 0, 0);
+}
+
+.table tr {
+    max-width: 80vw;
+    height: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    color: darkslateblue
+}
+
+.table td,
+.table th {
+    text-align: left;
+    padding: 8px 10px;
+}
+
+.table thead {
+    color: rgba(7, 254, 85, 0.818);
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(40, 23, 23, 0.425);
+    color: white;
+}
+
+.table td {
+    position: relative;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.table td:hover::before {
+    content: "";
+    position: relative;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    z-index: -1;
+}

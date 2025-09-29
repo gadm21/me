@@ -1,0 +1,197 @@
+<!--
+---
+layout: home
+title: shallow thoughts on deep learning  
+---
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+
+
+
+    <meta charset="utf-8">
+    <title>Gad Mohamed</title>
+    <meta name="description" content="This is Gad's Homepage">
+    <meta name="author" content="Gad Mohamed">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="assets/img/me.jpg" />
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!--
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+      -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="testin/assets/cv_style.css">
+    <link rel="stylesheet" href="testin/assets/accordion_style.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167607612-1"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-167607612-1');
+    </script>
+
+
+</head>
+
+<body>
+    <div id="particle-container"></div>
+
+    <div id="container">
+        <ul data-aos="fade-down" data-aos-duration="100">
+            <li><a href="index.html">HOME</a></li>
+            <li><a class='active' href="computer_vision_main.html ">computer vision</a></li>
+            <li><a href="nlp_main.html">NLP</a></li>
+            <li><a href="structured_data_main.html">structured data</a></li>
+            <li><a href="ds_alg_main.html">DataStructures & Algorithms</a></li>
+            <li><a href="moocs_main.html">MOOCS</a></li>
+            <li><a href="publications_main.html">Publications</a></li>
+        </ul>
+
+    </div>
+
+
+
+
+    <h1>Pure CSS Accordion <sup>2.0</sup></h1>
+    <div class="row">
+        <div class="col">
+            <h2>Open <b>multiple</b></h2>
+
+            <div class="tab">
+                <input type="checkbox" id="chck1">
+                <label class="tab-label" for="chck1">Item 1</label>
+                <div class="tab-content">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, reiciendis!
+                </div>
+            </div>
+            <div class="tab">
+                <input type="checkbox" id="chck2">
+                <label class="tab-label" for="chck2">Item 2</label>
+                <div class="tab-content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in!
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/image_captioning.png)"></div>
+
+        </div>
+        <div class="description">
+            <h1>Image captioning</h1>
+            <h2>An implementation of Google's image captioning paper</h2>
+            <p> In this project, an end-to-end image captioning deep-learning-based architecture is presented based on Google's paper entitled "Show and Tell: A Neural Image Caption Generator". The architecture starts with extracting features from the input
+                image using a top-less pre-trained CNN (InceptionV3 is used here). Then, LSTM units are fed the image features as an initial state as well as the caption tokens one at a time.</p>
+            <p style="color: burlywood;">keywords: captioning, InceptionV3, LSTM, Keras</p>
+            <ul class="innovative_thing">
+                <div class="tab">
+                    <input type="checkbox" id="hi">
+                    <label class="tab-label" for="hi">Item 1</label>
+                    <div class="tab-content">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, reiciendis!
+                    </div>
+                </div>
+                <li class="innovative_small_thing"><a href="https://arxiv.org/abs/1411.4555">Paper</a></li>
+                <li class="innovative_small_thing"><a href="computer_vision/code/simple_clean_working_image_captioning.html">Code</a></li>
+                <li class="innovative_small_thing"><a href="https://research.googleblog.com/2014/11/a-picture-is-worth-thousand-coherent.html">Tutorial</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/noisy_mnist.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="computer_vision/posts/knn_report.htm">Post</a></li>
+                <li><a href="computer_vision/code/noisy_mnist_code.rar">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Noisy MNIST classification</h1>
+            <h2>using KNN to classifiy a Noisy MNIST dataset</h2>
+            <p> KNN is a simple machine learning algorithm for classification tasks which requires no learning and works the best on medium-sized datasets. Here, I firstly clean the data using median filter and cropping, then I use PCA dimensionality reduction
+                tool to speed up KNN by reducing feature dimension as well as increase feature quality. Finally, the model's performance is evaluated using the Leave-one-out cross-validation algorithm and confusion matrix is calculated on the testset</p>
+            <p style="color: burlywood;">keywords: KNN, PCA, MNIST, median-filter, confusion matrix, Leave-one-out cross-validation</p>
+
+
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(computer_vision/images/horsevshuman.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://github.com/gadm21/AI/blob/master/horse_human_CNN.ipynb">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>simple CNN classifier</h1>
+            <h2>classifying images of horses vs humans with CNN</h2>
+            <p> In this project, I built a simple CNN classifier to classify human vs horses images (binary classfication). Image augmentation is used to increase the size of the dataset and introduce more variations and noise to the available samples. This
+                project was part of the tensorflow developer professional certificates and it's meant to introduce the concept of ImageDataGenerator of keras in a simple example. </p>
+            <p style="color: burlywood;">keywords: CNN, ImageDataGenerator, keras, Dropout, RMSprop, binary classification</p>
+
+
+        </div>
+    </div>
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/mojs/0.265.6/mo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/mojs-player/0.43.15/mojs-player.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- <script src="assets/js/mojs.js"></script> -->
+    <script src="assets/js/particle-script.js"></script>
+
+</body>
+
+
+
+</html>

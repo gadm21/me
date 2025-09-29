@@ -1,0 +1,108 @@
+[
+  {
+    "id": 1,
+    "title": "Teaching and Research Assistant",
+    "company": "Western University",
+    "location": "London, ON, Canada",
+    "startDate": "2023-09",
+    "endDate": "Present",
+    "description": "Conducting research in Wi-Fi sensing, federated learning, interpretable deep learning, and differential privacy.",
+    "achievements": [
+      "Published multiple papers in top-tier conferences",
+      "Conducting cutting-edge research in privacy-preserving ML",
+      "Teaching and mentoring undergraduate students"
+    ],
+    "technologies": ["Python", "PyTorch", "TensorFlow", "Wi-Fi Sensing", "Federated Learning", "Differential Privacy"]
+  },
+  {
+    "id": 2,
+    "title": "Lecturer",
+    "company": "Western University",
+    "location": "London, ON, Canada",
+    "startDate": "2024-09",
+    "endDate": "2025-04",
+    "description": "Teaching C language and Linux operating system to undergraduate students.",
+    "achievements": [
+      "Delivered comprehensive programming courses",
+      "Mentored students in systems programming",
+      "Achieved excellent teaching evaluations"
+    ],
+    "technologies": ["C", "Linux", "Systems Programming", "Teaching"]
+  },
+  {
+    "id": 3,
+    "title": "Volunteer",
+    "company": "Lumiere",
+    "location": "Remote",
+    "startDate": "2025-09",
+    "endDate": "Present",
+    "description": "Mentoring talented high-school students through AI research projects.",
+    "achievements": [
+      "Guided students in AI research methodology",
+      "Helped students develop technical skills",
+      "Contributed to next generation of AI researchers"
+    ],
+    "technologies": ["AI", "Machine Learning", "Research Mentoring", "Education"]
+  },
+  {
+    "id": 4,
+    "title": "Teaching and Research Assistant",
+    "company": "Lakehead University",
+    "location": "Thunder Bay, ON, Canada",
+    "startDate": "2021-09",
+    "endDate": "2023-04",
+    "description": "Conducting research in federated learning, knowledge distillation, and differential privacy. Teaching C language and Linux operating system to undergraduate students.",
+    "achievements": [
+      "Completed Master's thesis with distinction",
+      "Published multiple research papers",
+      "Received Vector Institute AI Scholarship (17,500 CAD)",
+      "Taught undergraduate programming courses"
+    ],
+    "technologies": ["Python", "PyTorch", "Federated Learning", "Differential Privacy", "C", "Linux"]
+  },
+  {
+    "id": 5,
+    "title": "Software Engineer",
+    "company": "Delta-care",
+    "location": "Giza, Egypt",
+    "startDate": "2021-04",
+    "endDate": "2021-08",
+    "description": "Developed the backend of an automatic microscope. Developed deep learning detection, tracking, and segmentation to automate human semen assessment.",
+    "achievements": [
+      "Implemented deep learning models for medical image analysis",
+      "Developed automated microscopy backend systems",
+      "Created detection and tracking algorithms for medical diagnostics"
+    ],
+    "technologies": ["Python", "Deep Learning", "Computer Vision", "Medical Imaging", "Object Detection", "Tracking"]
+  },
+  {
+    "id": 6,
+    "title": "Software Intern",
+    "company": "Vortex",
+    "location": "Alexandria, Egypt",
+    "startDate": "2020-09",
+    "endDate": "2021-07",
+    "description": "Software development for Vortex RoboSub 2021 competition Autonomous Underwater Vehicle (AUV) team. Designed and implemented collaborative ROS nodes for smart underwater detection and motion planning.",
+    "achievements": [
+      "Developed ROS-based autonomous navigation systems",
+      "Implemented underwater computer vision algorithms",
+      "Contributed to competitive robotics team"
+    ],
+    "technologies": ["ROS", "Python", "Computer Vision", "Robotics", "Motion Planning", "Autonomous Systems"]
+  },
+  {
+    "id": 7,
+    "title": "Machine Learning Intern",
+    "company": "UN ESCWA",
+    "location": "Remote (Lebanon, New York)",
+    "startDate": "2020-11",
+    "endDate": "2021-05",
+    "description": "Satellite imagery analysis for urban development.",
+    "achievements": [
+      "Developed satellite image analysis pipelines",
+      "Contributed to urban development research",
+      "Worked with international development organization"
+    ],
+    "technologies": ["Python", "Satellite Imagery", "Computer Vision", "Urban Analysis", "Remote Sensing"]
+  }
+]

@@ -1,0 +1,233 @@
+<!--
+---
+layout: home
+title: shallow thoughts on deep learning  
+---
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+
+
+
+    <meta charset="utf-8">
+    <title>Gad Mohamed</title> 
+    <meta name="author" content="Gad Mohamed">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="assets/img/me.jpg" />
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="NLP/assets/nlp_style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167607612-1"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-167607612-1');
+    </script>
+
+
+</head>
+
+<body>
+    <div id="particle-container"></div>
+
+
+    <div id="container">
+
+        <ul data-aos="fade-down" data-aos-duration="300">
+
+            <li><a href="index.html ">HOME</a></li>
+            <li>
+                <a>ISAC</a>
+                <ul>
+                    <li><a href="FL/whatwhyhow.html">Sensing</a></li>
+                    <li><a href="FL/KDFL.html">Communication</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Federated Learning</a>
+                <ul>
+                    <li><a href="FL/whatwhyhow.html">What? Why? How?</a></li>
+                    <li><a href="FL/KDFL.html">Knowledge-Distillation-based FL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Differential Privacy</a>
+                <ul>
+                    <li><a href="DP/dp_how.html">Applying DP</a></li>
+                    <li><a href="DP/dp_composition.html">DP composition</a></li>
+                    <li><a href="DP/dp_relaxations.html">DP relaxations</a></li>
+                    <!-- Add more submenu items here -->
+                </ul>
+            </li>
+            <li>
+                <a>Deep Learning</a>
+                <ul>
+                    <li><a href="computer_vision_main.html">Computer Vision</a></li>
+                    <li><a class = "active" href="nlp_main.html">Natural Language Processing</a></li>
+                    <li><a href="structured_data_main.html">Tabular Data</a></li>
+                    
+                </ul>
+            </li>
+            
+            <li><a href="ds_alg_main.html">DataStructures & Algorithms</a></li>
+            <li><a href="moocs_main.html">MOOCS</a></li>
+            <li><a href="publications_main.html">Publications</a></li>
+            <li><a href="books.html">Bookshelf</a></li>
+        </ul>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(NLP/images/comprehend.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://towardsdatascience.com/text-summarization-with-glove-embeddings-1e969ef9a452">Tutorial</a></li>
+                <li><a href="NLP/code/Comprehend sentiment analysis.html">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>AWS comprehend</h1>
+            <h2>analyze content with Amazon AWS comprehend</h2>
+            <p> Comprehend is an AWS service that can perform many NLP tasks like translation, topic modeling, sentiment anlaysis, etc... </p>
+            <p style="color: burlywood;">keywords: AWS, Comprehend, SageMaker, sentiment analysis</p>
+
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(NLP/images/sentiment_analysis.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="NLP/code/Amazon_reviews_sentiment_analysis.html">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Sentiment analysis</h1>
+            <h2>Analyzing customers' reviews</h2>
+            <p> Sentiment analysis is the NLP task of understanding the attitudes or emotions in a piece of text. This is often used to analyze customers' feedback in social media or eCommerce websites on products. Here I will appy sentiment analysis on customers'
+                reviews on Amazon products using a range of classifiers as well as deep learning model.
+                <p>
+                    <p style="color: burlywood;">keywords: Bag of Words, Naive Bayes classifier, SVM, KNN, XGBoosting classifier, Keras, LSTM</p>
+
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(https://www.inovex.de/blog/wp-content/uploads/2019/07/seq2seq-text-summarization.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://towardsdatascience.com/text-summarization-with-glove-embeddings-1e969ef9a452">Post</a></li>
+                <li><a href="NLP/code/text_summarization.html">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Text summarization</h1>
+            <h2>Summarize amazon food reviews</h2>
+            <p> Using LSTM and attention mechanism, and the amazon fine food reviews from kaggle, a text summarizer is finally born to save us from long exhausting reviews. </p>
+            <p style="color: burlywood;">keywords: LSTM, seq2seq, Bahdanau attention, kaggle dataset, food reviews, GloVe</p>
+
+
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBzOefUyBQXRvXEziYXrMoUKdSPQLfNfAf6A&usqp=CAU)"></div>
+
+            <ul class="details tags">
+                <li><a href="https://github.com/gadm21/AI/blob/master/fasttext_demo.ipynb">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Real/Fake news classification</h1>
+            <h2> use fasttext framework to classify news</h2>
+            <p> fasttext is a new facebook deeplearning framework that uses light learning algorithms to train models fastly. This text classifier takes the news title and predicts whether the news is fake or real. </p>
+            <p style="color: burlywood;">keywords: fasttext, fake/real news</p>
+
+
+        </div>
+    </div>
+
+    <div class="blog-card">
+        <div class="meta">
+            <div class="photo" style="background-image: url(NLP/images/text_editor.png)"></div>
+
+            <ul class="details tags">
+                <li><a href="NLP/posts/text_editor.pdf">post</a></li>
+                <li><a href="https://github.com/gadm21/SimpleTextEditor">code</a></li>
+            </ul>
+        </div>
+        <div class="description">
+            <h1>Text editor</h1>
+            <h2> embedding spell checking & correction in a simple text editor</h2>
+            <p>
+                The aim of this project is to apply spell checking & correction as well as other NLP tasks like regex search. So I used PyQt5 to build a simple texteditor and integrated the spell checking & correction functionality in it. This is a non-DL NLP project,
+                No fancy networks used, just a decent set of real words, a language model, an error model, a candidate model, and shokran!
+            </p>
+            <p style="color: burlywood;">keywords: text editor, levenshtien distance, PyQt5, spell checking/correction, Regex search</p>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/mojs/0.265.6/mo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/mojs-player/0.43.15/mojs-player.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- <script src="assets/js/mojs.js"></script> -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/particle-script.js"></script>
+
+</body>
+
+
+
+</html>

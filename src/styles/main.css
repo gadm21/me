@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  .dark body {
+    @apply bg-ink text-gray-300;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    body {
+      @apply bg-black text-white;
+    }
+  }
+
+  /* Accessibility and responsive design */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Mobile and tablet responsiveness */
+  @media (max-width: 640px) {
+    .prose-container {
+      @apply px-4;
+    }
+    
+    .gothic-title {
+      @apply text-3xl;
+    }
+    
+    .gothic-subtitle {
+      @apply text-xl;
+    }
+    
+    .serene-text {
+      @apply text-base;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .prose-container {
+      @apply px-6;
+    }
+    
+    .gothic-title {
+      @apply text-4xl;
+    }
+    
+    .gothic-subtitle {
+      @apply text-2xl;
+    }
+  }
+}
+
+@layer components {
+  /* Container for narrow prose width */
+  .prose-container {
+    @apply max-w-prose-narrow mx-auto px-6 lg:px-8;
+  }
+
+  /* Gothic heading styles */
+  .gothic-title {
+    font-family: 'UnifrakturMaguntia', serif;
+    @apply text-4xl md:text-5xl lg:text-6xl tracking-wide;
+  }
+
+  .gothic-subtitle {
+    font-family: 'UnifrakturCook', serif;
+    @apply text-2xl md:text-3xl tracking-wide;
+  }
+
+  /* Serene text */
+  .serene-text {
+    font-family: 'Spectral', serif;
+    @apply text-gray-300 leading-relaxed;
+  }
+
+  /* Button styles */
+  .btn-gothic {
+    @apply inline-flex items-center px-6 py-3 border border-sage-dark text-sage-light 
+           hover:bg-sage-dark hover:border-sage transition-all duration-250 ease-out
+           font-medium tracking-wide;
+  }
+
+  /* Card with calm hover */
+  .card-calm {
+    @apply bg-charcoal border border-slate p-6 
+           hover:border-sage-dark transition-all duration-250 ease-out;
+  }
+}

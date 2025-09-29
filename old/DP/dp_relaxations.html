@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+
+
+
+    <meta charset="utf-8">
+    <title>Gad Mohamed</title> 
+    <meta name="author" content="Gad Mohamed">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="../assets/img/me.jpg" />
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="../assets/nlp_style.css"> -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167607612-1"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-167607612-1');
+    </script>
+
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body>
+    <div id="particle-container"></div>
+
+
+    <div id="container">
+
+        <ul data-aos="fade-down" data-aos-duration="300">
+
+            <li><a href="../index.html ">HOME</a></li>
+            <li>
+                <a>ISAC</a>
+                <ul>
+                    <li><a href="../ISAC/sensing.html">Sensing</a></li>
+                    <li><a href="../ISAC/communications.html">Communication</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Federated Learning</a>
+                <ul>
+                    <li><a href="../FL/whatwhyhow.html">What? Why? How?</a></li>
+                    <li><a href="../FL/KDFL.html">Knowledge-Distillation-based FL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Differential Privacy</a>
+                <ul>
+                    <li><a href="../DP/dp_how.html">Applying DP</a></li>
+                    <li><a href="../DP/dp_composition.html">DP composition</a></li>
+                    <li><a class = "active" href="../DP/dp_relaxations.html">DP relaxations</a></li>
+                    <!-- Add more submenu items here -->
+                </ul>
+            </li>
+            <li>
+                <a>Deep Learning</a>
+                <ul>
+                    <li><a href="../computer_vision_main.html">Computer Vision</a></li>
+                    <li><a href="../nlp_main.html">Natural Language Processing</a></li>
+                    <li><a href="../structured_data_main.html">Tabular Data</a></li>
+                    
+                </ul>
+            </li>
+            
+            <li><a href="../ds_alg_main.html">DataStructures & Algorithms</a></li>
+            <li><a href="../moocs_main.html">MOOCS</a></li>
+            <li><a href="../publications_main.html">Publications</a></li>
+            <li><a href="../books.html">Bookshelf</a></li>
+        </ul>
+    </div>
+
+
+
+
+
+
+
+    <h4 style="font-size: 2.7em; margin: 1em; text-align: left;">Differential Privacy relaxations</h4>
+
+    <h5 style="font-size: 2em; margin: 1em; text-align: left;"> \((\epsilon,\delta)\)-differential privacy</h5>
+    <p>
+        \((\epsilon,\delta)\)-differential privacy is a relaxation of pure \(\epsilon\)-differential privacy. The added \(\delta\) term, a small probability close to 0, permits minor deviations from the strict \(\epsilon\)-differential privacy, allowing for more utility in certain applications. 
+        More formally, a mechanism \( M \) is \( (\epsilon, \delta) \)-differentially private if \[ \Pr[M(D) \in O] \leq \exp(\epsilon) \times \Pr[M(D') \in O] + \delta \]. If \( \delta = 0 \), then \( (\epsilon, \delta) \)-DP is reduced to \( \epsilon \)-DP.
+    </p>
+    <p>
+        <strong>Tip </strong> \( (\epsilon, \delta) \)-DP mechanism may be thought of informally as \( \epsilon \)-DP with the probability of \( 1 - \delta \).
+    </p>
+    
+    <h5 style="font-size: 2em; margin: 1em; text-align: left;"> Rényi differential privacy</h5>
+    
+    <p>
+        
+        For two distributions \( P \) and \( Q \) over \( R \), the Rényi divergence of order \( \alpha > 1 \) is given by:
+        \[ D_\alpha(P||Q) = \frac{1}{\alpha - 1} \log \mathbb{E}_{x\sim Q} \left[ \left( \frac{P(x)}{Q(x)} \right)^\alpha \right] \]
+        where \( P(x) \) represents the density of \( P \) at \( x \) and all logarithms are natural.
+        
+        For \( \alpha = 1 \), \( D_1(P||Q) \) is defined as: \[ D_1(P||Q) = \mathbb{E}_{x\sim P} \log \frac{P(x)}{Q(x)} \]
+        which is equivalent to the Kullback-Leibler divergence. It's worth noting the expectation is over \( P \), not \( Q \), and \( D_1(P||Q) \) might be finite when \( D_\alpha(P||Q) = +\infty \) for \( \alpha > 1 \).
+        
+        For \( \alpha = \infty \), the divergence is: \[ D_\infty(P||Q) = \sup_{x \in \text{supp } Q} \log \frac{P(x)}{Q(x)} \]
+    </p>
+
+    <p>
+        The term \( \sup \) represents the "supremum." Specifically, the supremum identifies the highest value a function can achieve. For a function that has a distinct maximum, this value will be the supremum. However, if there isn't a clear maximum, the supremum gives the smallest value that's still greater than any value the function can attain. Moreover, \( \text{supp} \) stands for "support." In the context of the probability distribution \( Q \), the support refers to the set of all points or outcomes \( x \) where \( Q(x) \) is not zero. As such, the divergence \( D_\infty(P||Q) \) determines the maximum logarithmic ratio of \( P(x) \) to \( Q(x) \) specifically for those \( x \) values where \( Q(x) \) isn't zero.
+        The following function computes the Rényi divergence of order \( \alpha \) between two distributions \( P \) and \( Q \) over \( R \). The function assumes that \( P \) and \( Q \) are represented as lists of probabilities over the same set of outcomes. The function also assumes that \( P \) and \( Q \) are normalized, meaning that the sum of their probabilities is 1.
+    </p>
+
+    <pre><code class="python" style = "text-align: left;">
+        import math
+        
+        def renyi_divergence(P, Q, alpha):
+            if alpha == 1:
+                return sum(p * math.log(p/q) for p, q in zip(P, Q) if p != 0)
+            elif alpha == 'infinity':
+                max_ratio = max(p/q for p, q in zip(P, Q) if q != 0)
+                return math.log(max_ratio)
+            else:
+                return (1 / (alpha - 1)) * math.log(sum(math.pow(p, alpha) * math.pow(q, 1-alpha) for p, q in zip(P, Q)))
+        </code></pre>
+    
+
+
+
+    <p>
+        The relationship between the Rényi divergence with \( \alpha = \infty \) and differential privacy is immediate. A randomized mechanism \( f \) is \( \varepsilon \)-differentially private if and only if its distribution over any two adjacent inputs \( D \) and \( D' \) satisfies:
+        \[ D_\infty(f(D) \parallel f(D')) \leq \varepsilon \]
+        
+        This result motivates exploring a relaxation of differential privacy based on the Rényi divergence. See [1]
+    </p>
+    
+    <p>
+        <strong>Definition </strong> ((\( \alpha, \varepsilon \))-RDP). A randomized mechanism \( f : D \rightarrow R \) is said to have \( \varepsilon \)-Rényi differential privacy of order \( \alpha \), or (\( \alpha, \varepsilon \))-RDP for short, if for any adjacent \( D, D' \in D \) it holds that:        
+        \[ D_\alpha(f(D) \parallel f(D')) \leq \varepsilon \]
+    </p>
+    
+    <!-- put an image here with caption -->
+    <img src="images/divergence_and_dp.png" alt="divergence_and_dp" width="50%" height="50%">
+    <p style="text-align: center;">Figure 1: Relationship between Rényi divergence and differential privacy. See [2]</p>
+
+    
+    <h5 style="font-size: 2em; margin: 1em; text-align: left;"> References</h5>
+    <p>1. Mironov, I. (2017, August). Rényi differential privacy. In 2017 IEEE 30th computer security foundations symposium (CSF) (pp. 263-275). IEEE.</p>
+    <p>2. Alizadeh, E. (2023) The abcs of differential privacy, Essi Alizadeh. Available at: https://ealizadeh.com/blog/abc-of-differential-privacy/ (Accessed: 21 August 2023). </p>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/mojs/0.265.6/mo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/mojs-player/0.43.15/mojs-player.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- <script src="assets/js/mojs.js"></script> -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/particle-script.js"></script>
+
+</body>
+
+
+
+</html>

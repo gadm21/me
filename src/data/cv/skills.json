@@ -1,0 +1,68 @@
+{
+  "categories": [
+    {
+      "name": "AI/ML & Federated Learning",
+      "items": [
+        "Federated Learning",
+        "Differential Privacy",
+        "Deep Learning",
+        "PyTorch",
+        "TensorFlow",
+        "Knowledge Distillation",
+        "Privacy-Preserving ML",
+        "Distributed Learning"
+      ]
+    },
+    {
+      "name": "Wi-Fi/IoT & Sensing",
+      "items": [
+        "Wi-Fi Sensing",
+        "CSI Analysis",
+        "ISAC",
+        "Signal Processing",
+        "Wireless Communications",
+        "IoT Protocols",
+        "Sensor Networks",
+        "MATLAB"
+      ]
+    },
+    {
+      "name": "Programming Languages",
+      "items": [
+        "Python",
+        "C++",
+        "JavaScript",
+        "TypeScript",
+        "MATLAB",
+        "Java",
+        "SQL",
+        "R"
+      ]
+    },
+    {
+      "name": "Tools & Technologies",
+      "items": [
+        "Git",
+        "Docker",
+        "Kubernetes",
+        "LaTeX",
+        "Linux",
+        "AWS",
+        "MongoDB",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "name": "Teaching & Communication",
+      "items": [
+        "Course Design",
+        "Curriculum Development",
+        "Student Mentoring",
+        "Technical Writing",
+        "Public Speaking",
+        "Grant Writing",
+        "Research Supervision"
+      ]
+    }
+  ]
+}

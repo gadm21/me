@@ -1,0 +1,250 @@
+[
+  {
+    "id": 1,
+    "title": "The World Is Flat",
+    "author": "Thomas L. Friedman",
+    "category": "Non-Fiction",
+    "image": "/old/books/images/world_is_flat.jpg",
+    "description": "A brief history of the twenty-first century exploring globalization."
+  },
+  {
+    "id": 2,
+    "title": "What Uncle Sam Really Wants",
+    "author": "Noam Chomsky",
+    "category": "Politics",
+    "image": "/old/books/images/what_uncle_sam_wants.jpg",
+    "description": "A critical analysis of American foreign policy."
+  },
+  {
+    "id": 3,
+    "title": "The Art of War",
+    "author": "Sun Tzu",
+    "category": "Strategy",
+    "image": "/old/books/images/the_art_of_war.jpg",
+    "description": "Ancient Chinese military treatise on strategy and tactics."
+  },
+  {
+    "id": 4,
+    "title": "Crippled America",
+    "author": "Donald Trump",
+    "category": "Politics",
+    "image": "/old/books/images/crippled_america.jpg",
+    "description": "Political commentary on America's challenges."
+  },
+  {
+    "id": 5,
+    "title": "The Shadow President",
+    "author": "Michael D'Antonio",
+    "category": "Biography",
+    "image": "/old/books/images/the_shadow_president.jpg",
+    "description": "Biography exploring political influence."
+  },
+  {
+    "id": 6,
+    "title": "The Selfish Gene",
+    "author": "Richard Dawkins",
+    "category": "Science",
+    "image": "/old/books/images/the_selfish_gene.jpg",
+    "description": "Evolutionary biology and the gene-centered view of evolution."
+  },
+  {
+    "id": 7,
+    "title": "The Life-Changing Magic of Tidying Up",
+    "author": "Marie Kondo",
+    "category": "Self-Help",
+    "image": "/old/books/images/tidying_up.jpg",
+    "description": "Japanese art of decluttering and organizing."
+  },
+  {
+    "id": 8,
+    "title": "The Power of Habit",
+    "author": "Charles Duhigg",
+    "category": "Psychology",
+    "image": "/old/books/images/power_of_habits.jpg",
+    "description": "Why we do what we do in life and business."
+  },
+  {
+    "id": 9,
+    "title": "Israel and the Arabs",
+    "author": "Various",
+    "category": "History",
+    "image": "/old/books/images/israel_and_arabs.jpg",
+    "description": "Historical analysis of Middle Eastern conflicts."
+  },
+  {
+    "id": 10,
+    "title": "The Art of Thinking Clearly",
+    "author": "Rolf Dobelli",
+    "category": "Psychology",
+    "image": "/old/books/images/art_of_thinking_clearly.jpg",
+    "description": "Cognitive biases and clear thinking strategies."
+  },
+  {
+    "id": 11,
+    "title": "Educated",
+    "author": "Tara Westover",
+    "category": "Memoir",
+    "image": "/old/books/images/educated.jpg",
+    "description": "A memoir about education and family."
+  },
+  {
+    "id": 12,
+    "title": "My Inventions",
+    "author": "Nikola Tesla",
+    "category": "Autobiography",
+    "image": "/old/books/images/my_invensions.jpg",
+    "description": "Tesla's autobiography and his inventions."
+  },
+  {
+    "id": 13,
+    "title": "Self-Discipline",
+    "author": "Various",
+    "category": "Self-Help",
+    "image": "/old/books/images/self_discipline.jpg",
+    "description": "Building mental toughness and willpower."
+  },
+  {
+    "id": 14,
+    "title": "Of Mice and Men",
+    "author": "John Steinbeck",
+    "category": "Novel",
+    "image": "/old/books/images/the_m_and_m.jpeg",
+    "description": "Classic American novel about friendship and dreams."
+  },
+  {
+    "id": 15,
+    "title": "The Giver",
+    "author": "Lois Lowry",
+    "category": "Novel",
+    "image": "/old/books/images/the_giver.jpg",
+    "description": "Dystopian novel about a seemingly perfect society."
+  },
+  {
+    "id": 16,
+    "title": "Gathering Blue",
+    "author": "Lois Lowry",
+    "category": "Novel",
+    "image": "/old/books/images/the_giver2.jpg",
+    "description": "Second book in The Giver quartet."
+  },
+  {
+    "id": 17,
+    "title": "Messenger",
+    "author": "Lois Lowry",
+    "category": "Novel",
+    "image": "/old/books/images/the_giver3.jpg",
+    "description": "Third book in The Giver quartet."
+  },
+  {
+    "id": 18,
+    "title": "Son",
+    "author": "Lois Lowry",
+    "category": "Novel",
+    "image": "/old/books/images/the_giver4.jpg",
+    "description": "Final book in The Giver quartet."
+  },
+  {
+    "id": 19,
+    "title": "1984",
+    "author": "George Orwell",
+    "category": "Novel",
+    "image": "/old/books/images/1984.jpg",
+    "description": "Dystopian social science fiction novel."
+  },
+  {
+    "id": 20,
+    "title": "Crime and Punishment",
+    "author": "Fyodor Dostoevsky",
+    "category": "Novel",
+    "image": "/old/books/images/crime_and_punishment.jpg",
+    "description": "Russian psychological novel about morality and redemption."
+  },
+  {
+    "id": 21,
+    "title": "Ishmael",
+    "author": "Daniel Quinn",
+    "category": "Novel",
+    "image": "/old/books/images/ishmael.jpg",
+    "description": "Philosophical novel about civilization and environment."
+  },
+  {
+    "id": 22,
+    "title": "The Book Thief",
+    "author": "Markus Zusak",
+    "category": "Novel",
+    "image": "/old/books/images/the_book_thief.jpg",
+    "description": "Historical fiction set in Nazi Germany."
+  },
+  {
+    "id": 23,
+    "title": "Number the Stars",
+    "author": "Lois Lowry",
+    "category": "Novel",
+    "image": "/old/books/images/number_the_stars.jpg",
+    "description": "Historical fiction about the Holocaust."
+  },
+  {
+    "id": 24,
+    "title": "The Stranger",
+    "author": "Albert Camus",
+    "category": "Novel",
+    "image": "/old/books/images/the_stranger.jpg",
+    "description": "Philosophical novel about absurdism."
+  },
+  {
+    "id": 25,
+    "title": "The Dream of a Ridiculous Man",
+    "author": "Fyodor Dostoevsky",
+    "category": "Novel",
+    "image": "/old/books/images/the_dream_of_ridiculous_man.jpg",
+    "description": "Short story about transformation and meaning."
+  },
+  {
+    "id": 26,
+    "title": "Naguib Mahfouz Collection",
+    "author": "Naguib Mahfouz",
+    "category": "Novel",
+    "image": "/old/books/images/nageb1.jpg",
+    "description": "Collection of works by Nobel Prize winner."
+  },
+  {
+    "id": 27,
+    "title": "The Monk Who Sold His Ferrari",
+    "author": "Robin Sharma",
+    "category": "Self-Help",
+    "image": "/old/books/images/monk.jpg",
+    "description": "Fable about fulfilling dreams and reaching destiny."
+  },
+  {
+    "id": 28,
+    "title": "One Hundred Years of Solitude",
+    "author": "Gabriel García Márquez",
+    "category": "Novel",
+    "image": "/old/books/images/one_hundred_years.jpg",
+    "description": "Magical realism masterpiece about the Buendía family."
+  },
+  {
+    "id": 29,
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "category": "Novel",
+    "image": "/old/books/images/alchemist.jpg",
+    "description": "Philosophical novel about following your dreams."
+  },
+  {
+    "id": 30,
+    "title": "The Da Vinci Code",
+    "author": "Dan Brown",
+    "category": "Thriller",
+    "image": "/old/books/images/davinci.jpg",
+    "description": "Mystery thriller involving art, history, and religion."
+  },
+  {
+    "id": 31,
+    "title": "David Copperfield",
+    "author": "Charles Dickens",
+    "category": "Novel",
+    "image": "/old/books/images/david.jpg",
+    "description": "Semi-autobiographical novel by Charles Dickens."
+  }
+]

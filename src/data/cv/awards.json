@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "title": "2nd place in UWORCS",
+    "organization": "Western University",
+    "year": 2024,
+    "description": "Awarded by Western University for outstanding research presentation."
+  },
+  {
+    "id": 2,
+    "title": "Student Travel Grant to attend GLOBECOM23",
+    "organization": "IEEE",
+    "year": 2023,
+    "amount": "$1,000 USD",
+    "description": "Awarded by IEEE for conference attendance and research presentation."
+  },
+  {
+    "id": 3,
+    "title": "Vector Institute AI Scholarship",
+    "organization": "Vector Institute",
+    "year": 2021,
+    "amount": "$17,500 CAD",
+    "description": "Awarded by Vector Institute for excellence in artificial intelligence research."
+  },
+  {
+    "id": 4,
+    "title": "Best Poster Award, NRSC 2020 conference",
+    "organization": "NRSC",
+    "year": 2020,
+    "amount": "800 EGP",
+    "description": "Recognized for outstanding research poster presentation."
+  },
+  {
+    "id": 5,
+    "title": "3rd place in IT & CS track, Egyptian junior researcher competition",
+    "organization": "Egyptian Ministry of Higher Education",
+    "year": 2020,
+    "amount": "2000 EGP",
+    "description": "Awarded for excellence in computer science research."
+  },
+  {
+    "id": 6,
+    "title": "TICO Innovation Award",
+    "organization": "TICO",
+    "year": 2020,
+    "amount": "$500 USD",
+    "description": "Recognized for innovative technology solutions."
+  },
+  {
+    "id": 7,
+    "title": "AWS Certified ML Specialist",
+    "organization": "AWS",
+    "year": 2021,
+    "description": "Professional certification in machine learning on AWS platform."
+  },
+  {
+    "id": 8,
+    "title": "Software Testing MicroMaster",
+    "organization": "University of Maryland University College",
+    "year": 2021,
+    "description": "Advanced certification in software testing methodologies."
+  },
+  {
+    "id": 9,
+    "title": "Advanced Data Analysis Nanodegree",
+    "organization": "Udacity",
+    "year": 2021,
+    "description": "Professional certification in advanced data analysis techniques."
+  },
+  {
+    "id": 10,
+    "title": "TensorFlow Developer Professional Certificate",
+    "organization": "Google",
+    "year": 2020,
+    "description": "Professional certification in TensorFlow development."
+  },
+  {
+    "id": 11,
+    "title": "104th place at ECPC of ACM competitive programming competition",
+    "organization": "ACM",
+    "year": 2018,
+    "description": "Competitive programming achievement in Egyptian Collegiate Programming Contest."
+  }
+]

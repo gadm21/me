@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+
+
+
+
+<head>
+
+
+
+    <meta charset="utf-8">
+    <title>Gad Mohamed</title>
+    <meta name="author" content="Gad Mohamed">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="../assets/img/me.jpg" />
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../books/assets/card_style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!--
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+      -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap" rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167607612-1"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-167607612-1');
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body>
+
+    <div id="particle-container"></div>
+
+    <div id="container">
+
+        <ul data-aos="fade-down" data-aos-duration="300">
+
+            <li><a href="../index.html ">HOME</a></li>
+            <li>
+                <a>ISAC</a>
+                <ul>
+                    <li><a href="../ISAC/sensing.html">Sensing</a></li>
+                    <li><a href="../ISAC/communications.html">Communication</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Federated Learning</a>
+                <ul>
+                    <li><a href="../FL/whatwhyhow.html">What? Why? How?</a></li>
+                    <li><a href="../FL/KDFL.html">Knowledge-Distillation-based FL</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Differential Privacy</a>
+                <ul>
+                    <li><a href="../DP/dp_how.html">Applying DP</a></li>
+                    <li><a href="../DP/dp_composition.html">DP composition</a></li>
+                    <li><a href="../DP/dp_relaxations.html">DP relaxations</a></li>
+                    <!-- Add more submenu items here -->
+                </ul>
+            </li>
+            <li>
+                <a>Deep Learning</a>
+                <ul>
+                    <li><a href="../computer_vision_main.html">Computer Vision</a></li>
+                    <li><a href="../nlp_main.html">Natural Language Processing</a></li>
+                    <li><a href="../structured_data_main.html">Tabular Data</a></li>
+                    
+                </ul>
+            </li>
+            
+            <li><a href="../ds_alg_main.html">DataStructures & Algorithms</a></li>
+            <li><a href="../moocs_main.html">MOOCS</a></li>
+            <li><a href="../publications_main.html">Publications</a></li>
+            <li><a href="../books.html">Bookshelf</a></li>
+        </ul>
+    </div>
+
+
+
+
+
+
+    <!--
+    <br>
+    <br>
+    <h4 style="font-size: 2.7em; margin: 1em; text-align: left;">Under construction ;)</h4>
+    -->
+
+
+    <h4 style="font-size: 2.7em; margin: 1em; text-align: left;">Federated Learning (FL)</h4>
+
+    <p>As devices around us become smarter, the demand to train machine learning models on the data they collect grows. However, transferring all the data to a central server poses privacy risks and bandwidth challenges. Federated Learning addresses these issues by training models locally on each device and only sharing model updates, thereby keeping raw data decentralized and preserving user privacy.</p>
+    
+    <h5 style="font-size: 2.7em; margin: 1em; text-align: left;">What is FL</h5>
+    <p>Federated Learning is a machine learning paradigm where the training process is distributed across multiple devices or nodes. These nodes compute model updates locally on their data and send these updates to a central server. The server aggregates these updates, refines the global model, and then sends it back to the nodes. This process ensures that raw data never leaves the local device, enhancing user privacy and reducing data transfer costs.</p>
+    
+    <h5 style="font-size: 2.7em; margin: 1em; text-align: left;">How is FL different from traditional ML</h5>
+    <p>Unlike traditional machine learning, where all data is pooled at a central server for training, FL keeps the data local. In FL, only model updates, like gradients or weights, are transmitted to the central server. This decentralized approach significantly reduces the risk of data breaches, provides better data privacy, and accommodates devices with limited bandwidth or sporadic connectivity.</p>
+    
+    <h5 style="font-size: 2.7em; margin: 1em; text-align: left;">Benefits of FL</h5>
+    <p>Federated Learning offers several benefits: 
+    <ol>
+      <li><strong>Privacy-Preserving:</strong> Since raw data doesn't leave the device, user data remains private.</li>
+      <li><strong>Bandwidth Efficiency:</strong> Transmitting model updates instead of raw data saves bandwidth.</li>
+      <li><strong>Real-time Learning:</strong> Devices can continuously learn from new data without waiting for centralized updates.</li>
+    </ol>
+    </p>
+    
+    <h5 style="font-size: 2.7em; margin: 1em; text-align: left;">Challenges in FL</h5>
+    <p>While FL is promising, it comes with challenges:
+    <ol>
+      <li><strong>Communication Overhead:</strong> Continuously updating global models requires robust communication protocols.</li>
+      <li><strong>Heterogeneity:</strong> Devices may have different data distributions, leading to non-IID data scenarios.</li>
+      <li><strong>Security:</strong> Aggregating updates from multiple devices poses new security concerns, like model poisoning attacks.</li>
+    </ol>
+    </p>
+    
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/mojs/0.265.6/mo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/mojs-player/0.43.15/mojs-player.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="../assets/js/mojs.js"></script>
+    <script src="../assets/js/particle-script.js"></script>
+
+</body>
+
+
+
+</html>
