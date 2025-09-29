@@ -18,14 +18,7 @@
             ↗
           </a>
         </div>
-        <div class="stat-item">
-          <span class="stat-value">{{ stats.venues }}</span>
-          <span class="stat-label">Venues</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-value">{{ stats.totalCitations }}</span>
-          <span class="stat-label">Citations</span>
-        </div>
+
       </div>
       
       <!-- Filters -->
