@@ -198,9 +198,8 @@ const stats = computed(() => {
   
   return {
     publications: publications.value.length,
-    hIndex: 8, // Based on your actual h-index
-    venues: uniqueVenues.size,
-    totalCitations: totalCitations
+    hIndex: 8 // Based on your actual h-index
+
   }
 })
 

@@ -217,37 +217,39 @@ const currentCourses = ref([
 
 const pastCourses = ref([
   {
-    term: 'Fall 2023 - Present',
+    term: 'Teaching History',
     courses: [
       {
-        code: 'Research',
-        name: 'WiFi Sensing & Federated Learning Research',
-        role: 'Teaching & Research Assistant',
-        rating: null,
+        code: 'CS2211',
+        name: 'C and Linux',
+        role: 'Instructor',
+        rating: 4.8,
         feedback: null
-      }
-    ]
-  },
-  {
-    term: 'Sept 2021 - April 2023',
-    courses: [
+      },
       {
-        code: 'Various',
-        name: 'C Language and Linux Operating System',
-        role: 'Teaching & Research Assistant',
+        code: 'CS1027',
+        name: 'C and Linux',
+        role: 'Instructor',
         rating: 4.7,
         feedback: null
       }
     ]
   },
   {
-    term: 'Sept 2025 - Present',
+    term: 'Teaching Assistant Experience',
     courses: [
       {
-        code: 'Lumiere',
-        name: 'AI Research Mentorship',
-        role: 'Volunteer Mentor',
-        rating: null,
+        code: 'CS3357',
+        name: 'Computer Networks',
+        role: 'Teaching Assistant',
+        rating: 4.9,
+        feedback: null
+      },
+      {
+        code: 'CS1026',
+        name: 'Python',
+        role: 'Teaching Assistant',
+        rating: 4.6,
         feedback: null
       }
     ]

@@ -47,87 +47,8 @@
       </div>
     </section>
     
-    <!-- Current Projects -->
-    <section class="bg-charcoal/30 py-16 mb-16">
-      <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8">Current Projects</h2>
-        <div class="space-y-8">
-          <div 
-            v-for="project in currentProjects" 
-            :key="project.id"
-            class="project-item"
-          >
-            <div class="flex items-start gap-4">
-              <div class="project-status" :class="`status-${project.status}`">
-                <div class="status-dot"></div>
-              </div>
-              <div class="flex-1">
-                <h3 class="font-serif text-xl text-gray-300 mb-2">{{ project.title }}</h3>
-                <p class="text-sage-light text-sm mb-3">
-                  {{ project.collaborators.join(' · ') }}
-                </p>
-                <p class="text-gray-400 mb-4">{{ project.description }}</p>
-                <div class="flex items-center gap-4 text-sm">
-                  <span class="text-gray-500">
-                    Progress: {{ project.progress }}%
-                  </span>
-                  <div class="flex-1 max-w-xs bg-midnight h-2 rounded-full overflow-hidden">
-                    <div 
-                      class="bg-sage h-full transition-all duration-500"
-                      :style="`width: ${project.progress}%`"
-                    ></div>
-                  </div>
-                </div>
-                <div class="mt-4 flex gap-3">
-                  <a 
-                    v-if="project.paper" 
-                    :href="project.paper"
-                    class="link-gothic text-sm"
-                  >
-                    Paper →
-                  </a>
-                  <a 
-                    v-if="project.code" 
-                    :href="project.code"
-                    class="link-gothic text-sm"
-                  >
-                    Code →
-                  </a>
-                  <a 
-                    v-if="project.demo" 
-                    :href="project.demo"
-                    class="link-gothic text-sm"
-                  >
-                    Demo →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Research Timeline -->
-    <section class="mb-16">
-      <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8">Research Timeline</h2>
-        <div class="timeline-container">
-          <div 
-            v-for="(milestone, index) in researchTimeline" 
-            :key="milestone.id"
-            class="timeline-milestone"
-            :class="{ 'milestone-right': index % 2 === 1 }"
-          >
-            <div class="milestone-content card-calm">
-              <span class="text-sage-dark font-medium">{{ milestone.date }}</span>
-              <h3 class="font-serif text-lg text-gray-300 mt-2 mb-2">{{ milestone.title }}</h3>
-              <p class="text-gray-500 text-sm">{{ milestone.description }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+
+
     
     <!-- Expanded Area Modal -->
     <Teleport to="body">
@@ -238,23 +159,6 @@ const researchAreas = ref([
     publications: [
       'Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks (2024)',
       'Joint knowledge distillation and local differential privacy for communication-efficient federated learning in heterogeneous systems (2023)'
-    ]
-  },
-  {
-    id: 4,
-    icon: '◈',
-    title: 'Medical AI & Explainable Systems',
-    summary: 'Explainable AI systems for medical image segmentation with preserved local resolution.',
-    tags: ['Medical AI', 'Explainable AI', 'Image Segmentation', 'Mammogram Analysis'],
-    fullDescription: 'Developing explainable AI systems for medical applications, particularly focusing on mammogram tumor segmentation while maintaining high resolution and providing interpretable results for healthcare professionals.',
-    contributions: [
-      'Explainable AI system for medical image segmentation with preserved local resolution',
-      'Mammogram tumor segmentation with interpretable results',
-      'Framework for designing explanations in adaptive user interfaces (EXAD)'
-    ],
-    publications: [
-      'An explainable AI system for medical image segmentation with preserved local resolution: Mammogram tumor segmentation (2023)',
-      'EXAD: Framework for Designing Explanations in Adaptive User Interfaces (2025)'
     ]
   }
 ])
