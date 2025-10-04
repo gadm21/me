@@ -5,19 +5,64 @@ export function useData(dataPath) {
   const loading = ref(true)
   const error = ref(null)
 
+  const processItem = (item) => {
+    if (!item) return item
+    
+    // Create a new object to avoid mutating the original
+    const processed = { ...item }
+    
+    // Handle image paths
+    if (item.image) {
+      // Remove leading slash if present to ensure consistent paths
+      let imagePath = item.image.startsWith('/') ? item.image.substring(1) : item.image
+      // In production, the assets are served from the root
+      processed.image = import.meta.env.PROD ? `/${imagePath}` : `/${imagePath}`
+    }
+    
+    return processed
+  }
+
   const loadData = async () => {
     try {
       loading.value = true
+      error.value = null
+      
       // In production, the data files will be in the public directory
       const isProduction = import.meta.env.PROD
       const basePath = isProduction ? '/data' : '/src/data'
       const fullPath = dataPath.replace(/^\/src\/data/, basePath)
       
-      const response = await fetch(fullPath)
+      console.log(`Loading data from: ${fullPath}`)
+      
+      const response = await fetch(fullPath, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      })
+      
       if (!response.ok) {
-        throw new Error(`Failed to load data from ${fullPath}`)
+        const errorText = await response.text()
+        throw new Error(`HTTP ${response.status} - Failed to load data from ${fullPath}\n${errorText}`)
       }
-      data.value = await response.json()
+      
+      const jsonData = await response.json()
+      
+      if (!jsonData) {
+        throw new Error(`No data returned from ${fullPath}`)
+      }
+      
+      // Process the data to update image paths
+      if (Array.isArray(jsonData)) {
+        if (jsonData.length === 0) {
+          console.warn(`Warning: Empty data array received from ${fullPath}`)
+        }
+        data.value = jsonData.map(processItem)
+      } else {
+        data.value = processItem(jsonData)
+      }
+      
+      console.log(`Successfully loaded data from ${fullPath}`, data.value)
     } catch (err) {
       error.value = err.message
       console.error('Error loading data:', err)
