@@ -8,9 +8,14 @@ export function useData(dataPath) {
   const loadData = async () => {
     try {
       loading.value = true
-      const response = await fetch(dataPath)
+      // In production, the data files will be in the public directory
+      const isProduction = import.meta.env.PROD
+      const basePath = isProduction ? '/data' : '/src/data'
+      const fullPath = dataPath.replace(/^\/src\/data/, basePath)
+      
+      const response = await fetch(fullPath)
       if (!response.ok) {
-        throw new Error(`Failed to load data from ${dataPath}`)
+        throw new Error(`Failed to load data from ${fullPath}`)
       }
       data.value = await response.json()
     } catch (err) {

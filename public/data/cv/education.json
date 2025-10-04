@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "degree": "Ph.D. in Computer Science",
+    "institution": "Western University",
+    "location": "ON, Canada",
+    "startDate": "2023",
+    "endDate": "Present",
+    "description": "Research and Teaching Assistant",
+    "thesis": "Privacy-Preserving Federated Learning for Wi-Fi Sensing Applications",
+    "advisor": "Dr. Zubair Fadlullah",
+    "coursework": [
+      "Advanced Machine Learning",
+      "Distributed Systems",
+      "Privacy and Security in AI",
+      "Wireless Communications"
+    ]
+  },
+  {
+    "id": 2,
+    "degree": "M.Sc. in Computer Science",
+    "institution": "Lakehead University",
+    "location": "ON, Canada",
+    "startDate": "2021",
+    "endDate": "2023",
+    "description": "Research and Teaching Assistant",
+    "thesis": "Federated Learning with Knowledge Distillation for Resource-Constrained IoT Systems",
+    "advisor": "Dr. Zubair Fadlullah",
+    "coursework": [
+      "Machine Learning",
+      "Computer Networks",
+      "Algorithms and Data Structures",
+      "Software Engineering"
+    ]
+  },
+  {
+    "id": 3,
+    "degree": "B.Sc. in Computer Engineering",
+    "institution": "Nile University",
+    "location": "Egypt",
+    "startDate": "2015",
+    "endDate": "2021",
+    "description": "Merit-based full scholarship for academic performance",
+    "thesis": "Real-time Lane Instance Segmentation using SegNet and Image Processing",
+    "coursework": [
+      "Computer Vision",
+      "Digital Signal Processing",
+      "Embedded Systems",
+      "Computer Architecture"
+    ]
+  }
+]
