@@ -13,10 +13,18 @@ export function useData(dataPath) {
     
     // Handle image paths
     if (item.image) {
-      // Remove leading slash if present to ensure consistent paths
+      // Handle both relative and absolute paths
       let imagePath = item.image.startsWith('/') ? item.image.substring(1) : item.image
-      // In production, the assets are served from the root
-      processed.image = import.meta.env.PROD ? `/${imagePath}` : `/${imagePath}`
+      
+      // In development, use the full path from src
+      // In production, the assets will be in the root
+      if (import.meta.env.DEV) {
+        // For development, use the full path from src
+        processed.image = new URL(`/src/${imagePath}`, import.meta.url).href;
+      } else {
+        // For production, use the path as is (it will be relative to the public directory)
+        processed.image = `/${imagePath}`;
+      }
     }
     
     return processed
