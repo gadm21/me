@@ -193,7 +193,11 @@ const favoriteAuthor = computed(() => {
 })
 
 const handleImageError = (event) => {
+  console.error('Error loading image:', event.target.src)
   event.target.src = '/assets/img/book-placeholder.jpg'
+  event.target.onerror = null // Prevent infinite loop if placeholder also fails
+  event.target.alt = 'Book cover not available'
+  event.target.classList.add('opacity-50')
 }
 
 onMounted(() => {
