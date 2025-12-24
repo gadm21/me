@@ -74,8 +74,10 @@
 
 <script setup>
 import { ref, nextTick, onMounted } from 'vue'
+import { getSiteContext } from '@/composables/useSiteContext'
 
 const isOpen = ref(false)
+const siteContext = ref(null)
 const isTyping = ref(false)
 const userInput = ref('')
 const messagesContainer = ref(null)
@@ -88,8 +90,12 @@ const messages = ref([
 const API_URL = 'https://web-production-d7d37.up.railway.app/query'
 const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTE3IiwiZXhwIjoxNzY5MTE5MTk0fQ.4BWXrMwzhrDrt6A--B_jqLkUoHxYFA-76vETbinUgvA'
 
-const toggleChat = () => {
+const toggleChat = async () => {
   isOpen.value = !isOpen.value
+  // Load site context when chat is opened for the first time
+  if (isOpen.value && !siteContext.value) {
+    siteContext.value = await getSiteContext()
+  }
 }
 
 const scrollToBottom = async () => {
@@ -117,7 +123,8 @@ const sendMessage = async () => {
       },
       body: JSON.stringify({
         query: query,
-        chat_id: chatId.value
+        chat_id: chatId.value,
+        context: siteContext.value || {}
       })
     })
 

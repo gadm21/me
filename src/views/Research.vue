@@ -112,28 +112,26 @@ const expandedArea = ref(null)
 const researchAreas = ref([
   {
     id: 1,
-    icon: '◈',
-    title: 'Wi-Fi Sensing & ISAC',
-    summary: 'Leveraging wireless signals for environmental awareness and smart device security using WiFi sensing technologies.',
-    tags: ['WiFi Sensing', 'ISAC', 'Smart Devices', 'Environmental Awareness'],
-    fullDescription: 'Wi-Fi sensing represents a paradigm shift in how we perceive and interact with our environments. By analyzing Channel State Information (CSI) from Wi-Fi signals, we can detect human presence, recognize activities, and enhance security—all without invasive cameras or wearable devices.',
+    title: 'Integrated Sensing and Communication (ISAC)',
+    summary: 'Leveraging wireless signals for environmental awareness.',
+    tags: ['WiFi Sensing', 'FMCW Radar', 'Smart Home', 'Environmental Awareness'],
+    fullDescription: 'Wireless sensing represents a paradigm shift in how we perceive and interact with our environments. By analyzing wireless signals (e.g., Channel State Information (CSI) from Wi-Fi signals, radar signals), we can detect human presence, recognize activities, and enhance security, all without invasive cameras or wearable devices.',
     contributions: [
       'Enhanced environmental awareness and security for smart devices using WiFi-Sensing',
-      'Developed integrated sensing and communication (ISAC) systems',
-      'Created privacy-preserving sensing techniques for smart environments'
+      'Developed integrated sensing and communication (ISAC) systems based on FMCW radar',
+      'Created privacy-preserving sensing techniques for smart homes'
     ],
     publications: [
-      'Enhanced Environmental Awareness and Security for Smart Devices using WiFi-Sensing (2025)',
-      'Communication-efficient federated learning in drone-assisted IoT networks (2023)'
+      'Enhanced Environmental Awareness and Security for Smart Devices using WiFi-Sensing (2025)'
+      
     ]
   },
   {
     id: 2,
-    icon: '◉',
     title: 'Federated Learning',
     summary: 'Communication-efficient and privacy-preserving distributed machine learning for heterogeneous systems.',
     tags: ['Federated Learning', 'Knowledge Distillation', 'UAV-IoT', 'Communication Efficiency'],
-    fullDescription: 'Federated Learning enables collaborative model training across decentralized data sources without sharing raw data. My research focuses on making federated learning more efficient and practical for resource-constrained environments like UAV-IoT systems.',
+    fullDescription: 'Federated Learning enables collaborative model training across decentralized data sources without sharing raw data. My research focuses on making federated learning more efficient and practical for resource-constrained environments like UAV-IoT systems and heterogeneous networks.',
     contributions: [
       'Joint self-organizing maps and knowledge distillation for UAV-IoT systems',
       'Communication-efficient federated learning with selective knowledge distillation',
@@ -141,14 +139,14 @@ const researchAreas = ref([
     ],
     publications: [
       'Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems (2024)',
+      'Communication-efficient federated learning in drone-assisted IoT networks (2023)', 
       'Federated learning via augmented knowledge distillation for heterogenous deep human activity recognition systems (2022)'
     ]
   },
   {
     id: 3,
-    icon: '◊',
     title: 'Differential Privacy',
-    summary: 'Privacy-preserving techniques for federated learning systems in bandwidth-constrained networks.',
+    summary: 'Privacy-preserving deep learning models',
     tags: ['Differential Privacy', 'Privacy Preservation', 'Bandwidth Optimization'],
     fullDescription: 'Differential Privacy provides rigorous mathematical guarantees about the privacy of individuals in datasets. My research focuses on integrating differential privacy with federated learning and knowledge distillation for practical privacy-preserving systems.',
     contributions: [
