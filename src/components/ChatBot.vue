@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick, onMounted } from 'vue'
+import { ref, nextTick, onMounted, watch } from 'vue'
 import { getSiteContext } from '@/composables/useSiteContext'
 
 const isOpen = ref(false)
@@ -81,11 +81,42 @@ const siteContext = ref(null)
 const isTyping = ref(false)
 const userInput = ref('')
 const messagesContainer = ref(null)
-const chatId = ref(`chat_${Date.now()}`)
 
-const messages = ref([
-  { role: 'assistant', content: "Hello! I'm Gad's AI assistant. Ask me about his research, publications, or anything else!" }
-])
+// Global chat ID - same for all visitors to share conversation
+const GLOBAL_CHAT_ID = 'gad_website_global_chat'
+const STORAGE_KEY = 'gad_chatbot_messages'
+
+const defaultMessage = { role: 'assistant', content: "Hello! I'm Gad's AI assistant. Ask me about his research, publications, or anything else!" }
+
+// Load messages from localStorage or use default
+const loadMessages = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (stored) {
+      const parsed = JSON.parse(stored)
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed
+      }
+    }
+  } catch (e) {
+    console.error('Failed to load chat history:', e)
+  }
+  return [defaultMessage]
+}
+
+// Save messages to localStorage
+const saveMessages = () => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.value))
+  } catch (e) {
+    console.error('Failed to save chat history:', e)
+  }
+}
+
+const messages = ref(loadMessages())
+
+// Watch for message changes and persist
+watch(messages, saveMessages, { deep: true })
 
 const API_URL = import.meta.env.DEV 
   ? '/api/chat' 
@@ -125,7 +156,7 @@ const sendMessage = async () => {
       },
       body: JSON.stringify({
         query: query,
-        chat_id: chatId.value,
+        chat_id: GLOBAL_CHAT_ID,
         context: siteContext.value || {}
       })
     })
