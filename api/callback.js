@@ -5,6 +5,13 @@ export default async function handler(req, res) {
     return res.status(400).send('<html><body>Error: No code provided</body></html>');
   }
 
+  const clientId = process.env.OAUTH_CLIENT_ID;
+  const clientSecret = process.env.OAUTH_CLIENT_SECRET;
+
+  if (!clientId || !clientSecret) {
+    return res.status(500).send('<html><body>Error: OAuth credentials not configured. Please set OAUTH_CLIENT_ID and OAUTH_CLIENT_SECRET in Vercel environment variables.</body></html>');
+  }
+
   try {
     const response = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
@@ -13,8 +20,8 @@ export default async function handler(req, res) {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        client_id: process.env.OAUTH_CLIENT_ID,
-        client_secret: process.env.OAUTH_CLIENT_SECRET,
+        client_id: clientId,
+        client_secret: clientSecret,
         code: code
       })
     });
@@ -22,7 +29,11 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (data.error) {
-      return res.status(400).send(`<html><body>Error: ${data.error_description}</body></html>`);
+      return res.status(400).send(`<html><body>Error: ${data.error_description || data.error}</body></html>`);
+    }
+
+    if (!data.access_token) {
+      return res.status(400).send(`<html><body>Error: No access token received. Response: ${JSON.stringify(data)}</body></html>`);
     }
 
     const token = data.access_token;
