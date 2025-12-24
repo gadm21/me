@@ -104,10 +104,13 @@ const loadMessages = () => {
   return [defaultMessage]
 }
 
-// Save messages to localStorage
+// Save messages to localStorage (limit to 50 messages)
+const MAX_MESSAGES = 50
 const saveMessages = () => {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.value))
+    // Keep only the last 50 messages
+    const toSave = messages.value.slice(-MAX_MESSAGES)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave))
   } catch (e) {
     console.error('Failed to save chat history:', e)
   }

@@ -3,9 +3,8 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- Logo/Name -->
-        <router-link to="/" class="gothic-logo group flex items-center space-x-2">
+        <router-link to="/" class="gothic-logo group flex items-center">
           <span class="font-blackletter text-2xl text-sage transition-colors duration-250 group-hover:text-sage-light">G</span>
-          <span class="font-serif text-lg text-gray-400 dark:text-gray-400 text-gray-600 group-hover:text-gray-300 dark:group-hover:text-gray-300 group-hover:text-gray-800 transition-colors duration-250">ad Mohamed Gad</span>
         </router-link>
         
         <!-- Desktop Navigation -->
