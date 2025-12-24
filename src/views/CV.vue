@@ -184,7 +184,7 @@ gsap.registerPlugin(ScrollTrigger)
 const stats = ref({
   yearsTeaching: 4,
   publications: 18,
-  hIndex: 8,
+  hIndex: 9,
   venues: 15
 })
 

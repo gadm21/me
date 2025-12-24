@@ -165,19 +165,20 @@ gsap.registerPlugin(ScrollTrigger)
 
 // Key Metrics
 const keyMetrics = ref([
-  { value: 12, label: 'Publications', description: 'Peer-reviewed papers' },
-  { value: 120, label: 'Citations', description: 'Google Scholar' },
-  { value: 5, label: 'h-index', description: 'Research impact' },
+  { value: 18, label: 'Publications', description: 'Peer-reviewed papers' },
+  { value: 213, label: 'Citations', description: 'Google Scholar' },
+  { value: 9, label: 'h-index', description: 'Research impact' },
   { value: 3, label: 'Active Projects', description: 'Ongoing research' }
 ])
 
 // Publication data
 const publicationsByYear = ref([
   { year: 2020, count: 1 },
-  { year: 2021, count: 2 },
-  { year: 2022, count: 3 },
-  { year: 2023, count: 4 },
-  { year: 2024, count: 2 }
+  { year: 2021, count: 1 },
+  { year: 2022, count: 2 },
+  { year: 2023, count: 6 },
+  { year: 2024, count: 5 },
+  { year: 2025, count: 3 }
 ])
 
 const maxPublications = computed(() => 

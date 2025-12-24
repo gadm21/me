@@ -50,6 +50,9 @@
           </router-link>
         </div>
       </footer>
+      
+      <!-- Comments Section -->
+      <GiscusComments />
     </div>
     
     <!-- Article Not Found -->
@@ -68,6 +71,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { marked } from 'marked'
 import blogData from '@/data/blog.json'
+import GiscusComments from '@/components/GiscusComments.vue'
 
 const route = useRoute()
 const post = ref(null)

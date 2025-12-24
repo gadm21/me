@@ -19,7 +19,7 @@
         </h1>
         <p class="serene-text text-xl md:text-2xl mb-8 animate-slide-up" style="animation-delay: 0.1s">
           
-          <a href="https://gadm21.github.io/">Thothcraft</a>er.  
+          <a href="https://www.thothcraft.com/">Thothcraft</a>er.  
         </p>
         
         
@@ -30,24 +30,16 @@
     <!-- About Section -->
     <section class="py-20 px-6">
       <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8 fade-in">About</h2>
+        <h2 class="gothic-subtitle text-sage mb-8 fade-in">About Me</h2>
         <div class="drop-cap serene-text text-lg leading-relaxed space-y-4 fade-in">
           <p>
-            Welcome to my digital realm. I am a Computer Science Ph.D. student at Western University, Canada, 
-            specializing in the convergence of wireless sensing technologies and privacy-preserving machine learning. 
-            My work focuses on creating intelligent systems that can sense and learn while protecting user privacy.
+            I am a Computer Science Ph.D. student at Western University. 
+            My work focuses on creating intelligent privacy-preserving sensing systems.
           </p>
           <p>
-            My research explores federated learning, differential privacy, and WiFi sensing technologies. 
-            I develop communication-efficient algorithms for resource-constrained environments like UAV-IoT systems, 
-            and work on explainable AI systems for medical applications. With 18+ publications in top-tier venues, 
-            I bridge the gap between theoretical advances and practical implementations.
+            Initially I wanted to learn everything, but I realized I am not cool enough, so instead I am exploring these limited areas: Integrated Sensing and Communication (ISAC), AI, federated learning, differential privacy, and quantum networks. 
           </p>
-          <p>
-            As a Teaching and Research Assistant, I mentor students in computer networks and systems programming, 
-            while also volunteering with Lumiere to guide high school students through AI research projects. 
-            My journey spans from software engineering roles at Delta-care and Vortex to research internships at UN ESCWA.
-          </p>
+
         </div>
       </div>
     </section>

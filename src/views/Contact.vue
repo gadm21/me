@@ -112,9 +112,16 @@
               ></textarea>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn-gothic">
-                Send Message
+              <button type="submit" class="btn-gothic" :disabled="isSubmitting">
+                {{ isSubmitting ? 'Sending...' : 'Send Message' }}
               </button>
+              
+              <p v-if="submitStatus === 'success'" class="mt-4 text-sage">
+                Message sent successfully! I'll get back to you soon.
+              </p>
+              <p v-if="submitStatus === 'error'" class="mt-4 text-red-400">
+                Something went wrong. Please try again or email me directly.
+              </p>
             </div>
           </form>
         </div>
@@ -133,10 +140,42 @@ const form = ref({
   message: ''
 })
 
-const sendMessage = () => {
-  // In a real app, this would send the message to a backend
-  const mailtoLink = `mailto:ggad@uwo.ca?subject=${encodeURIComponent(form.value.subject + ': ' + form.value.name)}&body=${encodeURIComponent(form.value.message + '\n\nFrom: ' + form.value.email)}`
-  window.location.href = mailtoLink
+const isSubmitting = ref(false)
+const submitStatus = ref(null) // 'success' | 'error' | null
+
+const sendMessage = async () => {
+  isSubmitting.value = true
+  submitStatus.value = null
+  
+  try {
+    const formData = new FormData()
+    formData.append('name', form.value.name)
+    formData.append('email', form.value.email)
+    formData.append('subject', form.value.subject)
+    formData.append('message', form.value.message)
+    
+    const response = await fetch('https://formspree.io/f/mnjaljlp', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    
+    if (response.ok) {
+      submitStatus.value = 'success'
+      form.value = { name: '', email: '', subject: 'research', message: '' }
+    } else {
+      const data = await response.json()
+      console.error('Formspree error:', data)
+      submitStatus.value = 'error'
+    }
+  } catch (error) {
+    console.error('Form submission error:', error)
+    submitStatus.value = 'error'
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 

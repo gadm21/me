@@ -60,7 +60,13 @@
           class="publication-card card-calm fade-in"
         >
           <div class="flex justify-between items-start mb-3">
-            <h2 class="font-serif text-xl text-gray-300 flex-1">{{ pub.title }}</h2>
+            <a 
+              v-if="pub.scholarLink"
+              :href="pub.scholarLink"
+              target="_blank"
+              class="font-serif text-xl text-gray-300 flex-1 hover:text-sage transition-colors"
+            >{{ pub.title }}</a>
+            <h2 v-else class="font-serif text-xl text-gray-300 flex-1">{{ pub.title }}</h2>
             <button 
               @click="showBibTeX(pub)"
               class="ml-4 text-sage-dark hover:text-sage text-sm transition-colors"
@@ -82,8 +88,6 @@
             </span>
           </div>
           
-          <p class="text-gray-500 text-sm mb-4 italic">{{ pub.abstract }}</p>
-          
           <div class="flex flex-wrap gap-4 text-sm">
             <a 
               v-if="pub.pdf" 
@@ -100,14 +104,6 @@
               class="link-gothic"
             >
               arXiv ↗
-            </a>
-            <a 
-              v-if="pub.citations" 
-              :href="`https://scholar.google.com/scholar?cites=${pub.scholarId}`"
-              target="_blank"
-              class="link-gothic"
-            >
-              Cited by {{ pub.citations }} ↗
             </a>
             <a 
               v-if="pub.code" 
@@ -191,7 +187,7 @@ const stats = computed(() => {
   
   return {
     publications: publications.value.length,
-    hIndex: 8 // Based on your actual h-index
+    hIndex: 9 // Based on your actual h-index
 
   }
 })

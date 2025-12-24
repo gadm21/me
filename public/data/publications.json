@@ -7,7 +7,7 @@
     "year": 2022,
     "type": "journal",
     "topics": ["Federated Learning", "Knowledge Distillation", "Human Activity Recognition"],
-    "citations": 31,
+    "citations": 34,
     "abstract": "This paper presents federated learning with knowledge distillation for heterogeneous human activity recognition systems.",
     "bibtex": "@article{gad2022federated,\n  title={Federated learning via augmented knowledge distillation for heterogenous deep human activity recognition systems},\n  author={Gad, G and Fadlullah, Z},\n  journal={Sensors},\n  volume={23},\n  number={1},\n  pages={6},\n  year={2022},\n  publisher={MDPI}\n}"
   },
@@ -19,7 +19,7 @@
     "year": 2024,
     "type": "journal",
     "topics": ["Federated Learning", "UAV-IoT", "Knowledge Distillation"],
-    "citations": 27,
+    "citations": 31,
     "abstract": "This work proposes a novel federated learning approach for UAV-IoT systems using self-organizing maps and knowledge distillation.",
     "bibtex": "@article{gad2024joint,\n  title={Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems},\n  author={Gad, G and Farrag, A and Aboulfotouh, A and Bedda, K and Fadlullah, ZM and Fouda, MM},\n  journal={IEEE Internet of Things Journal},\n  volume={11},\n  number={9},\n  pages={15504--15522},\n  year={2024},\n  publisher={IEEE}\n}"
   },
@@ -31,7 +31,7 @@
     "year": 2024,
     "type": "journal",
     "topics": ["Federated Learning", "Differential Privacy", "Knowledge Distillation"],
-    "citations": 23,
+    "citations": 33,
     "abstract": "This paper addresses communication efficiency and privacy preservation in federated learning through joint knowledge distillation and differential privacy.",
     "bibtex": "@article{gad2024communication,\n  title={Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks},\n  author={Gad, G and Gad, E and Fadlullah, ZM and Fouda, MM and Kato, N},\n  journal={IEEE Transactions on Vehicular Technology},\n  year={2024},\n  publisher={IEEE}\n}"
   },
@@ -43,7 +43,7 @@
     "year": 2023,
     "type": "journal",
     "topics": ["Explainable AI", "Medical Imaging", "Image Segmentation"],
-    "citations": 23,
+    "citations": 25,
     "abstract": "This work presents an explainable AI system for medical image segmentation focusing on mammogram tumor detection.",
     "bibtex": "@article{farrag2023explainable,\n  title={An explainable AI system for medical image segmentation with preserved local resolution: Mammogram tumor segmentation},\n  author={Farrag, A and Gad, G and Fadlullah, ZM and Fouda, MM and Alsabaan, M},\n  journal={IEEE Access},\n  volume={11},\n  pages={125543--125561},\n  year={2023},\n  publisher={IEEE}\n}"
   },
@@ -55,7 +55,7 @@
     "year": 2020,
     "type": "conference",
     "topics": ["Computer Vision", "Image Segmentation", "Autonomous Driving"],
-    "citations": 18,
+    "citations": 19,
     "abstract": "This paper presents a real-time lane detection system using SegNet architecture combined with image processing techniques.",
     "bibtex": "@inproceedings{gad2020real,\n  title={Real-time lane instance segmentation using SegNet and image processing},\n  author={Gad, GM and Annaby, AM and Negied, NK and Darweesh, MS},\n  booktitle={2020 2nd Novel Intelligent and Leading Emerging Sciences Conference (NILES)},\n  pages={1--6},\n  year={2020},\n  organization={IEEE}\n}"
   },
@@ -79,7 +79,7 @@
     "year": 2023,
     "type": "conference",
     "topics": ["Federated Learning", "Privacy Preservation", "Human Activity Recognition"],
-    "citations": 13,
+    "citations": 17,
     "abstract": "This work proposes communication-efficient privacy-preserving federated learning for human activity recognition using knowledge distillation.",
     "bibtex": "@inproceedings{gad2023privacy,\n  title={Communication-efficient privacy-preserving federated learning via knowledge distillation for human activity recognition systems},\n  author={Gad, G and Fadlullah, ZM and Rabie, K and Fouda, MM},\n  booktitle={ICC 2023-IEEE International Conference on Communications},\n  pages={1572--1578},\n  year={2023},\n  organization={IEEE}\n}"
   },
@@ -103,7 +103,7 @@
     "year": 2022,
     "type": "journal",
     "topics": ["Deep Learning", "Video Analysis", "IoT"],
-    "citations": 8,
+    "citations": 9,
     "abstract": "This work presents deep learning-based context-aware video content analysis techniques optimized for IoT devices.",
     "bibtex": "@article{gad2022deep,\n  title={Deep learning-based context-aware video content analysis on IoT devices},\n  author={Gad, G and Gad, E and Cengiz, K and Fadlullah, Z and Mokhtar, B},\n  journal={Electronics},\n  volume={11},\n  number={11},\n  pages={1785},\n  year={2022},\n  publisher={MDPI}\n}"
   },
@@ -115,7 +115,7 @@
     "year": 2024,
     "type": "conference",
     "topics": ["Federated Learning", "Knowledge Distillation", "Wireless Networks"],
-    "citations": 5,
+    "citations": 7,
     "abstract": "This paper proposes federated learning with selective knowledge distillation for bandwidth-constrained wireless networks.",
     "bibtex": "@inproceedings{gad2024federated,\n  title={Federated learning with selective knowledge distillation over bandwidth-constrained wireless networks},\n  author={Gad, G and Fadlullah, ZM and Fouda, MM and Ibrahem, MI and Kato, N},\n  booktitle={ICC 2024-IEEE International Conference on Communications},\n  pages={3476--3481},\n  year={2024},\n  organization={IEEE}\n}"
   },
@@ -127,7 +127,7 @@
     "year": 2023,
     "type": "conference",
     "topics": ["Explainable AI", "Medical Imaging", "Tumor Segmentation"],
-    "citations": 4,
+    "citations": 5,
     "abstract": "This work presents an explainable AI system for mammogram tumor segmentation with preserved local resolution.",
     "bibtex": "@inproceedings{farrag2023mammogram,\n  title={Mammogram tumor segmentation with preserved local resolution: An explainable ai system},\n  author={Farrag, A and Gad, G and Fadlullah, ZM and Fouda, MM},\n  booktitle={GLOBECOM 2023-2023 IEEE Global Communications Conference},\n  pages={314--319},\n  year={2023},\n  organization={IEEE}\n}"
   },
@@ -164,7 +164,7 @@
     "year": 2024,
     "type": "conference",
     "topics": ["5G Networks", "Machine Learning", "VNF Migration"],
-    "citations": 1,
+    "citations": 2,
     "abstract": "This paper presents a machine learning approach for optimizing VNF migration in B5G core networks.",
     "bibtex": "@inproceedings{tanuboddi2024optimizing,\n  title={Optimizing VNF Migration in B5G Core Networks: A Machine Learning Approach},\n  author={Tanuboddi, BR and Gad, G and Fadlullah, ZM and Fouda, MM},\n  booktitle={2024 International Conference on Smart Applications, Communications and Networking},\n  year={2024}\n}"
   },

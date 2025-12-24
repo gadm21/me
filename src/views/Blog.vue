@@ -1,10 +1,8 @@
 <template>
   <div class="blog-page py-12">
     <div class="prose-container">
-      <h1 class="gothic-title text-sage text-center mb-8">Thoughts & Insights</h1>
-      <p class="serene-text text-xl text-center mb-12">
-        Reflections on research, technology, and the academic journey
-      </p>
+      <h1 class="gothic-title text-sage text-center mb-8">Thoughts</h1>
+
     </div>
     
     <!-- Featured Post -->

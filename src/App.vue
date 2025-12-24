@@ -14,6 +14,9 @@
     
     <!-- Footer -->
     <Footer />
+    
+    <!-- AI ChatBot -->
+    <ChatBot />
   </div>
 </template>
 
@@ -23,6 +26,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import NavBar from './components/NavBar.vue'
 import Footer from './components/Footer.vue'
+import ChatBot from './components/ChatBot.vue'
 import { useKeyboardShortcuts } from './composables/useKeyboardShortcuts'
 
 // Register GSAP plugins

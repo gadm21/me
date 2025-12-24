@@ -2,39 +2,13 @@
   <div class="teaching-page py-12">
     <div class="prose-container">
       <h1 class="gothic-title text-sage text-center mb-8">Teaching</h1>
-      <p class="serene-text text-xl text-center mb-12">
-        Guiding the next generation through the landscapes of computer science
-      </p>
+
     </div>
-    
-    <!-- Teaching Philosophy -->
-    <section class="bg-charcoal/30 py-16 mb-16">
-      <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8">Teaching Philosophy</h2>
-        <div class="drop-cap serene-text text-lg leading-relaxed space-y-4">
-          <p>
-            My teaching philosophy centers on creating an inclusive, engaging environment where students 
-            develop both theoretical understanding and practical skills. I believe in the power of active 
-            learning, where students construct knowledge through hands-on experiences and collaborative problem-solving.
-          </p>
-          <p>
-            In my classroom, mistakes are celebrated as learning opportunities, questions are encouraged 
-            at every turn, and diverse perspectives enrich our collective understanding. I strive to connect 
-            abstract concepts to real-world applications, making computer science accessible and relevant to all students.
-          </p>
-          <p>
-            Beyond technical skills, I aim to cultivate critical thinking, ethical reasoning, and a lifelong 
-            love of learning. My goal is not just to teach algorithms and data structures, but to inspire 
-            the next generation of thoughtful, innovative technologists.
-          </p>
-        </div>
-      </div>
-    </section>
-    
+  
+  
     <!-- Course History -->
     <section class="mb-16">
       <div class="max-w-6xl mx-auto px-6">
-        <h2 class="gothic-subtitle text-sage mb-8 text-center">Teaching Experience</h2>
         <div class="grid md:grid-cols-2 gap-8">
           <!-- Lumiere Volunteering -->
           <div class="course-card">
@@ -136,21 +110,16 @@ const pastCourses = ref([
     name: 'C and Linux',
     role: 'Instructor',
     term: 'Fall 2023',
-    location: 'Western University',
-    rating: 4.8,
-    description: 'Introduction to systems programming using C language and Linux operating system. Covers memory management, file I/O, process control, and system calls.',
-    feedback: null
+    location: 'Western University'
+
   },
   {
     id: 2,
     code: 'CS 1027',
-    name: 'C and Linux',
+    name: 'Object-Oriented Programming in Java',
     role: 'Instructor',
     term: 'Winter 2023',
-    location: 'Western University',
-    rating: 4.7,
-    description: 'Fundamentals of computer science using C programming language and Linux environment. Introduces data structures, algorithms, and software development practices.',
-    feedback: null
+    location: 'Western University'
   },
   {
     id: 3,
@@ -158,10 +127,7 @@ const pastCourses = ref([
     name: 'Computer Networks',
     role: 'Teaching Assistant',
     term: 'Fall 2022',
-    location: 'Western University',
-    rating: 4.9,
-    description: 'Comprehensive study of computer networks including TCP/IP, routing protocols, network security, and modern networking technologies.',
-    feedback: null
+    location: 'Western University'
   },
   {
     id: 4,
@@ -169,10 +135,7 @@ const pastCourses = ref([
     name: 'Python',
     role: 'Teaching Assistant',
     term: 'Winter 2022',
-    location: 'Western University',
-    rating: 4.6,
-    description: 'Introduction to computer science concepts using Python programming language. Covers basic programming constructs, data structures, and problem-solving techniques.',
-    feedback: null
+    location: 'Western University'
   }
 ])
 
