@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Content Manager | Gad's Portfolio</title>
+    <script>window.CMS_MANUAL_INIT = true;</script>
   </head>
   <body>
     <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
     <script>
-      window.CMS_MANUAL_INIT = true;
-    </script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
+      (function() {
+        var checkCMS = setInterval(function() {
           if (window.initCMS) {
+            clearInterval(checkCMS);
             window.initCMS({
               config: {
                 load_config_file: false,
@@ -49,8 +48,8 @@
               }
             });
           }
-        }, 500);
-      });
+        }, 100);
+      })();
     </script>
   </body>
 </html>

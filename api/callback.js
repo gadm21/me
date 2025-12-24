@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   const { code } = req.query;
   
   if (!code) {
-    return res.status(400).json({ error: 'No code provided' });
+    return res.status(400).send('<html><body>Error: No code provided</body></html>');
   }
 
   try {
@@ -22,30 +22,39 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (data.error) {
-      return res.status(400).json({ error: data.error_description });
+      return res.status(400).send(`<html><body>Error: ${data.error_description}</body></html>`);
     }
 
-    const script = `
-      <script>
-        (function() {
-          function receiveMessage(e) {
-            console.log("receiveMessage %o", e);
-            window.opener.postMessage(
-              'authorization:github:success:${JSON.stringify({ token: data.access_token, provider: 'github' })}',
-              e.origin
-            );
-            window.removeEventListener("message", receiveMessage, false);
-          }
-          window.addEventListener("message", receiveMessage, false);
-          window.opener.postMessage("authorizing:github", "*");
-        })();
-      </script>
-    `;
+    const token = data.access_token;
+    const content = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OAuth Callback</title>
+  </head>
+  <body>
+    <script>
+      (function() {
+        function receiveMessage(e) {
+          console.log("receiveMessage", e);
+          window.opener.postMessage(
+            'authorization:github:success:{"token":"${token}","provider":"github"}',
+            e.origin
+          );
+          window.removeEventListener("message", receiveMessage, false);
+        }
+        window.addEventListener("message", receiveMessage, false);
+        console.log("Sending authorizing message");
+        window.opener.postMessage("authorizing:github", "*");
+      })();
+    </script>
+  </body>
+</html>`;
 
     res.setHeader('Content-Type', 'text/html');
-    res.send(script);
+    return res.status(200).send(content);
   } catch (error) {
     console.error('OAuth error:', error);
-    res.status(500).json({ error: 'Authentication failed' });
+    return res.status(500).send(`<html><body>Error: ${error.message}</body></html>`);
   }
 }
