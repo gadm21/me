@@ -7,11 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark base colors
-        'ink': '#0a0a0a',
-        'charcoal': '#1a1a1a',
-        'midnight': '#2a2a2a',
-        'slate': '#3a3a3a',
+        // Dark base colors - deeper for contrast
+        'ink': '#050508',
+        'charcoal': '#0d0d12',
+        'midnight': '#151520',
+        'slate': '#252535',
         
         // Light base colors
         'paper': '#fafafa',
@@ -19,23 +19,34 @@ export default {
         'pearl': '#eeeeee',
         'silver': '#e0e0e0',
         
-        // Soft accent colors
-        'sage': '#87a08a',
-        'sage-light': '#a3b8a5',
-        'sage-dark': '#6b8370',
+        // Doppler spectrum - cold (low velocity)
+        'doppler-blue': '#1a237e',
+        'doppler-cyan': '#00838f',
+        'doppler-teal': '#00695c',
         
-        'teal-muted': '#5d8a8a',
-        'teal-light': '#7aa3a3',
-        'teal-dark': '#466969',
+        // Doppler spectrum - neutral
+        'doppler-green': '#2e7d32',
+        'doppler-lime': '#558b2f',
         
-        'violet-dusty': '#8a7a8d',
-        'violet-light': '#a396a5',
-        'violet-dark': '#6e5f71',
+        // Doppler spectrum - warm (high velocity)
+        'doppler-yellow': '#f9a825',
+        'doppler-orange': '#ef6c00',
+        'doppler-red': '#c62828',
         
-        // Warm accent
-        'warm': '#c9a882',
-        'warm-light': '#dbc19c',
-        'warm-dark': '#a78866',
+        // Primary accent - cyan/teal from spectrum
+        'sage': '#00acc1',
+        'sage-light': '#4dd0e1',
+        'sage-dark': '#00838f',
+        
+        // Secondary accent - warm orange
+        'warm': '#ff8a65',
+        'warm-light': '#ffab91',
+        'warm-dark': '#e64a19',
+        
+        // Violet for variety
+        'violet-dusty': '#7c4dff',
+        'violet-light': '#b388ff',
+        'violet-dark': '#651fff',
       },
       fontFamily: {
         'blackletter': ['UnifrakturMaguntia', 'serif'],

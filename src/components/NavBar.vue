@@ -1,5 +1,5 @@
 <template>
-  <nav class="fixed top-0 w-full z-50 bg-ink/95 dark:bg-ink/95 bg-paper/95 backdrop-blur-sm border-b border-slate dark:border-slate border-silver transition-colors duration-300">
+  <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- Logo/Name -->
@@ -52,7 +52,7 @@
       <!-- Mobile Menu -->
       <div 
         v-show="mobileMenuOpen"
-        class="md:hidden absolute top-16 left-0 right-0 bg-charcoal/95 dark:bg-charcoal/95 bg-cream/95 backdrop-blur-sm border-t border-slate dark:border-slate border-silver max-h-[80vh] overflow-y-auto transition-colors duration-300"
+        class="md:hidden absolute top-16 left-0 right-0 glass border-t border-white/5 max-h-[80vh] overflow-y-auto transition-colors duration-300"
       >
         <div class="px-6 py-4 grid grid-cols-2 gap-2">
           <router-link 
@@ -140,7 +140,7 @@ const navItems = [
   left: 0;
   width: 0;
   height: 2px;
-  background: #87a08a;
+  background: linear-gradient(90deg, #4dd0e1, #00acc1);
   transition: width 0.25s ease-out;
 }
 

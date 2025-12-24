@@ -98,7 +98,100 @@
 
   /* Card with calm hover */
   .card-calm {
-    @apply bg-charcoal border border-slate p-6 
+    @apply bg-charcoal/80 border border-slate/50 p-6 
            hover:border-sage-dark transition-all duration-250 ease-out;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Apple Glass Effect */
+  .glass {
+    background: rgba(13, 13, 18, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .glass-card {
+    background: linear-gradient(
+      135deg,
+      rgba(13, 13, 18, 0.8) 0%,
+      rgba(21, 21, 32, 0.6) 100%
+    );
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Doppler spectrum gradient */
+  .doppler-gradient {
+    background: linear-gradient(
+      90deg,
+      #1a237e 0%,
+      #00838f 20%,
+      #2e7d32 40%,
+      #f9a825 60%,
+      #ef6c00 80%,
+      #c62828 100%
+    );
+  }
+
+  .doppler-gradient-vertical {
+    background: linear-gradient(
+      180deg,
+      #1a237e 0%,
+      #00838f 20%,
+      #2e7d32 40%,
+      #f9a825 60%,
+      #ef6c00 80%,
+      #c62828 100%
+    );
+  }
+
+  /* Doppler text gradient */
+  .text-doppler {
+    background: linear-gradient(90deg, #4dd0e1, #00acc1, #00838f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Doppler glow effect */
+  .doppler-glow {
+    box-shadow: 
+      0 0 20px rgba(0, 172, 193, 0.3),
+      0 0 40px rgba(0, 172, 193, 0.1);
+  }
+
+  /* Link styles with doppler accent */
+  .link-gothic {
+    @apply text-sage-light hover:text-sage transition-colors duration-200;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .link-gothic::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #4dd0e1, #00acc1);
+    transition: width 0.3s ease;
+  }
+
+  .link-gothic:hover::after {
+    width: 100%;
   }
 }
