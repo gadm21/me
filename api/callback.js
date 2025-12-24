@@ -33,19 +33,31 @@ export default async function handler(req, res) {
     <title>OAuth Callback</title>
   </head>
   <body>
+    <p>Authenticating...</p>
     <script>
       (function() {
-        function receiveMessage(e) {
-          console.log("receiveMessage", e);
-          window.opener.postMessage(
-            'authorization:github:success:{"token":"${token}","provider":"github"}',
-            e.origin
-          );
-          window.removeEventListener("message", receiveMessage, false);
+        var token = "${token}";
+        var provider = "github";
+        
+        if (window.opener) {
+          function receiveMessage(e) {
+            console.log("receiveMessage", e);
+            window.opener.postMessage(
+              'authorization:' + provider + ':success:{"token":"' + token + '","provider":"' + provider + '"}',
+              e.origin
+            );
+            window.removeEventListener("message", receiveMessage, false);
+            setTimeout(function() { window.close(); }, 100);
+          }
+          window.addEventListener("message", receiveMessage, false);
+          console.log("Sending authorizing message to opener");
+          window.opener.postMessage("authorizing:" + provider, "*");
+        } else {
+          // Fallback: store token and redirect back
+          console.log("No opener, using localStorage fallback");
+          localStorage.setItem('netlify-cms-auth', JSON.stringify({ token: token, provider: provider }));
+          document.body.innerHTML = '<p>Authentication successful! <a href="/admin/">Return to CMS</a></p>';
         }
-        window.addEventListener("message", receiveMessage, false);
-        console.log("Sending authorizing message");
-        window.opener.postMessage("authorizing:github", "*");
       })();
     </script>
   </body>
