@@ -2,16 +2,10 @@ backend:
   name: github
   repo: gadm21/me
   branch: main
-  site_domain: gadgad.me
   base_url: https://decap-oauth.netlify.app
 
 media_folder: "public/assets/img/blog"
 public_folder: "/assets/img/blog"
-
-media_library:
-  name: uploadcare
-  config:
-    publicKey: demopublickey
 
 collections:
   - name: "blog"
