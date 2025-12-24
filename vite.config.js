@@ -53,6 +53,13 @@ export default defineConfig(({ command, mode }) => {
       fs: {
         strict: true,
       },
+      proxy: {
+        '/api/chat': {
+          target: 'https://web-production-d7d37.up.railway.app',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/chat/, '/query'),
+        },
+      },
     },
     define: {
       __APP_VERSION__: JSON.stringify(process.env.npm_package_version),

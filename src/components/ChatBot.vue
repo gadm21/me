@@ -87,7 +87,9 @@ const messages = ref([
   { role: 'assistant', content: "Hello! I'm Gad's AI assistant. Ask me about his research, publications, or anything else!" }
 ])
 
-const API_URL = 'https://web-production-d7d37.up.railway.app/query'
+const API_URL = import.meta.env.DEV 
+  ? '/api/chat' 
+  : 'https://web-production-d7d37.up.railway.app/query'
 const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTE3IiwiZXhwIjoxNzY5MTE5MTk0fQ.4BWXrMwzhrDrt6A--B_jqLkUoHxYFA-76vETbinUgvA'
 
 const toggleChat = async () => {
