@@ -1,42 +1,45 @@
 <template>
-  <div class="research-page py-12">
-    <div class="prose-container">
-      <h1 class="gothic-title text-sage text-center mb-8">Research</h1>
-      <p class="serene-text text-xl text-center mb-12">
-        Exploring the intersection of wireless sensing and privacy-preserving machine learning
-      </p>
-    </div>
+  <div class="research-page">
+    <!-- Header -->
+    <section class="section pb-8">
+      <div class="content-container text-center">
+        <h1 class="page-title mb-4">Research</h1>
+        <p class="subtitle max-w-2xl mx-auto">
+          Exploring the intersection of wireless sensing and privacy-preserving machine learning
+        </p>
+      </div>
+    </section>
     
     <!-- Research Areas -->
-    <section class="mb-16">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section class="pb-16">
+      <div class="wide-container">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <article 
             v-for="area in researchAreas" 
             :key="area.id"
             class="research-card group"
             @click="expandArea(area)"
           >
-            <div class="card-calm h-full cursor-pointer">
+            <div class="card card-hover h-full cursor-pointer">
               <div class="flex items-start justify-between mb-4">
-                <span class="text-4xl text-sage-dark group-hover:text-sage transition-colors">
+                <span class="text-3xl text-primary group-hover:text-primary-dark transition-colors">
                   {{ area.icon }}
                 </span>
-                <button class="text-gray-500 group-hover:text-sage-light transition-colors">
+                <button class="text-text-tertiary group-hover:text-primary transition-colors">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
               </div>
-              <h3 class="font-serif text-xl text-gray-300 mb-3 group-hover:text-sage-light transition-colors">
+              <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mb-2 group-hover:text-primary transition-colors">
                 {{ area.title }}
               </h3>
-              <p class="text-gray-500 text-sm mb-4">{{ area.summary }}</p>
+              <p class="text-text-secondary dark:text-text-secondary-dark text-sm mb-4">{{ area.summary }}</p>
               <div class="flex flex-wrap gap-2">
                 <span 
                   v-for="tag in area.tags" 
                   :key="tag"
-                  class="text-xs px-2 py-1 bg-midnight text-gray-400 border border-slate"
+                  class="tag"
                 >
                   {{ tag }}
                 </span>
@@ -55,39 +58,39 @@
       <transition name="modal">
         <div 
           v-if="expandedArea" 
-          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
+          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
           @click.self="closeExpandedArea"
         >
-          <div class="bg-charcoal border border-slate rounded-lg p-8 max-w-3xl w-full max-h-[80vh] overflow-auto">
+          <div class="bg-surface-elevated dark:bg-surface-elevated-dark border border-border dark:border-border-dark rounded-lg p-8 max-w-3xl w-full max-h-[80vh] overflow-auto shadow-elevated">
             <div class="flex justify-between items-start mb-6">
               <div>
-                <span class="text-4xl text-sage">{{ expandedArea.icon }}</span>
-                <h2 class="gothic-subtitle text-sage mt-4">{{ expandedArea.title }}</h2>
+                <span class="text-4xl text-primary">{{ expandedArea.icon }}</span>
+                <h2 class="section-title text-primary mt-4">{{ expandedArea.title }}</h2>
               </div>
               <button 
                 @click="closeExpandedArea"
-                class="text-gray-400 hover:text-gray-300 text-2xl"
+                class="text-text-tertiary hover:text-text-primary dark:hover:text-text-primary-dark text-2xl transition-colors"
               >
                 ×
               </button>
             </div>
-            <div class="prose prose-invert max-w-none">
-              <p class="serene-text text-lg mb-6">{{ expandedArea.fullDescription }}</p>
-              <h3 class="font-serif text-xl text-gray-300 mb-4">Key Contributions</h3>
-              <ul class="space-y-2 text-gray-400">
+            <div class="max-w-none">
+              <p class="body-text text-lg mb-6">{{ expandedArea.fullDescription }}</p>
+              <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mb-4">Key Contributions</h3>
+              <ul class="space-y-2 text-text-secondary dark:text-text-secondary-dark">
                 <li v-for="contribution in expandedArea.contributions" :key="contribution">
                   {{ contribution }}
                 </li>
               </ul>
-              <h3 class="font-serif text-xl text-gray-300 mt-6 mb-4">Related Publications</h3>
+              <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mt-6 mb-4">Related Publications</h3>
               <div class="space-y-3">
                 <div 
                   v-for="pub in expandedArea.publications" 
                   :key="pub"
                   class="flex items-center gap-2"
                 >
-                  <span class="text-sage">→</span>
-                  <router-link to="/publications" class="link-gothic">
+                  <span class="text-primary">→</span>
+                  <router-link to="/publications" class="link">
                     {{ pub }}
                   </router-link>
                 </div>
@@ -282,24 +285,27 @@ onMounted(() => {
 
 <style scoped>
 .project-status {
-  @apply relative pt-2;
+  position: relative;
+  padding-top: 0.5rem;
 }
 
 .status-dot {
-  @apply w-3 h-3 rounded-full;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
   animation: pulse 2s infinite;
 }
 
 .status-active .status-dot {
-  @apply bg-sage;
+  background-color: #3B82F6;
 }
 
 .status-planning .status-dot {
-  @apply bg-violet-dusty;
+  background-color: #8B5CF6;
 }
 
 .status-completed .status-dot {
-  @apply bg-doppler-teal;
+  background-color: #22C55E;
 }
 
 @keyframes pulse {
@@ -311,30 +317,9 @@ onMounted(() => {
   }
 }
 
-.timeline-container {
-  @apply relative;
-}
-
-.timeline-container::before {
-  content: '';
-  @apply absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-slate;
-}
-
-.timeline-milestone {
-  @apply relative mb-8;
-}
-
-.milestone-content {
-  @apply w-5/12;
-}
-
-.milestone-right .milestone-content {
-  @apply ml-auto;
-}
-
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .modal-enter-from,
@@ -342,13 +327,13 @@ onMounted(() => {
   opacity: 0;
 }
 
-@media (max-width: 768px) {
-  .timeline-container::before {
-    @apply left-4;
-  }
-  
-  .milestone-content {
-    @apply w-full ml-8;
-  }
+.modal-enter-active > div,
+.modal-leave-active > div {
+  transition: transform 0.2s ease;
+}
+
+.modal-enter-from > div,
+.modal-leave-to > div {
+  transform: scale(0.95);
 }
 </style>

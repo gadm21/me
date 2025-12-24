@@ -1,22 +1,22 @@
 <template>
-  <footer class="mt-20 py-12 border-t border-slate">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex flex-col items-center space-y-6">
+  <footer class="mt-20 py-16 border-t border-border dark:border-border-dark bg-surface dark:bg-surface-dark">
+    <div class="wide-container">
+      <div class="flex flex-col items-center space-y-8">
         <!-- Social Links -->
-        <div class="flex space-x-6">
+        <div class="flex space-x-4">
           <a 
             v-for="social in socials" 
             :key="social.name"
             :href="social.url"
             target="_blank"
             rel="noopener"
-            class="social-icon group relative p-3 text-gray-500 hover:text-sage-light transition-all duration-250"
+            class="social-icon group relative p-3 text-text-tertiary hover:text-primary rounded-lg hover:bg-surface-hover dark:hover:bg-surface-hover-dark transition-all duration-200"
             :aria-label="social.name"
           >
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path :d="social.icon" />
             </svg>
-            <span class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-charcoal text-xs text-gray-400 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-250 whitespace-nowrap">
+            <span class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-surface-elevated-dark text-xs text-text-secondary-dark rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
               {{ social.name }}
             </span>
           </a>
@@ -26,16 +26,15 @@
         <a 
           href="/assets/docs/Gad_Gad_CV.pdf" 
           target="_blank"
-          class="btn-gothic"
+          class="btn-primary"
         >
           Download CV
         </a>
         
         <!-- Copyright -->
-        <div class="text-center text-sm text-gray-500">
+        <div class="text-center text-sm text-text-tertiary space-y-1">
           <p>&copy; {{ currentYear }} Gad Mohamed Gad with some help from AI..</p>
-          <p> Ok, it did most of the work. But still, all rights reserved.</p>
-          
+          <p>Ok, it did most of the work. But still, all rights reserved.</p>
         </div>
       </div>
     </div>
@@ -67,19 +66,5 @@ const socials = [
 </script>
 
 <style scoped>
-.social-icon::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #87a08a;
-  opacity: 0;
-  transform: scale(0);
-  transition: all 0.25s ease-out;
-}
-
-.social-icon:hover::before {
-  opacity: 0.1;
-  transform: scale(1.2);
-}
+/* Social icon hover effect handled by Tailwind classes */
 </style>

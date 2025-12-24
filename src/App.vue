@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="min-h-screen bg-ink dark:bg-ink bg-paper text-gray-300 dark:text-gray-300 text-gray-700 transition-colors duration-300">
+  <div id="app" class="min-h-screen bg-surface dark:bg-surface-dark text-text-primary dark:text-text-primary-dark transition-colors duration-200">
     <!-- Navigation -->
     <NavBar />
     

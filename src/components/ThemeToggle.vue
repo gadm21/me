@@ -1,7 +1,7 @@
 <template>
   <button
     @click="toggleTheme"
-    class="theme-toggle p-2 text-gray-400 dark:text-gray-400 text-gray-600 hover:text-sage-light dark:hover:text-sage-light hover:text-sage-dark transition-all duration-250"
+    class="theme-toggle p-2 text-text-secondary dark:text-text-secondary-dark hover:text-primary hover:bg-surface-hover dark:hover:bg-surface-hover-dark rounded-lg transition-all duration-200"
     :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
   >
     <transition name="fade" mode="out-in">
@@ -22,28 +22,9 @@ const { theme, toggleTheme } = useTheme()
 </script>
 
 <style scoped>
-.theme-toggle {
-  position: relative;
-}
-
-.theme-toggle::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  background: radial-gradient(circle, transparent, #87a08a);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.theme-toggle:hover::after {
-  opacity: 0.2;
-}
-
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.15s ease;
 }
 
 .fade-enter-from,

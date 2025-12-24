@@ -1,32 +1,32 @@
 <template>
-  <div class="publications-page py-12">
-    <div class="prose-container mb-12">
-      <h1 class="gothic-title text-sage text-center mb-8">Publications</h1>
-      
-      <!-- Publication Statistics -->
-      <div class="flex flex-wrap justify-center gap-6 mb-8">
-        <div class="stat-item">
-          <span class="stat-value">{{ stats.publications }}</span>
-          <span class="stat-label">Publications</span>
+  <div class="publications-page">
+    <!-- Header -->
+    <section class="section pb-8">
+      <div class="content-container text-center">
+        <h1 class="page-title mb-4">Publications</h1>
+        
+        <!-- Publication Statistics -->
+        <div class="flex flex-wrap justify-center gap-8 mb-8">
+          <div class="stat-item">
+            <span class="stat-value">{{ stats.publications }}</span>
+            <span class="stat-label">Publications</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{ stats.hIndex }}</span>
+            <span class="stat-label">h-index</span>
+            <a href="https://scholar.google.com/citations?user=bZRYJuAAAAAJ&hl=en" 
+               target="_blank" 
+               class="text-primary hover:text-primary-dark text-xs ml-1">
+              ↗
+            </a>
+          </div>
         </div>
-        <div class="stat-item">
-          <span class="stat-value">{{ stats.hIndex }}</span>
-          <span class="stat-label">h-index</span>
-          <a href="https://scholar.google.com/citations?user=bZRYJuAAAAAJ&hl=en" 
-             target="_blank" 
-             class="text-sage-dark hover:text-sage text-xs ml-1">
-            ↗
-          </a>
-        </div>
-
-      </div>
-      
-      <!-- Filters -->
-      <div class="filters mb-8">
-        <div class="flex flex-wrap gap-4 justify-center">
+        
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-3 justify-center">
           <select 
             v-model="selectedYear" 
-            class="filter-select"
+            class="input max-w-[160px]"
           >
             <option value="">All Years</option>
             <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
@@ -34,7 +34,7 @@
           
           <select 
             v-model="selectedVenue" 
-            class="filter-select"
+            class="input max-w-[200px]"
           >
             <option value="">All Venues</option>
             <option v-for="venue in venues" :key="venue" :value="venue">{{ venue }}</option>
@@ -42,115 +42,117 @@
           
           <select 
             v-model="selectedTopic" 
-            class="filter-select"
+            class="input max-w-[180px]"
           >
             <option value="">All Topics</option>
             <option v-for="topic in topics" :key="topic" :value="topic">{{ topic }}</option>
           </select>
         </div>
       </div>
-    </div>
+    </section>
     
     <!-- Publications List -->
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="space-y-8">
-        <article 
-          v-for="pub in filteredPublications" 
-          :key="pub.id"
-          class="publication-card card-calm fade-in"
-        >
-          <div class="flex justify-between items-start mb-3">
-            <a 
-              v-if="pub.scholarLink"
-              :href="pub.scholarLink"
-              target="_blank"
-              class="font-serif text-xl text-gray-300 flex-1 hover:text-sage transition-colors"
-            >{{ pub.title }}</a>
-            <h2 v-else class="font-serif text-xl text-gray-300 flex-1">{{ pub.title }}</h2>
-            <button 
-              @click="showBibTeX(pub)"
-              class="ml-4 text-sage-dark hover:text-sage text-sm transition-colors"
-              title="View BibTeX"
-            >
-              BibTeX
-            </button>
-          </div>
-          
-          <p class="text-gray-400 mb-3">
-            {{ pub.authors.join(', ') }}
-          </p>
-          
-          <div class="flex flex-wrap items-center gap-3 mb-3">
-            <span class="venue-badge">{{ pub.venue }}</span>
-            <span class="text-gray-500 text-sm">{{ pub.year }}</span>
-            <span v-for="topic in pub.topics" :key="topic" class="topic-tag">
-              {{ topic }}
-            </span>
-          </div>
-          
-          <div class="flex flex-wrap gap-4 text-sm">
-            <a 
-              v-if="pub.pdf" 
-              :href="pub.pdf" 
-              target="_blank"
-              class="link-gothic"
-            >
-              PDF ↗
-            </a>
-            <a 
-              v-if="pub.arxiv" 
-              :href="pub.arxiv" 
-              target="_blank"
-              class="link-gothic"
-            >
-              arXiv ↗
-            </a>
-            <a 
-              v-if="pub.code" 
-              :href="pub.code" 
-              target="_blank"
-              class="link-gothic"
-            >
-              Code ↗
-            </a>
-          </div>
-        </article>
+    <section class="pb-16">
+      <div class="wide-container">
+        <div class="space-y-6">
+          <article 
+            v-for="pub in filteredPublications" 
+            :key="pub.id"
+            class="publication-card card card-hover fade-in"
+          >
+            <div class="flex justify-between items-start mb-3">
+              <a 
+                v-if="pub.scholarLink"
+                :href="pub.scholarLink"
+                target="_blank"
+                class="text-lg font-semibold text-text-primary dark:text-text-primary-dark flex-1 hover:text-primary transition-colors"
+              >{{ pub.title }}</a>
+              <h2 v-else class="text-lg font-semibold text-text-primary dark:text-text-primary-dark flex-1">{{ pub.title }}</h2>
+              <button 
+                @click="showBibTeX(pub)"
+                class="ml-4 text-primary hover:text-primary-dark text-sm font-medium transition-colors"
+                title="View BibTeX"
+              >
+                BibTeX
+              </button>
+            </div>
+            
+            <p class="text-text-secondary dark:text-text-secondary-dark text-sm mb-3">
+              {{ pub.authors.join(', ') }}
+            </p>
+            
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span class="tag tag-primary">{{ pub.venue }}</span>
+              <span class="text-text-tertiary text-sm">{{ pub.year }}</span>
+              <span v-for="topic in pub.topics" :key="topic" class="tag">
+                {{ topic }}
+              </span>
+            </div>
+            
+            <div class="flex flex-wrap gap-4 text-sm">
+              <a 
+                v-if="pub.pdf" 
+                :href="pub.pdf" 
+                target="_blank"
+                class="link"
+              >
+                PDF ↗
+              </a>
+              <a 
+                v-if="pub.arxiv" 
+                :href="pub.arxiv" 
+                target="_blank"
+                class="link"
+              >
+                arXiv ↗
+              </a>
+              <a 
+                v-if="pub.code" 
+                :href="pub.code" 
+                target="_blank"
+                class="link"
+              >
+                Code ↗
+              </a>
+            </div>
+          </article>
+        </div>
+        
+        <!-- No results message -->
+        <div v-if="filteredPublications.length === 0" class="text-center py-12">
+          <p class="text-text-tertiary">No publications found matching your filters.</p>
+        </div>
       </div>
-      
-      <!-- No results message -->
-      <div v-if="filteredPublications.length === 0" class="text-center py-12">
-        <p class="text-gray-500">No publications found matching your filters.</p>
-      </div>
-    </div>
+    </section>
     
     <!-- BibTeX Modal -->
     <Teleport to="body">
       <div 
         v-if="showBibTeXModal" 
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
         @click.self="closeBibTeX"
       >
-        <div class="bg-charcoal border border-slate rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-auto">
+        <div class="bg-surface-elevated dark:bg-surface-elevated-dark border border-border dark:border-border-dark rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-auto shadow-elevated">
           <div class="flex justify-between items-start mb-4">
-            <h3 class="gothic-subtitle text-sage">BibTeX Citation</h3>
+            <h3 class="section-title text-primary">BibTeX Citation</h3>
             <button 
               @click="closeBibTeX"
-              class="text-gray-400 hover:text-gray-300"
+              class="text-text-tertiary hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
             >
               ✕
             </button>
           </div>
-          <pre class="bg-midnight p-4 rounded overflow-x-auto text-sm text-gray-300">{{ currentBibTeX }}</pre>
+          <pre class="bg-surface-hover dark:bg-surface-hover-dark p-4 rounded overflow-x-auto text-sm text-text-primary dark:text-text-primary-dark">{{ currentBibTeX }}</pre>
           <div class="mt-4 flex gap-3">
             <button 
               @click="copyBibTeX"
-              class="btn-gothic text-sm"
+              class="btn-primary text-sm"
             >
               Copy to Clipboard
             </button>
             <button 
               @click="downloadBibTeX"
-              class="btn-gothic text-sm"
+              class="btn-secondary text-sm"
             >
               Download .bib
             </button>
@@ -266,28 +268,28 @@ onMounted(() => {
 
 <style scoped>
 .stat-item {
-  @apply text-center;
+  text-align: center;
 }
 
 .stat-value {
-  @apply block text-2xl font-bold text-sage-light mb-1;
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3B82F6;
+  margin-bottom: 0.25rem;
 }
 
 .stat-label {
-  @apply text-sm text-gray-500 dark:text-gray-500 text-gray-600;
+  font-size: 0.875rem;
+  color: #6B7280;
 }
 
-.filter-select {
-  @apply px-4 py-2 bg-charcoal dark:bg-charcoal bg-pearl border border-slate dark:border-slate border-silver text-gray-300 dark:text-gray-300 text-gray-700
-         focus:border-sage-dark focus:outline-none transition-colors duration-250;
-}
-
-.topic-tag {
-  @apply px-2 py-1 bg-midnight text-xs text-gray-400 border border-slate;
+.dark .stat-label {
+  color: #9CA3AF;
 }
 
 pre {
-  font-family: 'Courier New', monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
   white-space: pre-wrap;
   word-wrap: break-word;
 }

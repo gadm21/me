@@ -9,9 +9,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 // Register GSAP plugins globally
 gsap.registerPlugin(ScrollTrigger)
 
-// Import Google Fonts
+// Import Google Fonts - Inter for modern sans-serif typography
 const link = document.createElement('link')
-link.href = 'https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=UnifrakturMaguntia&family=Spectral:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap'
+link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
 link.rel = 'stylesheet'
 document.head.appendChild(link)
 
