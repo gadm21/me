@@ -5,43 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Content Manager | Gad's Portfolio</title>
-    <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
-    <script>
-      CMS.init({
-        config: {
-          load_config_file: false,
-          backend: {
-            name: 'github',
-            repo: 'gadm21/me',
-            branch: 'main',
-            base_url: 'https://www.gadgad.me/api'
-          },
-          media_folder: 'public/assets/img/blog',
-          public_folder: '/assets/img/blog',
-          collections: [{
-            name: 'blog',
-            label: 'Blog Posts',
-            folder: 'src/data/blog-posts',
-            create: true,
-            slug: '{{slug}}',
-            extension: 'json',
-            format: 'json',
-            fields: [
-              { label: 'Title', name: 'title', widget: 'string' },
-              { label: 'Slug', name: 'slug', widget: 'string' },
-              { label: 'Category', name: 'category', widget: 'select', options: ['Research', 'Technology', 'Teaching', 'Personal'] },
-              { label: 'Publish Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DD' },
-              { label: 'Read Time (minutes)', name: 'readTime', widget: 'number', min: 1, max: 60 },
-              { label: 'Excerpt', name: 'excerpt', widget: 'text' },
-              { label: 'Featured Image', name: 'image', widget: 'image', required: false },
-              { label: 'Featured Post', name: 'featured', widget: 'boolean', default: false },
-              { label: 'Content', name: 'content', widget: 'markdown' }
-            ]
-          }]
-        }
-      });
-    </script>
   </head>
   <body>
+    <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          if (window.initCMS) {
+            window.initCMS({
+              config: {
+                load_config_file: false,
+                backend: {
+                  name: 'github',
+                  repo: 'gadm21/me',
+                  branch: 'main',
+                  base_url: 'https://www.gadgad.me/api'
+                },
+                media_folder: 'public/assets/img/blog',
+                public_folder: '/assets/img/blog',
+                collections: [{
+                  name: 'blog',
+                  label: 'Blog Posts',
+                  folder: 'src/data/blog-posts',
+                  create: true,
+                  slug: '{{slug}}',
+                  extension: 'json',
+                  format: 'json',
+                  fields: [
+                    { label: 'Title', name: 'title', widget: 'string' },
+                    { label: 'Slug', name: 'slug', widget: 'string' },
+                    { label: 'Category', name: 'category', widget: 'select', options: ['Research', 'Technology', 'Teaching', 'Personal'] },
+                    { label: 'Publish Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DD' },
+                    { label: 'Read Time (minutes)', name: 'readTime', widget: 'number', min: 1, max: 60 },
+                    { label: 'Excerpt', name: 'excerpt', widget: 'text' },
+                    { label: 'Featured Image', name: 'image', widget: 'image', required: false },
+                    { label: 'Featured Post', name: 'featured', widget: 'boolean', default: false },
+                    { label: 'Content', name: 'content', widget: 'markdown' }
+                  ]
+                }]
+              }
+            });
+          }
+        }, 500);
+      });
+    </script>
   </body>
 </html>
