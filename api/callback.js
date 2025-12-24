@@ -44,30 +44,37 @@ export default async function handler(req, res) {
     <title>OAuth Callback</title>
   </head>
   <body>
-    <p>Authenticating...</p>
+    <p>Authentication successful! Redirecting...</p>
     <script>
       (function() {
         var token = "${token}";
         var provider = "github";
+        var origin = window.location.origin;
+        
+        // Store token for the CMS
+        localStorage.setItem('netlify-cms-user', JSON.stringify({
+          access_token: token,
+          token_type: 'bearer',
+          provider: provider
+        }));
         
         if (window.opener) {
-          function receiveMessage(e) {
-            console.log("receiveMessage", e);
+          try {
+            // Try postMessage first
             window.opener.postMessage(
               'authorization:' + provider + ':success:{"token":"' + token + '","provider":"' + provider + '"}',
-              e.origin
+              origin
             );
-            window.removeEventListener("message", receiveMessage, false);
-            setTimeout(function() { window.close(); }, 100);
+            console.log("Sent success message to opener");
+            setTimeout(function() { window.close(); }, 500);
+          } catch(e) {
+            console.log("postMessage failed, redirecting");
+            window.location.href = '/admin/';
           }
-          window.addEventListener("message", receiveMessage, false);
-          console.log("Sending authorizing message to opener");
-          window.opener.postMessage("authorizing:" + provider, "*");
         } else {
-          // Fallback: store token and redirect back
-          console.log("No opener, using localStorage fallback");
-          localStorage.setItem('netlify-cms-auth', JSON.stringify({ token: token, provider: provider }));
-          document.body.innerHTML = '<p>Authentication successful! <a href="/admin/">Return to CMS</a></p>';
+          // No opener, redirect
+          console.log("No opener, redirecting to admin");
+          window.location.href = '/admin/';
         }
       })();
     </script>
