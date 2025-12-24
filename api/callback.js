@@ -44,38 +44,18 @@ export default async function handler(req, res) {
     <title>OAuth Callback</title>
   </head>
   <body>
-    <p>Authentication successful! Redirecting...</p>
+    <p>Authentication successful!</p>
     <script>
       (function() {
-        var token = "${token}";
-        var provider = "github";
-        var origin = window.location.origin;
-        
-        // Store token for the CMS
-        localStorage.setItem('netlify-cms-user', JSON.stringify({
-          access_token: token,
-          token_type: 'bearer',
-          provider: provider
-        }));
-        
-        if (window.opener) {
-          try {
-            // Try postMessage first
-            window.opener.postMessage(
-              'authorization:' + provider + ':success:{"token":"' + token + '","provider":"' + provider + '"}',
-              origin
-            );
-            console.log("Sent success message to opener");
-            setTimeout(function() { window.close(); }, 500);
-          } catch(e) {
-            console.log("postMessage failed, redirecting");
-            window.location.href = '/admin/';
-          }
-        } else {
-          // No opener, redirect
-          console.log("No opener, redirecting to admin");
-          window.location.href = '/admin/';
+        function receiveMessage(e) {
+          console.log("receiveMessage %o", e);
+          window.opener.postMessage(
+            'authorization:github:success:${JSON.stringify({ token: token, provider: "github" })}',
+            e.origin
+          );
         }
+        window.addEventListener("message", receiveMessage, false);
+        window.opener.postMessage("authorizing:github", "*");
       })();
     </script>
   </body>
