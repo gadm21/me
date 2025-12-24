@@ -301,7 +301,7 @@ onMounted(() => {
 }
 
 .status-completed .status-dot {
-  @apply bg-teal-muted;
+  @apply bg-doppler-teal;
 }
 
 @keyframes pulse {
