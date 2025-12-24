@@ -147,7 +147,7 @@ const researchAreas = ref([
     id: 3,
     title: 'Differential Privacy',
     summary: 'Privacy-preserving deep learning models',
-    tags: ['Differential Privacy', 'Privacy Preservation', 'Bandwidth Optimization'],
+    tags: ['Differential Privacy', 'Privacy Preservation', 'Membership Inference Attack (MIA)'],
     fullDescription: 'Differential Privacy provides rigorous mathematical guarantees about the privacy of individuals in datasets. My research focuses on integrating differential privacy with federated learning and knowledge distillation for practical privacy-preserving systems.',
     contributions: [
       'Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy',
