@@ -5,24 +5,57 @@ backend:
   site_domain: gadgad.me
   base_url: https://decap-oauth.netlify.app
 
-media_folder: public/assets/img/blog
-public_folder: /assets/img/blog
+media_folder: "public/assets/img/blog"
+public_folder: "/assets/img/blog"
+
+media_library:
+  name: uploadcare
+  config:
+    publicKey: demopublickey
 
 collections:
-  - name: blog
-    label: Blog Posts
-    folder: src/data/blog-posts
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/data/blog-posts"
     create: true
     slug: "{{slug}}"
-    extension: json
-    format: json
+    extension: "json"
+    format: "json"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Lowercase letters, numbers, and hyphens only"] }
-      - { label: "Category", name: "category", widget: "select", options: ["Research", "Technology", "Teaching", "Personal"] }
-      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Read Time (minutes)", name: "readTime", widget: "number", min: 1, max: 60 }
-      - { label: "Excerpt", name: "excerpt", widget: "text" }
-      - { label: "Featured Image", name: "image", widget: "image", required: false }
-      - { label: "Featured Post", name: "featured", widget: "boolean", default: false }
-      - { label: "Content", name: "content", widget: "markdown" }
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Research"
+          - "Technology"
+          - "Teaching"
+          - "Personal"
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+      - label: "Read Time (minutes)"
+        name: "readTime"
+        widget: "number"
+        min: 1
+        max: 60
+      - label: "Excerpt"
+        name: "excerpt"
+        widget: "text"
+      - label: "Featured Image"
+        name: "image"
+        widget: "image"
+        required: false
+      - label: "Featured Post"
+        name: "featured"
+        widget: "boolean"
+        default: false
+      - label: "Content"
+        name: "content"
+        widget: "markdown"
