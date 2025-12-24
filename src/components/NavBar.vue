@@ -2,10 +2,8 @@
   <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
-        <!-- Logo/Name -->
-        <router-link to="/" class="gothic-logo group flex items-center">
-          <span class="font-blackletter text-2xl text-sage transition-colors duration-250 group-hover:text-sage-light">G</span>
-        </router-link>
+        <!-- Empty spacer for layout balance -->
+        <div class="w-8"></div>
         
         <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center space-x-8">
