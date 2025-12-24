@@ -7,46 +7,48 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark base colors - deeper for contrast
-        'ink': '#050508',
-        'charcoal': '#0d0d12',
-        'midnight': '#151520',
-        'slate': '#252535',
+        // === DARK THEME BASE (Nord-inspired) ===
+        'ink': '#0d1117',           // GitHub dark bg
+        'charcoal': '#161b22',      // Elevated surface
+        'midnight': '#21262d',      // Cards/panels
+        'slate': '#30363d',         // Borders
         
-        // Light base colors
-        'paper': '#fafafa',
-        'cream': '#f5f5f5',
-        'pearl': '#eeeeee',
-        'silver': '#e0e0e0',
+        // === LIGHT THEME BASE ===
+        'paper': '#ffffff',
+        'cream': '#f6f8fa',         // GitHub light bg
+        'pearl': '#eaeef2',
+        'silver': '#d0d7de',
         
-        // Doppler spectrum - cold (low velocity)
-        'doppler-blue': '#1a237e',
-        'doppler-cyan': '#00838f',
-        'doppler-teal': '#00695c',
+        // === PRIMARY ACCENT (Teal/Cyan - accessible) ===
+        'sage': '#2dd4bf',          // Teal 400
+        'sage-light': '#5eead4',    // Teal 300
+        'sage-dark': '#14b8a6',     // Teal 500
         
-        // Doppler spectrum - neutral
-        'doppler-green': '#2e7d32',
-        'doppler-lime': '#558b2f',
+        // === SECONDARY ACCENT (Amber/Gold) ===
+        'warm': '#fbbf24',          // Amber 400
+        'warm-light': '#fcd34d',    // Amber 300
+        'warm-dark': '#f59e0b',     // Amber 500
         
-        // Doppler spectrum - warm (high velocity)
-        'doppler-yellow': '#f9a825',
-        'doppler-orange': '#ef6c00',
-        'doppler-red': '#c62828',
+        // === ACCENT COLORS ===
+        'violet-dusty': '#a78bfa',  // Violet 400
+        'violet-light': '#c4b5fd',  // Violet 300
+        'violet-dark': '#8b5cf6',   // Violet 500
         
-        // Primary accent - cyan/teal from spectrum
-        'sage': '#00acc1',
-        'sage-light': '#4dd0e1',
-        'sage-dark': '#00838f',
+        // === DOPPLER SPECTRUM (for visualizations) ===
+        'doppler-blue': '#3b82f6',
+        'doppler-cyan': '#06b6d4',
+        'doppler-teal': '#14b8a6',
+        'doppler-green': '#22c55e',
+        'doppler-lime': '#84cc16',
+        'doppler-yellow': '#eab308',
+        'doppler-orange': '#f97316',
+        'doppler-red': '#ef4444',
         
-        // Secondary accent - warm orange
-        'warm': '#ff8a65',
-        'warm-light': '#ffab91',
-        'warm-dark': '#e64a19',
-        
-        // Violet for variety
-        'violet-dusty': '#7c4dff',
-        'violet-light': '#b388ff',
-        'violet-dark': '#651fff',
+        // === STATUS COLORS ===
+        'success': '#22c55e',
+        'warning': '#f59e0b',
+        'error': '#ef4444',
+        'info': '#3b82f6',
       },
       fontFamily: {
         'blackletter': ['UnifrakturMaguntia', 'serif'],

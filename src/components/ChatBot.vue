@@ -150,25 +150,24 @@ const sendMessage = async () => {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(0, 172, 193, 0.8) 0%, rgba(0, 131, 143, 0.9) 100%);
-  border: 1px solid rgba(77, 208, 225, 0.3);
-  color: #e0f7fa;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  color: #0d1117;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 172, 193, 0.3), 0 0 30px rgba(0, 172, 193, 0.1);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(45, 212, 191, 0.3), 0 0 30px rgba(45, 212, 191, 0.1);
 }
 
 .chat-toggle:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 25px rgba(0, 172, 193, 0.4), 0 0 40px rgba(0, 172, 193, 0.2);
+  box-shadow: 0 6px 25px rgba(45, 212, 191, 0.4), 0 0 40px rgba(45, 212, 191, 0.2);
 }
 
 .chat-toggle.chat-open {
-  background: linear-gradient(135deg, rgba(0, 131, 143, 0.9) 0%, rgba(0, 105, 92, 0.9) 100%);
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
 }
 
 .chat-window {
@@ -177,31 +176,30 @@ const sendMessage = async () => {
   right: 0;
   width: 380px;
   height: 500px;
-  background: rgba(13, 13, 18, 0.85);
+  background: rgba(22, 27, 34, 0.95);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(48, 54, 61, 0.8);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 172, 193, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 .chat-header {
   padding: 16px 20px;
-  background: rgba(0, 172, 193, 0.1);
-  border-bottom: 1px solid rgba(77, 208, 225, 0.15);
-  backdrop-filter: blur(10px);
+  background: rgba(45, 212, 191, 0.1);
+  border-bottom: 1px solid rgba(48, 54, 61, 0.8);
 }
 
 .pulse-dot {
   width: 8px;
   height: 8px;
-  background: #4dd0e1;
+  background: #2dd4bf;
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
-  box-shadow: 0 0 10px rgba(77, 208, 225, 0.5);
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
 }
 
 @keyframes pulse {
@@ -251,17 +249,16 @@ const sendMessage = async () => {
 }
 
 .message.user .message-content {
-  background: linear-gradient(135deg, rgba(0, 172, 193, 0.6) 0%, rgba(0, 131, 143, 0.7) 100%);
-  color: #e0f7fa;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  color: #0d1117;
   border-bottom-right-radius: 4px;
 }
 
 .message.assistant .message-content {
-  background: rgba(255, 255, 255, 0.05);
-  color: #b0bec5;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(48, 54, 61, 0.6);
+  color: #e6edf3;
+  border: 1px solid rgba(48, 54, 61, 0.8);
   border-bottom-left-radius: 4px;
-  backdrop-filter: blur(10px);
 }
 
 .message-content.typing {
@@ -273,7 +270,7 @@ const sendMessage = async () => {
 .typing .dot {
   width: 6px;
   height: 6px;
-  background: #4dd0e1;
+  background: #2dd4bf;
   border-radius: 50%;
   animation: typingBounce 1.4s ease-in-out infinite;
 }
@@ -293,8 +290,8 @@ const sendMessage = async () => {
 
 .chat-input {
   padding: 12px 16px;
-  background: rgba(0, 0, 0, 0.3);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(13, 17, 23, 0.5);
+  border-top: 1px solid rgba(48, 54, 61, 0.8);
   display: flex;
   gap: 8px;
 }
@@ -302,30 +299,30 @@ const sendMessage = async () => {
 .input-field {
   flex: 1;
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(48, 54, 61, 0.5);
+  border: 1px solid rgba(48, 54, 61, 0.8);
   border-radius: 8px;
-  color: #e0f7fa;
+  color: #e6edf3;
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s;
 }
 
 .input-field::placeholder {
-  color: #607d8b;
+  color: #8b949e;
 }
 
 .input-field:focus {
-  border-color: rgba(77, 208, 225, 0.5);
+  border-color: rgba(45, 212, 191, 0.5);
 }
 
 .send-btn {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, rgba(0, 172, 193, 0.7) 0%, rgba(0, 131, 143, 0.8) 100%);
-  border: 1px solid rgba(77, 208, 225, 0.3);
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  border: none;
   border-radius: 8px;
-  color: #e0f7fa;
+  color: #0d1117;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -334,7 +331,7 @@ const sendMessage = async () => {
 }
 
 .send-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(0, 188, 212, 0.8) 0%, rgba(0, 172, 193, 0.9) 100%);
+  background: linear-gradient(135deg, #5eead4 0%, #2dd4bf 100%);
 }
 
 .send-btn:disabled {
