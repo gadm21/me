@@ -83,20 +83,36 @@
     @apply text-2xl md:text-3xl tracking-wide;
   }
 
-  /* Serene text */
+  /* Serene text - Dark Theme */
+  .dark .serene-text,
   .serene-text {
     font-family: 'Spectral', serif;
     @apply text-gray-300 leading-relaxed;
   }
 
-  /* Button styles */
+  /* Serene text - Light Theme */
+  :not(.dark) .serene-text {
+    font-family: 'Spectral', serif;
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  /* Button styles - Dark Theme */
+  .dark .btn-gothic,
   .btn-gothic {
     @apply inline-flex items-center px-6 py-3 border border-sage-dark text-sage-light 
            hover:bg-sage-dark hover:border-sage transition-all duration-250 ease-out
            font-medium tracking-wide;
   }
 
-  /* Card with calm hover */
+  /* Button styles - Light Theme */
+  :not(.dark) .btn-gothic {
+    @apply inline-flex items-center px-6 py-3 border border-sage-dark text-sage-dark 
+           hover:bg-sage-dark hover:text-white hover:border-sage transition-all duration-250 ease-out
+           font-medium tracking-wide;
+  }
+
+  /* Card with calm hover - Dark Theme */
+  .dark .card-calm,
   .card-calm {
     @apply bg-charcoal/80 border border-slate/50 p-6 
            hover:border-sage-dark transition-all duration-250 ease-out;
@@ -104,7 +120,16 @@
     -webkit-backdrop-filter: blur(12px);
   }
 
-  /* Apple Glass Effect */
+  /* Card with calm hover - Light Theme */
+  :not(.dark) .card-calm {
+    @apply bg-white/80 border border-gray-200 p-6 
+           hover:border-sage-dark transition-all duration-250 ease-out;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Apple Glass Effect - Dark Theme (default) */
+  .dark .glass,
   .glass {
     background: rgba(13, 13, 18, 0.7);
     backdrop-filter: blur(20px) saturate(180%);
@@ -112,13 +137,23 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .glass-light {
-    background: rgba(255, 255, 255, 0.1);
+  /* Apple Glass Effect - Light Theme */
+  :not(.dark) .glass {
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.08);
   }
 
+  .glass-light {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  /* Glass Card - Dark Theme */
+  .dark .glass-card,
   .glass-card {
     background: linear-gradient(
       135deg,
@@ -131,6 +166,21 @@
     box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Glass Card - Light Theme */
+  :not(.dark) .glass-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(245, 245, 245, 0.8) 100%
+    );
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
   /* Doppler spectrum gradient */
@@ -173,9 +223,17 @@
       0 0 40px rgba(0, 172, 193, 0.1);
   }
 
-  /* Link styles with doppler accent */
+  /* Link styles with doppler accent - Dark Theme */
+  .dark .link-gothic,
   .link-gothic {
     @apply text-sage-light hover:text-sage transition-colors duration-200;
+    text-decoration: none;
+    position: relative;
+  }
+
+  /* Link styles - Light Theme */
+  :not(.dark) .link-gothic {
+    @apply text-sage-dark hover:text-sage transition-colors duration-200;
     text-decoration: none;
     position: relative;
   }
