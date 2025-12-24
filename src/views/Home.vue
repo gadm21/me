@@ -30,14 +30,13 @@
     <!-- About Section -->
     <section class="py-20 px-6">
       <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8 fade-in">About Me</h2>
         <div class="drop-cap serene-text text-lg leading-relaxed space-y-4 fade-in">
           <p>
             I am a Computer Science Ph.D. student at Western University. 
             My work focuses on creating intelligent privacy-preserving sensing systems.
           </p>
           <p>
-            Initially I wanted to learn everything, but I realized I am not cool enough, so instead I am exploring these limited areas: Integrated Sensing and Communication (ISAC), AI, federated learning, differential privacy, and quantum networks. 
+            Initially I wanted to learn everything, but I realized I am not cool enough, so instead I am exploring these areas: Integrated Sensing and Communication (ISAC), AI, federated learning, differential privacy, and quantum networks. 
           </p>
 
         </div>
