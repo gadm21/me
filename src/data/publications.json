@@ -80,7 +80,8 @@
     "citations": 13,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:zYLM7Y9cAGgC",
     "abstract": "This paper presents communication-efficient federated learning techniques for drone-assisted IoT networks with enhanced path planning.",
-    "bibtex": "@inproceedings{gad2023communication,\n  title={Communication-efficient federated learning in drone-assisted IoT networks: Path planning and enhanced knowledge distillation techniques},\n  author={Gad, G and Farrag, A and Fadlullah, ZM and Fouda, MM},\n  booktitle={2023 IEEE 34th Annual International Symposium on Personal, Indoor and Mobile Radio Communications},\n  year={2023},\n  organization={IEEE}\n}"
+    "bibtex": "@inproceedings{gad2023communication,\n  title={Communication-efficient federated learning in drone-assisted IoT networks: Path planning and enhanced knowledge distillation techniques},\n  author={Gad, G and Farrag, A and Fadlullah, ZM and Fouda, MM},\n  booktitle={2023 IEEE 34th Annual International Symposium on Personal, Indoor and Mobile Radio Communications},\n  year={2023},\n  organization={IEEE}\n}",
+    "pdfPath": "/assets/publications/Communication-Efficient Federated Learning in Drone-Assisted IoT Networks Path Planning and Enhanced Knowledge Distillation Techniques.pdf"
   },
   {
     "id": 7,
@@ -93,7 +94,8 @@
     "citations": 17,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:IjCSPb-OGe4C",
     "abstract": "This work proposes communication-efficient privacy-preserving federated learning for human activity recognition using knowledge distillation.",
-    "bibtex": "@inproceedings{gad2023privacy,\n  title={Communication-efficient privacy-preserving federated learning via knowledge distillation for human activity recognition systems},\n  author={Gad, G and Fadlullah, ZM and Rabie, K and Fouda, MM},\n  booktitle={ICC 2023-IEEE International Conference on Communications},\n  pages={1572--1578},\n  year={2023},\n  organization={IEEE}\n}"
+    "bibtex": "@inproceedings{gad2023privacy,\n  title={Communication-efficient privacy-preserving federated learning via knowledge distillation for human activity recognition systems},\n  author={Gad, G and Fadlullah, ZM and Rabie, K and Fouda, MM},\n  booktitle={ICC 2023-IEEE International Conference on Communications},\n  pages={1572--1578},\n  year={2023},\n  organization={IEEE}\n}",
+    "pdfPath": "/assets/publications/Communication-efficient privacy-preserving federated learning via knowledge distillation for human activity recognition systems.pdf"
   },
   {
     "id": 8,
@@ -106,7 +108,8 @@
     "citations": 12,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:eQOLeE2rZwMC",
     "abstract": "This paper presents joint knowledge distillation and local differential privacy techniques for communication-efficient federated learning.",
-    "bibtex": "@inproceedings{gad2023joint,\n  title={Joint knowledge distillation and local differential privacy for communication-efficient federated learning in heterogeneous systems},\n  author={Gad, G and Fadlullah, ZM and Fouda, MM and Ibrahem, MI and Nasser, N},\n  booktitle={GLOBECOM 2023-2023 IEEE Global Communications Conference},\n  pages={2051--2056},\n  year={2023},\n  organization={IEEE}\n}"
+    "bibtex": "@inproceedings{gad2023joint,\n  title={Joint knowledge distillation and local differential privacy for communication-efficient federated learning in heterogeneous systems},\n  author={Gad, G and Fadlullah, ZM and Fouda, MM and Ibrahem, MI and Nasser, N},\n  booktitle={GLOBECOM 2023-2023 IEEE Global Communications Conference},\n  pages={2051--2056},\n  year={2023},\n  organization={IEEE}\n}",
+    "pdfPath": "/assets/publications/Joint knowledge distillation and local differential privacy for communication-efficient federated learning in heterogeneous systems.pdf"
   },
   {
     "id": 9,
@@ -119,7 +122,8 @@
     "citations": 9,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:d1gkVwhDpl0C",
     "abstract": "This work presents deep learning-based context-aware video content analysis techniques optimized for IoT devices.",
-    "bibtex": "@article{gad2022deep,\n  title={Deep learning-based context-aware video content analysis on IoT devices},\n  author={Gad, G and Gad, E and Cengiz, K and Fadlullah, Z and Mokhtar, B},\n  journal={Electronics},\n  volume={11},\n  number={11},\n  pages={1785},\n  year={2022},\n  publisher={MDPI}\n}"
+    "bibtex": "@article{gad2022deep,\n  title={Deep learning-based context-aware video content analysis on IoT devices},\n  author={Gad, G and Gad, E and Cengiz, K and Fadlullah, Z and Mokhtar, B},\n  journal={Electronics},\n  volume={11},\n  number={11},\n  pages={1785},\n  year={2022},\n  publisher={MDPI}\n}",
+    "pdfPath": "/assets/publications/Deep learning-based context-aware video content analysis on IoT devices.pdf"
   },
   {
     "id": 10,
@@ -132,7 +136,8 @@
     "citations": 7,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:LkGwnXOMwfcC",
     "abstract": "This paper proposes federated learning with selective knowledge distillation for bandwidth-constrained wireless networks.",
-    "bibtex": "@inproceedings{gad2024federated,\n  title={Federated learning with selective knowledge distillation over bandwidth-constrained wireless networks},\n  author={Gad, G and Fadlullah, ZM and Fouda, MM and Ibrahem, MI and Kato, N},\n  booktitle={ICC 2024-IEEE International Conference on Communications},\n  pages={3476--3481},\n  year={2024},\n  organization={IEEE}\n}"
+    "bibtex": "@inproceedings{gad2024federated,\n  title={Federated learning with selective knowledge distillation over bandwidth-constrained wireless networks},\n  author={Gad, G and Fadlullah, ZM and Fouda, MM and Ibrahem, MI and Kato, N},\n  booktitle={ICC 2024-IEEE International Conference on Communications},\n  pages={3476--3481},\n  year={2024},\n  organization={IEEE}\n}",
+    "pdfPath": "/assets/publications/Federated_Learning_With_Selective_Knowledge_Distillation_Over_Bandwidth-constrained_Wireless_Networks.pdf"
   },
   {
     "id": 11,
@@ -145,7 +150,8 @@
     "citations": 5,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:YsMSGLbcyi4C",
     "abstract": "This work presents an explainable AI system for mammogram tumor segmentation with preserved local resolution.",
-    "bibtex": "@inproceedings{farrag2023mammogram,\n  title={Mammogram tumor segmentation with preserved local resolution: An explainable ai system},\n  author={Farrag, A and Gad, G and Fadlullah, ZM and Fouda, MM},\n  booktitle={GLOBECOM 2023-2023 IEEE Global Communications Conference},\n  pages={314--319},\n  year={2023},\n  organization={IEEE}\n}"
+    "bibtex": "@inproceedings{farrag2023mammogram,\n  title={Mammogram tumor segmentation with preserved local resolution: An explainable ai system},\n  author={Farrag, A and Gad, G and Fadlullah, ZM and Fouda, MM},\n  booktitle={GLOBECOM 2023-2023 IEEE Global Communications Conference},\n  pages={314--319},\n  year={2023},\n  organization={IEEE}\n}",
+    "pdfPath": "/assets/publications/Mammogram tumor segmentation with preserved local resolution An explainable ai system.pdf"
   },
   {
     "id": 12,
@@ -159,7 +165,8 @@
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:UeHWp8X0CEIC",
     "abstract": "This work presents light-weight federated learning techniques with augmented knowledge distillation for human activity recognition.",
     "arxiv": "https://arxiv.org/abs/2023.xxxxx",
-    "bibtex": "@article{gad2023light,\n  title={Light-weight federated learning with augmented knowledge distillation for human activity recognition},\n  author={Gad, G},\n  journal={arXiv preprint},\n  year={2023}\n}"
+    "bibtex": "@article{gad2023light,\n  title={Light-weight federated learning with augmented knowledge distillation for human activity recognition},\n  author={Gad, G},\n  journal={arXiv preprint},\n  year={2023}\n}",
+    "pdfPath": "/assets/publications/Light-weight federated learning with augmented knowledge distillation for human activity recognition.pdf"
   },
   {
     "id": 13,
@@ -185,7 +192,8 @@
     "citations": 2,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:WF5omc3nYNoC",
     "abstract": "This paper presents a machine learning approach for optimizing VNF migration in B5G core networks.",
-    "bibtex": "@inproceedings{tanuboddi2024optimizing,\n  title={Optimizing VNF Migration in B5G Core Networks: A Machine Learning Approach},\n  author={Tanuboddi, BR and Gad, G and Fadlullah, ZM and Fouda, MM},\n  booktitle={2024 International Conference on Smart Applications, Communications and Networking},\n  year={2024}\n}"
+    "bibtex": "@inproceedings{tanuboddi2024optimizing,\n  title={Optimizing VNF Migration in B5G Core Networks: A Machine Learning Approach},\n  author={Tanuboddi, BR and Gad, G and Fadlullah, ZM and Fouda, MM},\n  booktitle={2024 International Conference on Smart Applications, Communications and Networking},\n  year={2024}\n}",
+    "pdfPath": "/assets/publications/Optimizing_VNF_Migration_in_B5G_Core_Networks_A_Machine_Learning_Approach.pdf"
   },
   {
     "id": 15,
@@ -199,7 +207,8 @@
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:UebtZRa9Y70C",
     "abstract": "This work presents REDUS, an adaptive resampling technique for efficient deep learning in centralized and federated IoT networks.",
     "arxiv": "https://arxiv.org/abs/2507.02021",
-    "bibtex": "@article{gad2025redus,\n  title={REDUS: Adaptive Resampling for Efficient Deep Learning in Centralized and Federated IoT Networks},\n  author={Gad, E and Gad, G and Fouda, MM and Ibrahem, MI and Ismail, M and Fadlullah, ZM},\n  journal={arXiv preprint arXiv:2507.02021},\n  year={2025}\n}"
+    "bibtex": "@article{gad2025redus,\n  title={REDUS: Adaptive Resampling for Efficient Deep Learning in Centralized and Federated IoT Networks},\n  author={Gad, E and Gad, G and Fouda, MM and Ibrahem, MI and Ismail, M and Fadlullah, ZM},\n  journal={arXiv preprint arXiv:2507.02021},\n  year={2025}\n}",
+    "pdfPath": "/assets/publications/REDUS Adaptive Resampling for Efficient Deep Learning in Centralized and Federated IoT Networks.pdf"
   },
   {
     "id": 16,
@@ -212,7 +221,8 @@
     "citations": 0,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:Se3iqnhoufwC",
     "abstract": "This paper presents enhanced environmental awareness and security techniques for smart devices using WiFi sensing.",
-    "bibtex": "@inproceedings{gad2025enhanced,\n  title={Enhanced Environmental Awareness and Security for Smart Devices using WiFi-Sensing},\n  author={Gad, G and Batool, I and Fouda, MM and Ibrahem, MI and Fadlullah, ZM},\n  booktitle={2025 7th International Congress on Human-Computer Interaction, Optimization and Robotic Applications},\n  year={2025}\n}"
+    "bibtex": "@inproceedings{gad2025enhanced,\n  title={Enhanced Environmental Awareness and Security for Smart Devices using WiFi-Sensing},\n  author={Gad, G and Batool, I and Fouda, MM and Ibrahem, MI and Fadlullah, ZM},\n  booktitle={2025 7th International Congress on Human-Computer Interaction, Optimization and Robotic Applications},\n  year={2025}\n}",
+    "pdfPath": "/assets/publications/Enhanced_Environmental_Awareness_and_Security_for_Smart_Devices_using_WiFi-Sensing.pdf"
   },
   {
     "id": 17,
