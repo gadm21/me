@@ -179,7 +179,8 @@
     "citations": 2,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:u-x6o8ySG0sC",
     "abstract": "This paper presents an optimized IoT-based framework for context-aware video content analysis.",
-    "bibtex": "@inproceedings{gad2021towards,\n  title={Towards Optimized IoT-based Context-aware Video Content Analysis Framework},\n  author={Gad, G and Gad, E and Mokhtar, B},\n  booktitle={2021 IEEE 7th World Forum on Internet of Things (WF-IoT)},\n  pages={46--50},\n  year={2021},\n  organization={IEEE}\n}"
+    "bibtex": "@inproceedings{gad2021towards,\n  title={Towards Optimized IoT-based Context-aware Video Content Analysis Framework},\n  author={Gad, G and Gad, E and Mokhtar, B},\n  booktitle={2021 IEEE 7th World Forum on Internet of Things (WF-IoT)},\n  pages={46--50},\n  year={2021},\n  organization={IEEE}\n}",
+    "pdfPath": "/assets/publications/Towards_Optimized_IoT-based_Context-aware_Video_Content_Analysis_Framework.pdf"
   },
   {
     "id": 14,
@@ -235,7 +236,8 @@
     "citations": 0,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:roLk4NBRz8UC",
     "abstract": "This work presents EXAD, a framework for designing explanations in adaptive user interfaces.",
-    "bibtex": "@inproceedings{batool2025exad,\n  title={EXAD: Framework for Designing Explanations in Adaptive User Interfaces},\n  author={Batool, I and Gad, G and Fouda, MM and Ibrahem, MI and Fadlullah, ZM},\n  booktitle={2025 7th International Congress on Human-Computer Interaction, Optimization and Robotic Applications},\n  year={2025}\n}"
+    "bibtex": "@inproceedings{batool2025exad,\n  title={EXAD: Framework for Designing Explanations in Adaptive User Interfaces},\n  author={Batool, I and Gad, G and Fouda, MM and Ibrahem, MI and Fadlullah, ZM},\n  booktitle={2025 7th International Congress on Human-Computer Interaction, Optimization and Robotic Applications},\n  year={2025}\n}",
+    "pdfPath": "/assets/publications/EXAD_Framework_for_Designing_Explanations_in_Adaptive_User_Interfaces.pdf"
   },
   {
     "id": 18,
@@ -248,6 +250,7 @@
     "citations": 0,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:ufrVoPGSRksC",
     "abstract": "This paper presents a collaborative learning approach for combating malware traffic in emerging networks.",
-    "bibtex": "@inproceedings{vaitla2024combating,\n  title={Combating Malware Traffic in Emerging Networks: A Collaborative Learning Approach},\n  author={Vaitla, H and Gad, G and Fadlullah, ZM and Fouda, MM},\n  booktitle={2024 International Conference on Smart Applications, Communications and Networking},\n  year={2024}\n}"
+    "bibtex": "@inproceedings{vaitla2024combating,\n  title={Combating Malware Traffic in Emerging Networks: A Collaborative Learning Approach},\n  author={Vaitla, H and Gad, G and Fadlullah, ZM and Fouda, MM},\n  booktitle={2024 International Conference on Smart Applications, Communications and Networking},\n  year={2024}\n}",
+    "pdfPath": "/assets/publications/Combating_Malware_Traffic_in_Emerging_Networks_A_Collaborative_Learning_Approach.pdf"
   }
 ]
