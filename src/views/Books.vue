@@ -1,22 +1,27 @@
 <template>
-  <div class="books-page py-12">
-    <div class="prose-container">
-      <h1 class="gothic-title text-sage text-center mb-8">Literary Journey</h1>
-      <p class="serene-text text-xl text-center mb-12">
-        Books that have shaped my perspective and understanding
-      </p>
-    </div>
+  <div class="books-page">
+    <!-- Header -->
+    <section class="section pb-8">
+      <div class="content-container text-center">
+        <h1 class="page-title mb-4">Literary Journey</h1>
+        <p class="subtitle">
+          Books that have shaped my perspective and understanding
+        </p>
+      </div>
+    </section>
     
     <!-- Category Filter -->
-    <section class="mb-12">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="flex flex-wrap gap-3 justify-center mb-8">
+    <section class="pb-8">
+      <div class="wide-container">
+        <div class="flex flex-wrap gap-2 justify-center">
           <button 
             v-for="category in categories" 
             :key="category"
             @click="selectedCategory = selectedCategory === category ? null : category"
-            class="category-btn"
-            :class="{ 'active': selectedCategory === category }"
+            class="px-4 py-2 text-sm font-medium rounded-lg border transition-all duration-200"
+            :class="selectedCategory === category 
+              ? 'bg-primary text-white border-primary' 
+              : 'text-text-secondary dark:text-text-secondary-dark border-border dark:border-border-dark hover:border-primary hover:text-primary'"
           >
             {{ category }}
           </button>
@@ -25,31 +30,29 @@
     </section>
     
     <!-- Reading Stats -->
-    <section class="mb-16 bg-charcoal/30 py-12">
-      <div class="max-w-4xl mx-auto px-6">
-        <h2 class="gothic-subtitle text-sage mb-8 text-center">Reading Statistics</h2>
-        <div class="grid md:grid-cols-4 gap-6 text-center">
-          <div class="stat-card">
-            <div class="text-3xl font-bold text-sage-light mb-2">{{ totalBooks }}</div>
-            <div class="text-gray-400 text-sm">Books Read</div>
+    <section class="pb-16 bg-surface-hover/50 dark:bg-surface-hover-dark/30 py-12">
+      <div class="content-container">
+        <h2 class="section-title text-center mb-8">Reading Statistics</h2>
+        <div class="grid md:grid-cols-3 gap-6 text-center">
+          <div class="stat-card card">
+            <div class="text-3xl font-bold text-primary mb-2">{{ totalBooks }}</div>
+            <div class="text-text-tertiary text-sm">Books Read</div>
           </div>
-          <div class="stat-card">
-            <div class="text-3xl font-bold text-sage-light mb-2">{{ favoriteAuthor }}</div>
-            <div class="text-gray-400 text-sm">Favorite Author</div>
+          <div class="stat-card card">
+            <div class="text-3xl font-bold text-primary mb-2">{{ favoriteAuthor }}</div>
+            <div class="text-text-tertiary text-sm">Favorite Author</div>
           </div>
-
-          <div class="stat-card">
-            <div class="text-3xl font-bold text-sage-light mb-2">{{ categories.length - 1 }}</div>
-            <div class="text-gray-400 text-sm">Categories</div>
+          <div class="stat-card card">
+            <div class="text-3xl font-bold text-primary mb-2">{{ categories.length - 1 }}</div>
+            <div class="text-text-tertiary text-sm">Categories</div>
           </div>
-
         </div>
       </div>
     </section>
     
     <!-- Books Grid -->
-    <section class="mb-16">
-      <div class="max-w-7xl mx-auto px-6">
+    <section class="pb-16">
+      <div class="wide-container">
         <div class="books-grid">
           <div 
             v-for="book in filteredBooks" 
@@ -66,7 +69,7 @@
               >
               <div class="book-overlay">
                 <div class="book-info">
-                  <h3 class="font-serif text-lg text-white mb-2">{{ book.title }}</h3>
+                  <h3 class="font-semibold text-lg text-white mb-2">{{ book.title }}</h3>
                   <p class="text-gray-300 text-sm mb-2">{{ book.author }}</p>
                   <span class="category-badge">{{ book.category }}</span>
                 </div>
@@ -81,20 +84,20 @@
     <transition name="modal">
       <div 
         v-if="selectedBook" 
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
         @click.self="selectedBook = null"
       >
-        <div class="bg-charcoal border border-slate rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="bg-surface-elevated dark:bg-surface-elevated-dark border border-border dark:border-border-dark rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-elevated">
           <div class="p-6">
             <div class="flex justify-between items-start mb-4">
               <div>
-                <h2 class="gothic-subtitle text-sage-light mb-2">{{ selectedBook.title }}</h2>
-                <p class="text-gray-400 mb-2">by {{ selectedBook.author }}</p>
-                <span class="category-badge">{{ selectedBook.category }}</span>
+                <h2 class="section-title mb-2">{{ selectedBook.title }}</h2>
+                <p class="text-text-secondary dark:text-text-secondary-dark mb-2">by {{ selectedBook.author }}</p>
+                <span class="tag tag-primary">{{ selectedBook.category }}</span>
               </div>
               <button 
                 @click="selectedBook = null"
-                class="text-gray-400 hover:text-gray-300 text-2xl"
+                class="text-text-tertiary hover:text-text-primary dark:hover:text-text-primary-dark text-2xl transition-colors"
               >
                 ×
               </button>
@@ -110,7 +113,7 @@
                 >
               </div>
               <div class="flex-1">
-                <p class="text-gray-300 leading-relaxed">{{ selectedBook.description }}</p>
+                <p class="text-text-secondary dark:text-text-secondary-dark leading-relaxed">{{ selectedBook.description }}</p>
               </div>
             </div>
           </div>
@@ -119,10 +122,10 @@
     </transition>
     
     <!-- Reading Philosophy -->
-    <section class="bg-charcoal/50 py-12">
-      <div class="prose-container text-center">
-        <h2 class="gothic-subtitle text-sage mb-6">Reading Philosophy</h2>
-        <p class="text-gray-400 text-lg leading-relaxed max-w-3xl mx-auto">
+    <section class="bg-surface-hover/50 dark:bg-surface-hover-dark/30 py-12">
+      <div class="content-container text-center">
+        <h2 class="section-title mb-6">Reading Philosophy</h2>
+        <p class="text-text-secondary dark:text-text-secondary-dark text-lg leading-relaxed max-w-3xl mx-auto">
           "A reader lives a thousand lives before he dies. The man who never reads lives only one." 
           These books have been companions in my intellectual journey, each offering unique perspectives 
           on technology, philosophy, human nature, and the complexities of our world. From classic literature 
@@ -241,15 +244,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.category-btn {
-  @apply px-4 py-2 text-sm text-gray-400 border border-slate 
-         hover:border-sage-dark hover:text-sage-light transition-all duration-250;
-}
-
-.category-btn.active {
-  @apply bg-sage-dark text-ink border-sage;
-}
-
 .books-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -264,35 +258,61 @@ onMounted(() => {
 }
 
 .book-card {
-  @apply cursor-pointer transition-all duration-300 hover:scale-105;
+  cursor: pointer;
+  transition: all 0.3s ease;
   perspective: 1000px;
 }
 
+.book-card:hover {
+  transform: scale(1.05);
+}
+
 .book-cover {
-  @apply relative w-full aspect-[3/4] rounded-lg overflow-hidden shadow-lg;
-  background: linear-gradient(135deg, #2d3748, #4a5568);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #E5E7EB, #D1D5DB);
+}
+
+.dark .book-cover {
+  background: linear-gradient(135deg, #374151, #4B5563);
 }
 
 .book-overlay {
-  @apply absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent 
-         opacity-0 hover:opacity-100 transition-opacity duration-300;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.book-card:hover .book-overlay {
+  opacity: 1;
 }
 
 .book-info {
-  @apply absolute bottom-0 left-0 right-0 p-4;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
 }
 
 .category-badge {
-  @apply inline-block px-2 py-1 bg-sage-dark text-ink text-xs rounded;
-}
-
-.stat-card {
-  @apply p-4 bg-midnight rounded-lg;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #3B82F6;
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
 }
 
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .modal-enter-from,
@@ -300,7 +320,6 @@ onMounted(() => {
   opacity: 0;
 }
 
-/* Mobile responsiveness */
 @media (max-width: 640px) {
   .books-grid {
     grid-template-columns: repeat(2, 1fr);

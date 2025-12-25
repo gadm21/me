@@ -2,42 +2,51 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/me-ALOAIApf.jpg" />
+    <link rel="icon" type="image/png" href="/assets/img/me.jpg" />
+    <link rel="apple-touch-icon" href="/assets/img/me.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Gad Mohamed - Ph.D. Student in Computer Science specializing in Wi-Fi Sensing, Federated Learning, and Differential Privacy" />
     <meta name="keywords" content="Gad Mohamed, Computer Science, PhD, Wi-Fi Sensing, Federated Learning, Differential Privacy, Western University" />
     <meta name="author" content="Gad Mohamed" />
+    <meta name="theme-color" content="#2dd4bf" />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://gadm21.github.io/" />
+    <meta property="og:url" content="https://gadgad.me/" />
     <meta property="og:title" content="Gad Mohamed - Computer Science Ph.D. Student" />
     <meta property="og:description" content="Exploring the frontiers of Wi-Fi Sensing, Federated Learning, and Differential Privacy" />
     <meta property="og:image" content="/assets/img/me.jpg" />
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://gadm21.github.io/" />
+    <meta property="twitter:url" content="https://gadgad.me/" />
     <meta property="twitter:title" content="Gad Mohamed - Computer Science Ph.D. Student" />
     <meta property="twitter:description" content="Exploring the frontiers of Wi-Fi Sensing, Federated Learning, and Differential Privacy" />
     <meta property="twitter:image" content="/assets/img/me.jpg" />
     
     <title>Gad Gad - Ph.D. Student in Computer Science</title>
     
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-167607612-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-167607612-1');
-    </script>
-    <script type="module" crossorigin src="/assets/index-D1Lo7H3k.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-B6ea3Oia.js">
-    <link rel="modulepreload" crossorigin href="/assets/utils-DllXHzSB.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-CovyWxX9.css">
+    <!-- Umami Analytics (privacy-friendly, no cookies) -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="deda57ef-759f-4fdc-bcdc-b842988c2343"></script>
+    <script type="module" crossorigin src="/assets/js/index-msOrXFtK.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/js/vendor-fFeeY9Fc.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/utils-DllXHzSB.js">
+    <link rel="stylesheet" crossorigin href="/assets/css/index-BVhV9ZUD.css">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app"></div>
+    <script>
+      // Register Service Worker for PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('SW registered'))
+            .catch(err => console.log('SW registration failed:', err));
+        });
+      }
+    </script>
   </body>
 </html>

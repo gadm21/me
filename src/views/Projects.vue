@@ -321,15 +321,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.category-btn {
-  @apply px-4 py-2 text-sm text-gray-400 border border-slate 
-         hover:border-sage-dark hover:text-sage-light transition-all duration-250;
-}
-
-.category-btn.active {
-  @apply bg-sage-dark text-ink border-sage;
-}
-
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -343,55 +334,85 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 640px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+.project-card {
+  transition: all 0.3s ease;
 }
 
-.project-card {
-  @apply transition-all duration-300 hover:scale-105 hover:shadow-xl;
-  background: linear-gradient(135deg, rgba(45, 55, 72, 0.8), rgba(74, 85, 104, 0.8));
+.project-card:hover {
+  transform: scale(1.02);
 }
 
 .project-image {
-  @apply relative overflow-hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .project-overlay {
-  @apply absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 
-         transition-opacity duration-300 flex items-center justify-center;
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
 }
 
 .project-links {
-  @apply flex gap-3;
+  display: flex;
+  gap: 0.75rem;
 }
 
 .project-link {
-  @apply p-3 bg-sage-dark text-ink rounded-full hover:bg-sage 
-         transition-colors duration-250;
+  padding: 0.75rem;
+  background-color: #3B82F6;
+  color: white;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.project-link:hover {
+  background-color: #2563EB;
 }
 
 .category-badge {
-  @apply inline-block px-3 py-1 bg-sage-dark text-ink text-xs rounded-full font-medium;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: #3B82F6;
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
 }
 
 .tech-tag {
-  @apply px-2 py-1 bg-midnight text-gray-400 text-xs rounded border border-slate;
+  padding: 0.25rem 0.5rem;
+  background-color: #F3F4F6;
+  color: #6B7280;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid #E5E7EB;
+}
+
+.dark .tech-tag {
+  background-color: #374151;
+  color: #9CA3AF;
+  border-color: #4B5563;
 }
 
 .status-indicator {
-  @apply w-2 h-2 rounded-full;
-}
-
-.stat-card {
-  @apply p-6 bg-midnight rounded-lg;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
 }
 
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .modal-enter-from,
@@ -399,41 +420,10 @@ onMounted(() => {
   opacity: 0;
 }
 
-/* Mobile responsiveness improvements */
 @media (max-width: 640px) {
-  .project-content {
-    @apply p-4;
-  }
-  
-  .project-content h3 {
-    @apply text-lg;
-  }
-  
-  .tech-tag {
-    @apply text-xs px-2 py-1;
-  }
-  
-  .category-btn {
-    @apply px-3 py-1 text-xs;
-  }
-  
-  .stat-card {
-    @apply p-4;
-  }
-  
-  .stat-card .text-3xl {
-    @apply text-2xl;
-  }
-}
-
-/* iPad responsiveness */
-@media (min-width: 641px) and (max-width: 1024px) {
   .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-  
-  .prose-container {
-    @apply px-8;
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 </style>

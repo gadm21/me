@@ -1,24 +1,24 @@
 <template>
-  <div class="awards-page py-12">
+  <div class="awards-page">
     <!-- Header Section -->
-    <section class="awards-header mb-12">
-      <div class="prose-container text-center">
-        <h1 class="gothic-title text-sage mb-4">Awards & Recognition</h1>
-        
-        
+    <section class="section pb-8">
+      <div class="content-container text-center">
+        <h1 class="page-title mb-4">Awards & Recognition</h1>
       </div>
     </section>
     
     <!-- Awards Categories -->
-    <section class="mb-16">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="flex flex-wrap gap-3 justify-center mb-8">
+    <section class="pb-8">
+      <div class="wide-container">
+        <div class="flex flex-wrap gap-2 justify-center">
           <button 
             v-for="category in categories" 
             :key="category"
             @click="selectedCategory = selectedCategory === category ? null : category"
-            class="category-btn"
-            :class="{ 'active': selectedCategory === category }"
+            class="px-4 py-2 text-sm font-medium rounded-lg border transition-all duration-200"
+            :class="selectedCategory === category 
+              ? 'bg-primary text-white border-primary' 
+              : 'text-text-secondary dark:text-text-secondary-dark border-border dark:border-border-dark hover:border-primary hover:text-primary'"
           >
             {{ category }}
           </button>
@@ -27,33 +27,33 @@
     </section>
     
     <!-- Awards Grid -->
-    <section class="mb-16">
-      <div class="max-w-6xl mx-auto px-6">
+    <section class="pb-16">
+      <div class="wide-container">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div 
             v-for="award in filteredAwards" 
             :key="award.id"
-            class="award-card card-calm h-full"
+            class="card card-hover h-full flex flex-col"
           >
             <div class="flex items-start justify-between mb-4">
-              <div class="award-icon">
+              <div class="w-12 h-12 bg-primary-subtle dark:bg-primary/10 rounded-full flex items-center justify-center">
                 <span class="text-2xl">{{ getAwardIcon(award) }}</span>
               </div>
-              <span class="text-sage-dark text-sm font-medium">{{ award.year }}</span>
+              <span class="text-primary text-sm font-medium">{{ award.year }}</span>
             </div>
             
-            <h3 class="font-serif text-lg text-gray-300 dark:text-gray-300 text-gray-700 mb-2">
+            <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mb-2">
               {{ award.title }}
             </h3>
             
-            <p class="text-sage-light text-sm mb-3">{{ award.organization }}</p>
+            <p class="text-primary text-sm mb-3">{{ award.organization }}</p>
             
-            <p class="text-gray-500 dark:text-gray-500 text-gray-600 text-sm mb-4 flex-1">
+            <p class="text-text-secondary dark:text-text-secondary-dark text-sm mb-4 flex-1">
               {{ award.description }}
             </p>
             
-            <div v-if="award.amount" class="award-amount">
-              <span class="text-sage font-medium">{{ award.amount }}</span>
+            <div v-if="award.amount" class="mt-auto pt-3 border-t border-border dark:border-border-dark">
+              <span class="text-primary font-medium">{{ award.amount }}</span>
             </div>
           </div>
         </div>
@@ -61,9 +61,9 @@
     </section>
     
     <!-- Timeline View -->
-    <section class="bg-charcoal/30 dark:bg-charcoal/30 bg-cream/30 py-16 mb-16">
-      <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8 text-center">Achievement Timeline</h2>
+    <section class="bg-surface-hover/50 dark:bg-surface-hover-dark/30 py-16">
+      <div class="content-container">
+        <h2 class="section-title text-center mb-8">Achievement Timeline</h2>
         <div class="timeline relative">
           <div 
             v-for="(award, index) in sortedAwards" 
@@ -71,17 +71,17 @@
             class="timeline-item"
             :class="{ 'timeline-right': index % 2 === 1 }"
           >
-            <div class="timeline-content card-calm">
-              <span class="text-sage-dark font-medium">{{ award.year }}</span>
-              <h3 class="font-serif text-lg text-gray-300 dark:text-gray-300 text-gray-700 mt-2 mb-2">
+            <div class="timeline-content card">
+              <span class="text-primary font-medium">{{ award.year }}</span>
+              <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mt-2 mb-2">
                 {{ award.title }}
               </h3>
-              <p class="text-sage-light text-sm mb-2">{{ award.organization }}</p>
-              <p class="text-gray-500 dark:text-gray-500 text-gray-600 text-sm">
+              <p class="text-primary text-sm mb-2">{{ award.organization }}</p>
+              <p class="text-text-secondary dark:text-text-secondary-dark text-sm">
                 {{ award.description }}
               </p>
               <div v-if="award.amount" class="mt-3">
-                <span class="text-sage font-medium text-sm">{{ award.amount }}</span>
+                <span class="text-primary font-medium text-sm">{{ award.amount }}</span>
               </div>
             </div>
           </div>
@@ -243,88 +243,82 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.stat-item {
-  @apply text-center;
-}
-
-.stat-value {
-  @apply block text-2xl font-bold text-sage-light mb-1;
-}
-
-.stat-label {
-  @apply text-sm text-gray-500 dark:text-gray-500 text-gray-600;
-}
-
-.category-btn {
-  @apply px-4 py-2 text-sm text-gray-400 dark:text-gray-400 text-gray-600 border border-slate dark:border-slate border-silver
-         hover:border-sage-dark hover:text-sage-light dark:hover:text-sage-light hover:text-sage-dark transition-all duration-250;
-}
-
-.category-btn.active {
-  @apply bg-sage-dark text-ink border-sage;
-}
-
-.award-card {
-  @apply transition-transform duration-250 hover:scale-105;
-}
-
-.award-icon {
-  @apply w-12 h-12 bg-sage-dark/20 dark:bg-sage-dark/20 bg-sage-light/20 rounded-full flex items-center justify-center;
-}
-
-.award-amount {
-  @apply mt-auto pt-3 border-t border-slate dark:border-slate border-silver;
-}
-
 .timeline {
-  @apply max-w-4xl mx-auto relative;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
 
 .timeline::before {
   content: '';
-  @apply absolute left-1/2 top-0 bottom-0 w-0.5 bg-sage-dark transform -translate-x-1/2;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #3B82F6;
+  transform: translateX(-50%);
 }
 
 .timeline-item {
-  @apply relative mb-8 w-1/2;
+  position: relative;
+  margin-bottom: 2rem;
+  width: 50%;
 }
 
 .timeline-item:nth-child(odd) {
-  @apply pr-8;
+  padding-right: 2rem;
 }
 
 .timeline-item:nth-child(even) {
-  @apply pl-8 ml-auto;
+  padding-left: 2rem;
+  margin-left: auto;
 }
 
 .timeline-item::before {
   content: '';
-  @apply absolute top-6 w-4 h-4 bg-sage-dark rounded-full border-4 border-ink dark:border-ink border-paper z-10;
+  position: absolute;
+  top: 1.5rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: #3B82F6;
+  border-radius: 50%;
+  border: 4px solid white;
+  z-index: 10;
+}
+
+.dark .timeline-item::before {
+  border-color: #1F2937;
 }
 
 .timeline-item:nth-child(odd)::before {
-  @apply -right-2;
+  right: -0.5rem;
 }
 
 .timeline-item:nth-child(even)::before {
-  @apply -left-2;
+  left: -0.5rem;
 }
 
 .timeline-content {
-  @apply relative;
+  position: relative;
 }
 
 @media (max-width: 768px) {
   .timeline::before {
-    @apply left-8;
+    left: 2rem;
   }
   
   .timeline-item {
-    @apply w-full pl-16 pr-0 ml-0;
+    width: 100%;
+    padding-left: 4rem;
+    padding-right: 0;
+    margin-left: 0;
   }
   
   .timeline-item::before {
-    @apply left-6;
+    left: 1.5rem;
+    right: auto;
   }
 }
 </style>

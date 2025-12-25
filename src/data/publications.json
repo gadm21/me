@@ -10,7 +10,8 @@
     "citations": 34,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:qjMakFHDy7sC",
     "abstract": "This paper presents federated learning with knowledge distillation for heterogeneous human activity recognition systems.",
-    "bibtex": "@article{gad2022federated,\n  title={Federated learning via augmented knowledge distillation for heterogenous deep human activity recognition systems},\n  author={Gad, G and Fadlullah, Z},\n  journal={Sensors},\n  volume={23},\n  number={1},\n  pages={6},\n  year={2022},\n  publisher={MDPI}\n}"
+    "bibtex": "@article{gad2022federated,\n  title={Federated learning via augmented knowledge distillation for heterogenous deep human activity recognition systems},\n  author={Gad, G and Fadlullah, Z},\n  journal={Sensors},\n  volume={23},\n  number={1},\n  pages={6},\n  year={2022},\n  publisher={MDPI}\n}",
+    "pdfPath": "/assets/publications/Federated Learning via Augmented Knowledge Distillation for Heterogenous Deep Human Activity Recognition Systems.pdf"
   },
   {
     "id": 2,
@@ -23,7 +24,8 @@
     "citations": 31,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:W7OEmFMy1HYC",
     "abstract": "This work proposes a novel federated learning approach for UAV-IoT systems using self-organizing maps and knowledge distillation.",
-    "bibtex": "@article{gad2024joint,\n  title={Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems},\n  author={Gad, G and Farrag, A and Aboulfotouh, A and Bedda, K and Fadlullah, ZM and Fouda, MM},\n  journal={IEEE Internet of Things Journal},\n  volume={11},\n  number={9},\n  pages={15504--15522},\n  year={2024},\n  publisher={IEEE}\n}"
+    "bibtex": "@article{gad2024joint,\n  title={Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems},\n  author={Gad, G and Farrag, A and Aboulfotouh, A and Bedda, K and Fadlullah, ZM and Fouda, MM},\n  journal={IEEE Internet of Things Journal},\n  volume={11},\n  number={9},\n  pages={15504--15522},\n  year={2024},\n  publisher={IEEE}\n}",
+    "pdfPath": "/assets/publications/Joint Self-Organizing Maps and Knowledge-Distillation-Based Communication-Efficient Federated Learning for Resource-Constrained UAV-IoT Systems.pdf"
   },
   {
     "id": 3,
@@ -36,7 +38,8 @@
     "citations": 33,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:_FxGoFyzp5QC",
     "abstract": "This paper addresses communication efficiency and privacy preservation in federated learning through joint knowledge distillation and differential privacy.",
-    "bibtex": "@article{gad2024communication,\n  title={Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks},\n  author={Gad, G and Gad, E and Fadlullah, ZM and Fouda, MM and Kato, N},\n  journal={IEEE Transactions on Vehicular Technology},\n  year={2024},\n  publisher={IEEE}\n}"
+    "bibtex": "@article{gad2024communication,\n  title={Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks},\n  author={Gad, G and Gad, E and Fadlullah, ZM and Fouda, MM and Kato, N},\n  journal={IEEE Transactions on Vehicular Technology},\n  year={2024},\n  publisher={IEEE}\n}",
+    "pdfPath": "/assets/publications/Communication-Efficient and Privacy-Preserving Federated Learning via Joint Knowledge Distillation and Differential Privacy in Bandwidth-Constrained Networks.pdf"
   },
   {
     "id": 4,
@@ -49,7 +52,8 @@
     "citations": 25,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:Y0pCki6q_DkC",
     "abstract": "This work presents an explainable AI system for medical image segmentation focusing on mammogram tumor detection.",
-    "bibtex": "@article{farrag2023explainable,\n  title={An explainable AI system for medical image segmentation with preserved local resolution: Mammogram tumor segmentation},\n  author={Farrag, A and Gad, G and Fadlullah, ZM and Fouda, MM and Alsabaan, M},\n  journal={IEEE Access},\n  volume={11},\n  pages={125543--125561},\n  year={2023},\n  publisher={IEEE}\n}"
+    "bibtex": "@article{farrag2023explainable,\n  title={An explainable AI system for medical image segmentation with preserved local resolution: Mammogram tumor segmentation},\n  author={Farrag, A and Gad, G and Fadlullah, ZM and Fouda, MM and Alsabaan, M},\n  journal={IEEE Access},\n  volume={11},\n  pages={125543--125561},\n  year={2023},\n  publisher={IEEE}\n}",
+    "pdfPath": "/assets/publications/An Explainable AI System for Medical Image Segmentation With Preserved Local Resolution.pdf"
   },
   {
     "id": 5,
@@ -62,7 +66,8 @@
     "citations": 19,
     "scholarLink": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:u5HHmVD_uO8C",
     "abstract": "This paper presents a real-time lane detection system using SegNet architecture combined with image processing techniques.",
-    "bibtex": "@inproceedings{gad2020real,\n  title={Real-time lane instance segmentation using SegNet and image processing},\n  author={Gad, GM and Annaby, AM and Negied, NK and Darweesh, MS},\n  booktitle={2020 2nd Novel Intelligent and Leading Emerging Sciences Conference (NILES)},\n  pages={1--6},\n  year={2020},\n  organization={IEEE}\n}"
+    "bibtex": "@inproceedings{gad2020real,\n  title={Real-time lane instance segmentation using SegNet and image processing},\n  author={Gad, GM and Annaby, AM and Negied, NK and Darweesh, MS},\n  booktitle={2020 2nd Novel Intelligent and Leading Emerging Sciences Conference (NILES)},\n  pages={1--6},\n  year={2020},\n  organization={IEEE}\n}",
+    "pdfPath": "/assets/publications/Real-Time Lane Instance Segmentation Using SegNet and Image Processing.pdf"
   },
   {
     "id": 6,

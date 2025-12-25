@@ -22,19 +22,32 @@ defineProps({
 
 <style scoped>
 .loading-spinner {
-  @apply fixed inset-0 flex items-center justify-center bg-ink/90 backdrop-blur-sm z-50;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(17, 24, 39, 0.9);
+  backdrop-filter: blur(4px);
+  z-index: 50;
 }
 
 .spinner-container {
-  @apply text-center;
+  text-align: center;
 }
 
 .wifi-loader {
-  @apply relative w-16 h-16 mx-auto mb-4;
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1rem;
 }
 
 .wave {
-  @apply absolute inset-0 border-2 border-sage rounded-full;
+  position: absolute;
+  inset: 0;
+  border: 2px solid #3B82F6;
+  border-radius: 50%;
   animation: wifi-wave 2s ease-out infinite;
 }
 
@@ -58,6 +71,7 @@ defineProps({
 }
 
 .loading-text {
-  @apply text-sage-light text-sm;
+  color: #3B82F6;
+  font-size: 0.875rem;
 }
 </style>

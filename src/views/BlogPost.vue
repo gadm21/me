@@ -1,20 +1,23 @@
 <template>
-  <div class="blog-post-page py-12">
-    <div v-if="post" class="max-w-4xl mx-auto px-6">
+  <div class="blog-post-page">
+    <div v-if="post" class="content-container py-12">
       <!-- Back to Blog -->
       <nav class="mb-8">
-        <router-link to="/blog" class="link-gothic text-sm">
-          ← Back to Blog
+        <router-link to="/blog" class="link text-sm inline-flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Blog
         </router-link>
       </nav>
       
       <!-- Article Header -->
       <header class="mb-8">
         <div class="mb-4">
-          <span class="text-sage-dark text-sm font-medium">{{ post.category }}</span>
+          <span class="text-primary text-sm font-medium">{{ post.category }}</span>
         </div>
-        <h1 class="gothic-title text-sage-light mb-4">{{ post.title }}</h1>
-        <div class="flex items-center gap-4 text-sm text-gray-400 mb-6">
+        <h1 class="page-title mb-4">{{ post.title }}</h1>
+        <div class="flex items-center gap-4 text-sm text-text-tertiary mb-6">
           <span>{{ formatDate(post.date) }}</span>
           <span>•</span>
           <span>{{ post.readTime }} min read</span>
@@ -29,23 +32,23 @@
       </header>
       
       <!-- Article Content -->
-      <article class="prose prose-invert prose-sage max-w-none">
+      <article class="prose-content max-w-none">
         <div v-html="renderedContent"></div>
       </article>
       
       <!-- Article Footer -->
-      <footer class="mt-12 pt-8 border-t border-slate">
-        <div class="flex items-center justify-between">
+      <footer class="mt-12 pt-8 border-t border-border dark:border-border-dark">
+        <div class="flex items-center justify-between flex-wrap gap-4">
           <div class="flex items-center gap-4">
-            <span class="text-gray-400 text-sm">Share this article:</span>
-            <button @click="shareArticle('twitter')" class="link-gothic text-sm">
+            <span class="text-text-tertiary text-sm">Share this article:</span>
+            <button @click="shareArticle('twitter')" class="link text-sm">
               Twitter
             </button>
-            <button @click="shareArticle('linkedin')" class="link-gothic text-sm">
+            <button @click="shareArticle('linkedin')" class="link text-sm">
               LinkedIn
             </button>
           </div>
-          <router-link to="/blog" class="btn-gothic">
+          <router-link to="/blog" class="btn-secondary">
             More Articles
           </router-link>
         </div>
@@ -56,10 +59,10 @@
     </div>
     
     <!-- Article Not Found -->
-    <div v-else class="max-w-4xl mx-auto px-6 text-center">
-      <h1 class="gothic-title text-sage mb-4">Article Not Found</h1>
-      <p class="text-gray-400 mb-8">The article you're looking for doesn't exist or has been moved.</p>
-      <router-link to="/blog" class="btn-gothic">
+    <div v-else class="content-container py-12 text-center">
+      <h1 class="page-title mb-4">Article Not Found</h1>
+      <p class="text-text-secondary dark:text-text-secondary-dark mb-8">The article you're looking for doesn't exist or has been moved.</p>
+      <router-link to="/blog" class="btn-primary">
         Back to Blog
       </router-link>
     </div>
@@ -128,43 +131,103 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.prose {
-  @apply text-gray-300;
+.prose-content {
+  color: var(--text-secondary, #4B5563);
+  line-height: 1.75;
 }
 
-.prose h1 {
-  @apply text-sage-light text-3xl font-serif mb-6;
+.dark .prose-content {
+  color: var(--text-secondary-dark, #9CA3AF);
 }
 
-.prose h2 {
-  @apply text-sage text-2xl font-serif mb-4 mt-8;
+.prose-content :deep(h1) {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1.5rem;
 }
 
-.prose h3 {
-  @apply text-sage-dark text-xl font-serif mb-3 mt-6;
+.dark .prose-content :deep(h1) {
+  color: #F9FAFB;
 }
 
-.prose p {
-  @apply mb-4 leading-relaxed;
+.prose-content :deep(h2) {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1F2937;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
 }
 
-.prose ul, .prose ol {
-  @apply mb-4 pl-6;
+.dark .prose-content :deep(h2) {
+  color: #E5E7EB;
 }
 
-.prose li {
-  @apply mb-2;
+.prose-content :deep(h3) {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
 }
 
-.prose strong {
-  @apply text-sage-light font-semibold;
+.dark .prose-content :deep(h3) {
+  color: #D1D5DB;
 }
 
-.prose code {
-  @apply bg-midnight px-2 py-1 rounded text-sage-light text-sm;
+.prose-content :deep(p) {
+  margin-bottom: 1rem;
 }
 
-.prose blockquote {
-  @apply border-l-4 border-sage-dark pl-4 italic text-gray-400 my-6;
+.prose-content :deep(ul),
+.prose-content :deep(ol) {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose-content :deep(li) {
+  margin-bottom: 0.5rem;
+}
+
+.prose-content :deep(strong) {
+  font-weight: 600;
+  color: #111827;
+}
+
+.dark .prose-content :deep(strong) {
+  color: #F9FAFB;
+}
+
+.prose-content :deep(code) {
+  background-color: #F3F4F6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.dark .prose-content :deep(code) {
+  background-color: #374151;
+  color: #E5E7EB;
+}
+
+.prose-content :deep(blockquote) {
+  border-left: 4px solid #3B82F6;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #6B7280;
+  margin: 1.5rem 0;
+}
+
+.dark .prose-content :deep(blockquote) {
+  color: #9CA3AF;
+}
+
+.prose-content :deep(a) {
+  color: #3B82F6;
+  text-decoration: none;
+}
+
+.prose-content :deep(a:hover) {
+  text-decoration: underline;
 }
 </style>

@@ -409,29 +409,53 @@ onMounted(() => {
 
 <style scoped>
 .stat-item {
-  @apply flex flex-col items-center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stat-value {
-  @apply text-2xl font-bold text-sage-light;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3B82F6;
 }
 
 .stat-label {
-  @apply text-sm text-gray-500;
+  font-size: 0.875rem;
+  color: #6B7280;
 }
 
 .skill-tag {
-  @apply px-3 py-1 bg-midnight border border-slate text-gray-400 text-sm
-         hover:border-sage-dark hover:text-sage-light transition-all duration-250;
+  padding: 0.25rem 0.75rem;
+  background-color: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  color: #6B7280;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.dark .skill-tag {
+  background-color: #374151;
+  border-color: #4B5563;
+  color: #9CA3AF;
+}
+
+.skill-tag:hover {
+  border-color: #3B82F6;
+  color: #3B82F6;
 }
 
 .timeline-item {
-  @apply relative;
+  position: relative;
 }
 
 .timeline-item::before {
   content: '◈';
-  @apply absolute left-0 top-0 text-sage-dark text-xl;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #3B82F6;
+  font-size: 1.25rem;
   transform: translateX(-2rem);
 }
 

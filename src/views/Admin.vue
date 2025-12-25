@@ -167,6 +167,21 @@ const copyJson = () => {
 
 <style scoped>
 .input-field {
-  @apply px-4 py-2 bg-charcoal border border-slate text-gray-300 focus:border-sage-dark focus:outline-none transition-colors;
+  padding: 0.5rem 1rem;
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  color: #374151;
+  transition: border-color 0.2s ease;
+}
+
+.dark .input-field {
+  background-color: #1F2937;
+  border-color: #374151;
+  color: #E5E7EB;
+}
+
+.input-field:focus {
+  border-color: #3B82F6;
+  outline: none;
 }
 </style>
