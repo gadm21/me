@@ -13,58 +13,20 @@
               {{ title }}
             </h3>
             <div class="flex items-center gap-2">
-              <!-- Page Navigation -->
-              <div class="flex items-center gap-2 mr-4">
-                <button 
-                  @click="prevPage" 
-                  :disabled="currentPage <= 1"
-                  class="p-2 rounded-lg hover:bg-surface-hover dark:hover:bg-surface-hover-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <span class="text-sm text-text-secondary dark:text-text-secondary-dark min-w-[80px] text-center">
-                  {{ currentPage }} / {{ totalPages }}
-                </span>
-                <button 
-                  @click="nextPage" 
-                  :disabled="currentPage >= totalPages"
-                  class="p-2 rounded-lg hover:bg-surface-hover dark:hover:bg-surface-hover-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-              <!-- Zoom Controls -->
-              <div class="flex items-center gap-1 mr-4">
-                <button 
-                  @click="zoomOut" 
-                  :disabled="scale <= 0.5"
-                  class="p-2 rounded-lg hover:bg-surface-hover dark:hover:bg-surface-hover-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                  </svg>
-                </button>
-                <span class="text-sm text-text-secondary dark:text-text-secondary-dark min-w-[50px] text-center">
-                  {{ Math.round(scale * 100) }}%
-                </span>
-                <button 
-                  @click="zoomIn" 
-                  :disabled="scale >= 3"
-                  class="p-2 rounded-lg hover:bg-surface-hover dark:hover:bg-surface-hover-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                  </svg>
-                </button>
-              </div>
+              <!-- Open in New Tab -->
+              <a 
+                :href="encodedPdfUrl" 
+                target="_blank"
+                class="p-2 rounded-lg hover:bg-surface-hover dark:hover:bg-surface-hover-dark transition-colors text-text-secondary dark:text-text-secondary-dark hover:text-primary"
+                title="Open in New Tab"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
               <!-- Download Button -->
               <a 
-                :href="pdfUrl" 
-                target="_blank" 
+                :href="encodedPdfUrl" 
                 download
                 class="p-2 rounded-lg hover:bg-surface-hover dark:hover:bg-surface-hover-dark transition-colors text-text-secondary dark:text-text-secondary-dark hover:text-primary"
                 title="Download PDF"
@@ -85,15 +47,14 @@
             </div>
           </div>
           
-          <!-- PDF Canvas Container -->
-          <div ref="containerRef" class="flex-1 overflow-auto bg-gray-100 dark:bg-gray-900 flex justify-center p-4">
-            <div v-if="loading" class="flex items-center justify-center h-full">
-              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            </div>
-            <div v-else-if="error" class="flex items-center justify-center h-full text-error">
-              <p>{{ error }}</p>
-            </div>
-            <canvas ref="canvasRef" class="shadow-lg"></canvas>
+          <!-- PDF Embed Container -->
+          <div class="flex-1 overflow-hidden bg-gray-100 dark:bg-gray-900">
+            <iframe 
+              v-if="isOpen"
+              :src="encodedPdfUrl"
+              class="w-full h-full border-0"
+              title="PDF Viewer"
+            ></iframe>
           </div>
         </div>
       </div>
@@ -102,11 +63,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, nextTick } from 'vue'
-import * as pdfjsLib from 'pdfjs-dist'
-
-// Set worker path
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
+import { computed } from 'vue'
 
 const props = defineProps({
   isOpen: {
@@ -125,98 +82,10 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
-const canvasRef = ref(null)
-const containerRef = ref(null)
-const loading = ref(true)
-const error = ref(null)
-const currentPage = ref(1)
-const totalPages = ref(0)
-const scale = ref(1.2)
-const pdfDoc = ref(null)
-
-const loadPdf = async () => {
-  if (!props.pdfUrl || !props.isOpen) return
-  
-  loading.value = true
-  error.value = null
-  
-  try {
-    const loadingTask = pdfjsLib.getDocument(props.pdfUrl)
-    pdfDoc.value = await loadingTask.promise
-    totalPages.value = pdfDoc.value.numPages
-    currentPage.value = 1
-    await renderPage(currentPage.value)
-  } catch (err) {
-    console.error('Error loading PDF:', err)
-    error.value = 'Failed to load PDF. Please try downloading instead.'
-  } finally {
-    loading.value = false
-  }
-}
-
-const renderPage = async (pageNum) => {
-  if (!pdfDoc.value || !canvasRef.value) return
-  
-  try {
-    const page = await pdfDoc.value.getPage(pageNum)
-    const viewport = page.getViewport({ scale: scale.value })
-    
-    const canvas = canvasRef.value
-    const context = canvas.getContext('2d')
-    
-    canvas.height = viewport.height
-    canvas.width = viewport.width
-    
-    const renderContext = {
-      canvasContext: context,
-      viewport: viewport
-    }
-    
-    await page.render(renderContext).promise
-  } catch (err) {
-    console.error('Error rendering page:', err)
-  }
-}
-
-const prevPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--
-    renderPage(currentPage.value)
-  }
-}
-
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++
-    renderPage(currentPage.value)
-  }
-}
-
-const zoomIn = () => {
-  if (scale.value < 3) {
-    scale.value = Math.min(3, scale.value + 0.25)
-    renderPage(currentPage.value)
-  }
-}
-
-const zoomOut = () => {
-  if (scale.value > 0.5) {
-    scale.value = Math.max(0.5, scale.value - 0.25)
-    renderPage(currentPage.value)
-  }
-}
-
-watch(() => props.isOpen, async (newVal) => {
-  if (newVal) {
-    await nextTick()
-    loadPdf()
-  }
-})
-
-watch(() => props.pdfUrl, () => {
-  if (props.isOpen) {
-    loadPdf()
-  }
+// Encode the URL to handle spaces and special characters
+const encodedPdfUrl = computed(() => {
+  if (!props.pdfUrl) return ''
+  return encodeURI(props.pdfUrl)
 })
 </script>
 
