@@ -123,8 +123,8 @@ watch(messages, saveMessages, { deep: true })
 
 const API_URL = import.meta.env.DEV 
   ? '/api/chat' 
-  : 'https://web-production-d7d37.up.railway.app/query'
-const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTE3IiwiZXhwIjoxNzY5MTE5MTk0fQ.4BWXrMwzhrDrt6A--B_jqLkUoHxYFA-76vETbinUgvA'
+  : 'https://web-production-80b7.up.railway.app/query'
+const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTE3IiwiZXhwIjoxNzY5Mzc4MjgzfQ.lo9eqn6ZIS4pqFA7K8tzf2J80rtSjB96syaOcbVVH8E'
 
 const toggleChat = async () => {
   isOpen.value = !isOpen.value

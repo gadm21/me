@@ -55,7 +55,7 @@ export default defineConfig(({ command, mode }) => {
       },
       proxy: {
         '/api/chat': {
-          target: 'https://web-production-d7d37.up.railway.app',
+          target: 'https://web-production-80b7.up.railway.app',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api\/chat/, '/query'),
         },
