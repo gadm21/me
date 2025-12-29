@@ -63,7 +63,24 @@ const translations = {
       message: 'Message',
       github: 'GitHub',
       googleScholar: 'Google Scholar',
-      viewProfile: 'View Profile'
+      viewProfile: 'View Profile',
+      emailDesc: 'Research collaborations & academic inquiries',
+      githubDesc: 'Open source projects & research code',
+      scholarDesc: 'Publications & citations',
+      subject: 'Subject',
+      researchCollab: 'Research Collaboration',
+      teachingInquiry: 'Teaching Inquiry',
+      other: 'Other',
+      sending: 'Sending...',
+      successMsg: "Message sent successfully! I'll get back to you soon.",
+      errorMsg: 'Something went wrong. Please try again or email me directly.',
+      yourName: 'Your name',
+      yourEmail: 'your@email.com',
+      yourMessage: 'Your message...'
+    },
+    // Common
+    common: {
+      viewGithub: 'View GitHub Profile'
     },
     // Chatbot
     chat: {
