@@ -59,21 +59,21 @@
           <!-- Welcome message with hints -->
           <div v-if="messages.length <= 1" class="welcome-section">
             <div class="welcome-icon">𓂀</div>
-            <h3 class="welcome-title">Welcome to Thoth</h3>
-            <p class="welcome-subtitle">Gad's intelligent assistant</p>
+            <h3 class="welcome-title">{{ t('chat.welcome') }}</h3>
+            <p class="welcome-subtitle">{{ t('chat.subtitle') }}</p>
             
             <div class="capability-hints">
               <button @click="useHint(`Tell me about Gad's research`)" class="hint-chip">
                 <span class="hint-icon">🔬</span>
-                Ask about Gad
+                {{ t('chat.askAbout') }}
               </button>
               <button @click="useHint('Save this to memory: ')" class="hint-chip">
                 <span class="hint-icon">💾</span>
-                Save to memory
+                {{ t('chat.saveMemory') }}
               </button>
               <button @click="useHint('Send an SMS to Gad saying: ')" class="hint-chip">
                 <span class="hint-icon">📱</span>
-                Send SMS to Gad
+                {{ t('chat.sendSms') }}
               </button>
             </div>
           </div>
@@ -103,9 +103,9 @@
 
         <!-- Quick Actions -->
         <div class="quick-actions" v-if="!isTyping && messages.length > 1">
-          <button @click="useHint(`What are Gad's publications?`)" class="quick-btn">Publications</button>
-          <button @click="useHint('What is ThothCraft?')" class="quick-btn">ThothCraft</button>
-          <button @click="useHint('Contact Gad')" class="quick-btn">Contact</button>
+          <button @click="useHint(`What are Gad's publications?`)" class="quick-btn">{{ t('chat.publications') }}</button>
+          <button @click="useHint('What is ThothCraft?')" class="quick-btn">{{ t('chat.thothcraft') }}</button>
+          <button @click="useHint('Contact Gad')" class="quick-btn">{{ t('chat.contactBtn') }}</button>
         </div>
 
         <!-- Input -->
@@ -113,7 +113,7 @@
           <input 
             v-model="userInput"
             type="text"
-            placeholder="Ask about Gad, save info, or send SMS..."
+            :placeholder="t('chat.placeholder')"
             :disabled="isTyping || isListening"
             class="input-field"
             ref="inputField"
@@ -165,8 +165,10 @@
 import { ref, nextTick, onMounted, onUnmounted, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSiteContext } from '@/composables/useSiteContext'
+import { useI18n } from '@/composables/useI18n'
 
 const route = useRoute()
+const { t, currentLanguage } = useI18n()
 
 const isOpen = ref(false)
 const siteContext = ref(null)
@@ -249,108 +251,105 @@ const getPageContext = () => {
 
 // Initialize Speech Recognition
 const initSpeechRecognition = () => {
-  if (typeof window === 'undefined') return
+  if (typeof window === 'undefined') return false
   
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
   if (!SpeechRecognition) {
-    console.warn('Speech recognition not supported')
-    return
+    console.warn('Speech recognition not supported in this browser')
+    return false
   }
   
-  recognition = new SpeechRecognition()
-  recognition.continuous = true  // Keep listening
-  recognition.interimResults = true
-  recognition.maxAlternatives = 1
-  recognition.lang = getCurrentLanguageConfig().speechCode
-  
-  recognition.onstart = () => {
-    console.log('Speech recognition started')
-    isListening.value = true
-  }
-  
-  recognition.onresult = (event) => {
-    let finalTranscript = ''
-    let interimTranscript = ''
+  try {
+    recognition = new SpeechRecognition()
+    recognition.continuous = false
+    recognition.interimResults = true
+    recognition.maxAlternatives = 1
+    recognition.lang = 'en-US'
     
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-      const transcript = event.results[i][0].transcript
-      if (event.results[i].isFinal) {
-        finalTranscript += transcript
-      } else {
-        interimTranscript += transcript
+    recognition.onresult = (event) => {
+      const results = event.results
+      const lastResult = results[results.length - 1]
+      const transcript = lastResult[0].transcript
+      
+      console.log('Transcript:', transcript, 'Final:', lastResult.isFinal)
+      userInput.value = transcript
+      
+      if (lastResult.isFinal) {
+        isListening.value = false
       }
     }
     
-    // Show interim results while speaking
-    if (interimTranscript) {
-      userInput.value = interimTranscript
+    recognition.onend = () => {
+      console.log('Recognition ended')
+      if (isListening.value) {
+        isListening.value = false
+      }
     }
     
-    // When we have final results, use them
-    if (finalTranscript) {
-      userInput.value = finalTranscript
-      // Stop listening and send
-      recognition.stop()
+    recognition.onerror = (event) => {
+      console.error('Speech error:', event.error)
+      isListening.value = false
+      
+      if (event.error === 'not-allowed') {
+        alert('Microphone access was denied. Please allow microphone access and try again.')
+      } else if (event.error === 'no-speech') {
+        // Silent timeout - just stop
+      } else if (event.error === 'audio-capture') {
+        alert('No microphone detected. Please connect a microphone.')
+      }
     }
-  }
-  
-  recognition.onend = () => {
-    console.log('Speech recognition ended')
-    isListening.value = false
-    // Auto-send if we have text
-    if (userInput.value.trim()) {
-      sendMessage()
-    }
-  }
-  
-  recognition.onerror = (event) => {
-    console.error('Speech recognition error:', event.error)
-    isListening.value = false
     
-    if (event.error === 'no-speech') {
-      // User didn't say anything, just stop
-      console.log('No speech detected')
-    } else if (event.error === 'audio-capture') {
-      alert('No microphone found. Please check your microphone settings.')
-    } else if (event.error === 'not-allowed') {
-      alert('Microphone access denied. Please allow microphone access in your browser settings.')
+    recognition.onaudiostart = () => {
+      console.log('Audio capture started')
     }
-  }
-  
-  recognition.onspeechstart = () => {
-    console.log('Speech detected')
-  }
-  
-  recognition.onspeechend = () => {
-    console.log('Speech ended')
+    
+    return true
+  } catch (e) {
+    console.error('Failed to create SpeechRecognition:', e)
+    return false
   }
 }
 
-const toggleVoiceInput = () => {
-  if (!recognition) {
-    initSpeechRecognition()
-  }
-  
-  if (!recognition) {
-    alert('Voice input is not supported in your browser. Try Chrome or Edge.')
+const toggleVoiceInput = async () => {
+  // If already listening, stop
+  if (isListening.value && recognition) {
+    recognition.stop()
+    isListening.value = false
     return
   }
   
-  if (isListening.value) {
-    recognition.stop()
-    isListening.value = false
-  } else {
-    userInput.value = ''
+  // Initialize if needed
+  if (!recognition) {
+    const success = initSpeechRecognition()
+    if (!success) {
+      alert('Voice input is not supported in your browser. Please use Chrome, Edge, or Safari.')
+      return
+    }
+  }
+  
+  // Set language based on current selection
+  const langConfig = getCurrentLanguageConfig()
+  recognition.lang = langConfig.speechCode
+  
+  // Clear input and start
+  userInput.value = ''
+  
+  try {
+    recognition.start()
+    isListening.value = true
+    console.log('Started listening in', langConfig.speechCode)
+  } catch (e) {
+    console.error('Start error:', e)
+    // May already be running, abort and retry
     try {
-      recognition.lang = getCurrentLanguageConfig().speechCode
-      recognition.start()
-    } catch (e) {
-      console.error('Failed to start recognition:', e)
-      // Recognition might already be running, try stopping and restarting
-      recognition.stop()
+      recognition.abort()
       setTimeout(() => {
         recognition.start()
+        isListening.value = true
       }, 100)
+    } catch (e2) {
+      console.error('Retry failed:', e2)
+      isListening.value = false
     }
   }
 }

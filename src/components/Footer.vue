@@ -22,14 +22,16 @@
           </a>
         </div>
         
-        <!-- CV Download -->
-        <a 
-          href="/assets/docs/Gad_Gad_CV.pdf" 
-          target="_blank"
-          class="btn-primary"
+        <!-- Resume Button -->
+        <button 
+          @click="showResumeModal = true"
+          class="btn-primary inline-flex items-center gap-2"
         >
-          Download CV
-        </a>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          {{ t('home.myResume') }}
+        </button>
         
         <!-- Copyright -->
         <div class="text-center text-sm text-text-tertiary space-y-1">
@@ -39,12 +41,27 @@
       </div>
     </div>
   </footer>
+
+  <!-- Resume PDF Modal -->
+  <PdfViewer 
+    :is-open="showResumeModal"
+    :pdf-url="RESUME_PDF_URL"
+    :title="t('home.myResume')"
+    @close="showResumeModal = false"
+  />
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from '@/composables/useI18n'
+import PdfViewer from './PdfViewer.vue'
 
+const { t } = useI18n()
 const currentYear = computed(() => new Date().getFullYear())
+
+// Resume modal
+const showResumeModal = ref(false)
+const RESUME_PDF_URL = '/assets/docs/Gad_Gad_CV.pdf'
 
 const socials = [
   {

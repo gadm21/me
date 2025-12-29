@@ -34,15 +34,27 @@
     <section class="section relative z-10 bg-surface dark:bg-surface-dark">
       <div class="content-container">
         <div class="max-w-2xl mx-auto">
-          <h2 class="section-title text-center mb-8">About Me</h2>
-          <div class="space-y-4 text-lg leading-relaxed text-text-secondary dark:text-text-secondary-dark fade-in">
+          <h2 class="section-title text-center mb-8">{{ t('home.aboutTitle') }}</h2>
+          <div class="space-y-4 text-lg leading-relaxed text-text-secondary dark:text-text-secondary-dark fade-in" :class="{ 'text-right': isRTL }">
             <p>
-              I am a Computer Science Ph.D. student at Western University. 
-              My work focuses on creating intelligent privacy-preserving sensing systems.
+              {{ t('home.aboutP1') }}
             </p>
             <p>
-              Initially I wanted to learn everything, but I realized I am not cool enough, so instead I am exploring these areas: Integrated Sensing and Communication (ISAC), AI, federated learning, differential privacy, and quantum networks.
+              {{ t('home.aboutP2') }}
             </p>
+          </div>
+          
+          <!-- Resume Button -->
+          <div class="text-center mt-8">
+            <button 
+              @click="showResumeModal = true"
+              class="btn-primary inline-flex items-center gap-2"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              {{ t('home.myResume') }}
+            </button>
           </div>
         </div>
       </div>
@@ -51,11 +63,11 @@
     <!-- Research Areas Preview -->
     <section class="section relative z-10 bg-surface-hover/50 dark:bg-surface-hover-dark/30">
       <div class="wide-container">
-        <h2 class="section-title text-center mb-12">Research Focus</h2>
+        <h2 class="section-title text-center mb-12">{{ t('home.researchFocus') }}</h2>
         <div class="grid md:grid-cols-3 gap-6">
           <div 
-            v-for="pillar in pillars" 
-            :key="pillar.title"
+            v-for="pillar in translatedPillars" 
+            :key="pillar.key"
             class="card card-hover text-center"
           >
             <div class="text-4xl mb-4">{{ pillar.icon }}</div>
@@ -69,25 +81,82 @@
         </div>
         <div class="text-center mt-10">
           <router-link to="/research" class="btn-ghost inline-flex items-center gap-2">
-            Learn more about my research
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {{ t('home.learnMore') }}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" :class="{ 'rotate-180': isRTL }">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </router-link>
         </div>
       </div>
     </section>
+
+    <!-- GitHub Contributions Section -->
+    <section class="section relative z-10 bg-surface dark:bg-surface-dark">
+      <div class="content-container">
+        <div class="max-w-4xl mx-auto">
+          <div class="github-contributions-wrapper">
+            <a href="https://github.com/gadm21" target="_blank" rel="noopener noreferrer" class="block">
+              <img 
+                :src="githubContributionsUrl" 
+                alt="GitHub Contributions" 
+                class="github-contributions-img"
+                loading="lazy"
+              />
+            </a>
+          </div>
+          
+          <div class="flex justify-center gap-4 mt-6">
+            <a 
+              href="https://github.com/gadm21" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="btn-ghost inline-flex items-center gap-2"
+            >
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              View GitHub Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume PDF Modal -->
+    <PdfViewer 
+      :is-open="showResumeModal"
+      :pdf-url="RESUME_PDF_URL"
+      :title="t('home.myResume')"
+      @close="showResumeModal = false"
+    />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import gsap from 'gsap'
+import { useI18n } from '@/composables/useI18n'
+import PdfViewer from '@/components/PdfViewer.vue'
+
+const { t, currentLanguage, isRTL } = useI18n()
+
+// Resume modal state
+const showResumeModal = ref(false)
+const RESUME_PDF_URL = '/assets/docs/Gad_Gad_CV.pdf'
 
 const router = useRouter()
 const signalCanvas = ref(null)
 const dotHovered = ref(false)
+
+// GitHub username
+const GITHUB_USERNAME = 'gadm21'
+
+// GitHub contributions graph URL - uses ghchart.rshah.org service
+const githubContributionsUrl = computed(() => {
+  const theme = isDark.value ? 'teal' : '2dd4bf'
+  return `https://ghchart.rshah.org/${theme}/${GITHUB_USERNAME}`
+})
 
 // Mouse/touch interaction state
 const mouseState = ref({
@@ -467,6 +536,32 @@ const pillars = [
   }
 ]
 
+// Translated pillars - reactive to language changes
+const translatedPillars = computed(() => {
+  // Access currentLanguage to trigger reactivity
+  const _ = currentLanguage.value
+  return [
+    {
+      key: 'isac',
+      icon: '◈',
+      title: t('home.isac'),
+      description: t('home.isacDesc')
+    },
+    {
+      key: 'fldp',
+      icon: '◉',
+      title: t('home.flDp'),
+      description: t('home.flDpDesc')
+    },
+    {
+      key: 'quantum',
+      icon: '◊',
+      title: t('home.quantum'),
+      description: t('home.quantumDesc')
+    }
+  ]
+})
+
 const recentWork = [
   {
     type: 'Research',
@@ -640,5 +735,48 @@ onUnmounted(() => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* GitHub Contributions */
+.github-contributions-wrapper {
+  background: var(--color-surface-elevated, #f9fafb);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 12px;
+  padding: 20px;
+  overflow-x: auto;
+  transition: all 0.3s ease;
+}
+
+:root.dark .github-contributions-wrapper {
+  background: rgba(22, 27, 34, 0.8);
+  border-color: rgba(48, 54, 61, 0.8);
+}
+
+.github-contributions-wrapper:hover {
+  border-color: var(--color-primary, #2dd4bf);
+  box-shadow: 0 4px 20px rgba(45, 212, 191, 0.15);
+}
+
+.github-contributions-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+/* Scrollbar for mobile */
+.github-contributions-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.github-contributions-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.github-contributions-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(45, 212, 191, 0.3);
+  border-radius: 3px;
 }
 </style>

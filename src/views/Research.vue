@@ -1,11 +1,11 @@
 <template>
-  <div class="research-page">
+  <div class="research-page" :dir="isRTL ? 'rtl' : 'ltr'">
     <!-- Header -->
     <section class="section pb-8">
       <div class="content-container text-center">
-        <h1 class="page-title mb-4">Research</h1>
+        <h1 class="page-title mb-4">{{ t('research.title') }}</h1>
         <p class="subtitle max-w-2xl mx-auto">
-          Exploring the intersection of wireless sensing and privacy-preserving machine learning
+          {{ t('research.subtitle') }}
         </p>
       </div>
     </section>
@@ -76,13 +76,13 @@
             </div>
             <div class="max-w-none">
               <p class="body-text text-lg mb-6">{{ expandedArea.fullDescription }}</p>
-              <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mb-4">Key Contributions</h3>
+              <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mb-4">{{ t('research.keyContributions') }}</h3>
               <ul class="space-y-2 text-text-secondary dark:text-text-secondary-dark">
                 <li v-for="contribution in expandedArea.contributions" :key="contribution">
                   {{ contribution }}
                 </li>
               </ul>
-              <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mt-6 mb-4">Related Publications</h3>
+              <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mt-6 mb-4">{{ t('research.relatedPubs') }}</h3>
               <div class="space-y-3">
                 <div 
                   v-for="pub in expandedArea.publications" 
@@ -104,7 +104,7 @@
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg transition-colors"
                 >
-                  <span>Visit ThothCraft</span>
+                  <span>{{ t('research.visitThothcraft') }}</span>
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
@@ -122,8 +122,11 @@
 import { ref, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { t, isRTL } = useI18n()
 
 const expandedArea = ref(null)
 

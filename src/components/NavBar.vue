@@ -35,6 +35,9 @@
             </svg>
           </button>
           
+          <!-- Language Selector -->
+          <LanguageSelector />
+          
           <!-- Theme Toggle -->
           <ThemeToggle />
         </div>
@@ -50,6 +53,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
+          <LanguageSelector />
           <ThemeToggle />
           <button 
             @click="mobileMenuOpen = !mobileMenuOpen"
@@ -100,9 +104,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import SearchModal from './SearchModal.vue'
 import ThemeToggle from './ThemeToggle.vue'
+import LanguageSelector from './LanguageSelector.vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t, currentLanguage } = useI18n()
 
 const mobileMenuOpen = ref(false)
 const searchOpen = ref(false)
@@ -127,17 +135,22 @@ onUnmounted(() => {
   window.removeEventListener('close-modals', handleCloseModals)
 })
 
-const navItems = [
-  { name: 'Home', path: '/', label: 'Home' },
-  { name: 'Research', path: '/research', label: 'Research' },
-  { name: 'Publications', path: '/publications', label: 'Publications' },
-  { name: 'Projects', path: '/projects', label: 'Projects' },
-  { name: 'Teaching', path: '/teaching', label: 'Teaching' },
-  { name: 'Blog', path: '/blog', label: 'Blog' },
-  { name: 'Books', path: '/books', label: 'Books' },
-  { name: 'Awards', path: '/awards', label: 'Awards' },
-  { name: 'Contact', path: '/contact', label: 'Contact' }
-]
+// Nav items with translation keys
+const navItems = computed(() => {
+  // Access currentLanguage to make reactive
+  const _ = currentLanguage.value
+  return [
+    { name: 'Home', path: '/', label: t('nav.home') },
+    { name: 'Research', path: '/research', label: t('nav.research') },
+    { name: 'Publications', path: '/publications', label: t('nav.publications') },
+    { name: 'Projects', path: '/projects', label: 'Projects' },
+    { name: 'Teaching', path: '/teaching', label: 'Teaching' },
+    { name: 'Blog', path: '/blog', label: 'Blog' },
+    { name: 'Books', path: '/books', label: 'Books' },
+    { name: 'Awards', path: '/awards', label: 'Awards' },
+    { name: 'Contact', path: '/contact', label: t('nav.contact') }
+  ]
+})
 </script>
 
 <style scoped>

@@ -1,11 +1,11 @@
 <template>
-  <div class="contact-page">
+  <div class="contact-page" :dir="isRTL ? 'rtl' : 'ltr'">
     <!-- Header -->
     <section class="section pb-8">
       <div class="content-container text-center">
-        <h1 class="page-title mb-4">Contact</h1>
+        <h1 class="page-title mb-4">{{ t('contact.title') }}</h1>
         <p class="subtitle max-w-2xl mx-auto">
-          Let's connect and explore the possibilities of collaboration
+          {{ t('contact.subtitle') }}
         </p>
       </div>
     </section>
@@ -20,7 +20,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mb-2">Email</h3>
+            <h3 class="text-lg font-semibold text-text-primary dark:text-text-primary-dark mb-2">{{ t('contact.email') }}</h3>
             <a href="mailto:ggad@uwo.ca" class="link text-base">
               ggad@uwo.ca
             </a>
@@ -63,10 +63,10 @@
         <!-- Quick Message Form -->
         <div class="max-w-xl mx-auto">
           <div class="card">
-            <h3 class="section-title text-center mb-6">Send a Message</h3>
+            <h3 class="section-title text-center mb-6">{{ t('contact.sendMessage') }}</h3>
             <form @submit.prevent="sendMessage" class="space-y-4">
               <div>
-                <label for="name" class="block text-text-secondary dark:text-text-secondary-dark text-sm font-medium mb-2">Name</label>
+                <label for="name" class="block text-text-secondary dark:text-text-secondary-dark text-sm font-medium mb-2">{{ t('contact.name') }}</label>
                 <input 
                   id="name"
                   v-model="form.name"
@@ -100,7 +100,7 @@
                 </select>
               </div>
               <div>
-                <label for="message" class="block text-text-secondary dark:text-text-secondary-dark text-sm font-medium mb-2">Message</label>
+                <label for="message" class="block text-text-secondary dark:text-text-secondary-dark text-sm font-medium mb-2">{{ t('contact.message') }}</label>
                 <textarea 
                   id="message"
                   v-model="form.message"
@@ -132,6 +132,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useI18n } from '@/composables/useI18n'
+
+const { t, isRTL } = useI18n()
 
 const form = ref({
   name: '',
