@@ -221,7 +221,23 @@ const translations = {
       message: 'الرسالة',
       github: 'GitHub',
       googleScholar: 'Google Scholar',
-      viewProfile: 'عرض الملف الشخصي'
+      viewProfile: 'عرض الملف الشخصي',
+      emailDesc: 'التعاون البحثي والاستفسارات الأكاديمية',
+      githubDesc: 'مشاريع مفتوحة المصدر وكود البحث',
+      scholarDesc: 'المنشورات والاقتباسات',
+      subject: 'الموضوع',
+      researchCollab: 'تعاون بحثي',
+      teachingInquiry: 'استفسار تعليمي',
+      other: 'أخرى',
+      sending: 'جاري الإرسال...',
+      successMsg: 'تم إرسال الرسالة بنجاح! سأرد عليك قريباً.',
+      errorMsg: 'حدث خطأ ما. يرجى المحاولة مرة أخرى أو مراسلتي مباشرة.',
+      yourName: 'اسمك',
+      yourEmail: 'بريدك@email.com',
+      yourMessage: 'رسالتك...'
+    },
+    common: {
+      viewGithub: 'عرض ملف GitHub'
     },
     chat: {
       welcome: 'مرحباً بك في تحوت',
@@ -283,7 +299,23 @@ const translations = {
       message: '消息',
       github: 'GitHub',
       googleScholar: 'Google Scholar',
-      viewProfile: '查看资料'
+      viewProfile: '查看资料',
+      emailDesc: '研究合作与学术咨询',
+      githubDesc: '开源项目与研究代码',
+      scholarDesc: '发表论文与引用',
+      subject: '主题',
+      researchCollab: '研究合作',
+      teachingInquiry: '教学咨询',
+      other: '其他',
+      sending: '发送中...',
+      successMsg: '消息发送成功！我会尽快回复您。',
+      errorMsg: '出现错误，请重试或直接发送邮件给我。',
+      yourName: '您的姓名',
+      yourEmail: 'your@email.com',
+      yourMessage: '您的消息...'
+    },
+    common: {
+      viewGithub: '查看GitHub资料'
     },
     chat: {
       welcome: '欢迎来到托特',

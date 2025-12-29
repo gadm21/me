@@ -28,25 +28,6 @@
               </span>
             </div>
           </div>
-          <!-- Language Selector -->
-          <div class="language-selector">
-            <button @click="showLanguageMenu = !showLanguageMenu" class="lang-btn" :title="'Language: ' + getCurrentLanguageConfig().name">
-              <span class="lang-flag">{{ getCurrentLanguageConfig().flag }}</span>
-            </button>
-            <Transition name="dropdown">
-              <div v-if="showLanguageMenu" class="lang-menu">
-                <button 
-                  v-for="lang in SUPPORTED_LANGUAGES" 
-                  :key="lang.code"
-                  @click="setLanguage(lang.code)"
-                  :class="['lang-option', { active: currentLanguage === lang.code }]"
-                >
-                  <span class="lang-flag">{{ lang.flag }}</span>
-                  <span class="lang-name">{{ lang.name }}</span>
-                </button>
-              </div>
-            </Transition>
-          </div>
           <button @click="clearChat" class="clear-btn" title="Clear chat history">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -165,10 +146,16 @@
 import { ref, nextTick, onMounted, onUnmounted, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSiteContext } from '@/composables/useSiteContext'
-import { useI18n } from '@/composables/useI18n'
+import { useI18n, SUPPORTED_LANGUAGES as I18N_LANGUAGES } from '@/composables/useI18n'
 
 const route = useRoute()
-const { t, currentLanguage } = useI18n()
+const { t, currentLanguage: websiteLanguage } = useI18n()
+
+// Get language name from website language setting
+const getWebsiteLanguageName = () => {
+  const lang = I18N_LANGUAGES.find(l => l.code === websiteLanguage.value)
+  return lang ? lang.name : 'English'
+}
 
 const isOpen = ref(false)
 const siteContext = ref(null)
@@ -192,41 +179,10 @@ let recognition = null
 const ttsEnabled = ref(false)
 const synth = typeof window !== 'undefined' ? window.speechSynthesis : null
 
-// Multi-language support
-const SUPPORTED_LANGUAGES = [
-  { code: 'en', name: 'English', speechCode: 'en-US', flag: '🇺🇸' },
-  { code: 'fr', name: 'Français', speechCode: 'fr-FR', flag: '🇫🇷' },
-  { code: 'ar', name: 'العربية', speechCode: 'ar-SA', flag: '🇸🇦', rtl: true },
-  { code: 'zh', name: '中文', speechCode: 'zh-CN', flag: '🇨🇳' }
-]
-const LANGUAGE_STORAGE_KEY = 'thoth_language'
-const currentLanguage = ref(localStorage.getItem(LANGUAGE_STORAGE_KEY) || 'en')
-const showLanguageMenu = ref(false)
-
-const getCurrentLanguageConfig = () => {
-  return SUPPORTED_LANGUAGES.find(l => l.code === currentLanguage.value) || SUPPORTED_LANGUAGES[0]
-}
-
-const setLanguage = (langCode) => {
-  currentLanguage.value = langCode
-  localStorage.setItem(LANGUAGE_STORAGE_KEY, langCode)
-  showLanguageMenu.value = false
-  
-  // Reinitialize speech recognition with new language
-  if (recognition) {
-    recognition.lang = getCurrentLanguageConfig().speechCode
-  }
-  
-  // Notify user
-  const lang = getCurrentLanguageConfig()
-  const msgs = {
-    en: `Language set to English. I'll respond in English now.`,
-    fr: `Langue définie sur Français. Je répondrai en français maintenant.`,
-    ar: `تم تعيين اللغة إلى العربية. سأرد بالعربية الآن.`,
-    zh: `语言已设置为中文。我现在会用中文回复。`
-  }
-  messages.value.push({ role: 'assistant', content: msgs[langCode] })
-  speak(msgs[langCode])
+// Speech code mapping for TTS based on website language
+const getSpeechCode = () => {
+  const codes = { en: 'en-US', fr: 'fr-FR', ar: 'ar-SA', zh: 'zh-CN' }
+  return codes[websiteLanguage.value] || 'en-US'
 }
 
 // Proactive Engagement
@@ -402,23 +358,52 @@ const clearInactivityTimer = () => {
   }
 }
 
-const showProactiveMessage = () => {
+const showProactiveMessage = async () => {
   proactiveShown.value = true
   isOpen.value = true
   
   const context = getPageContext()
-  const proactiveMsg = { 
-    role: 'assistant', 
-    content: `👋 ${context.suggestion}` 
-  }
   
-  // Only add if not already in messages
-  if (messages.value.length <= 1) {
-    messages.value.push(proactiveMsg)
+  // Call AI to generate a unique, bold, poetic message
+  try {
+    isTyping.value = true
+    scrollToBottom()
+    
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${API_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: `Generate a proactive greeting for a visitor on the ${context.page} page. Be bold, poetic, and philosophical like Gad's blog style. Reference: "God, delete my data now" - that level of boldness. Make it unique and thought-provoking. Keep it under 2 sentences.`,
+        chat_id: GLOBAL_CHAT_ID,
+        context: { page: context.page, ...siteContext.value },
+        language: websiteLanguage.value,
+        language_name: getWebsiteLanguageName(),
+        is_proactive: true
+      })
+    })
+
+    const data = await response.json()
+    
+    if (data.success && data.response) {
+      messages.value.push({ role: 'assistant', content: `👋 ${data.response}` })
+      speak(data.response)
+    } else {
+      // Fallback to context suggestion if AI fails
+      messages.value.push({ role: 'assistant', content: `👋 ${context.suggestion}` })
+      speak(context.suggestion)
+    }
+  } catch (error) {
+    console.error('Proactive message error:', error)
+    // Fallback to context suggestion
+    messages.value.push({ role: 'assistant', content: `👋 ${context.suggestion}` })
+    speak(context.suggestion)
+  } finally {
+    isTyping.value = false
+    scrollToBottom()
   }
-  
-  // Speak the proactive message
-  speak(context.suggestion)
 }
 
 // Reset inactivity timer on user activity
@@ -514,8 +499,8 @@ const sendMessage = async () => {
         query: query,
         chat_id: GLOBAL_CHAT_ID,
         context: siteContext.value || {},
-        language: currentLanguage.value,
-        language_name: getCurrentLanguageConfig().name
+        language: websiteLanguage.value,
+        language_name: getWebsiteLanguageName()
       })
     })
 
