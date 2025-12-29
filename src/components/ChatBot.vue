@@ -28,6 +28,25 @@
               </span>
             </div>
           </div>
+          <!-- Language Selector -->
+          <div class="language-selector">
+            <button @click="showLanguageMenu = !showLanguageMenu" class="lang-btn" :title="'Language: ' + getCurrentLanguageConfig().name">
+              <span class="lang-flag">{{ getCurrentLanguageConfig().flag }}</span>
+            </button>
+            <Transition name="dropdown">
+              <div v-if="showLanguageMenu" class="lang-menu">
+                <button 
+                  v-for="lang in SUPPORTED_LANGUAGES" 
+                  :key="lang.code"
+                  @click="setLanguage(lang.code)"
+                  :class="['lang-option', { active: currentLanguage === lang.code }]"
+                >
+                  <span class="lang-flag">{{ lang.flag }}</span>
+                  <span class="lang-name">{{ lang.name }}</span>
+                </button>
+              </div>
+            </Transition>
+          </div>
           <button @click="clearChat" class="clear-btn" title="Clear chat history">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -95,10 +114,38 @@
             v-model="userInput"
             type="text"
             placeholder="Ask about Gad, save info, or send SMS..."
-            :disabled="isTyping"
+            :disabled="isTyping || isListening"
             class="input-field"
             ref="inputField"
           />
+          <!-- Voice Input Button -->
+          <button 
+            type="button"
+            @click="toggleVoiceInput"
+            :class="['voice-btn', { 'listening': isListening }]"
+            :disabled="isTyping"
+            :title="isListening ? 'Stop listening' : 'Voice input'"
+          >
+            <svg v-if="!isListening" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+            </svg>
+            <div v-else class="listening-indicator">
+              <span class="pulse-ring"></span>
+              <span class="pulse-ring delay-1"></span>
+              <span class="pulse-ring delay-2"></span>
+            </div>
+          </button>
+          <!-- TTS Toggle Button -->
+          <button 
+            type="button"
+            @click="toggleTTS"
+            :class="['tts-btn', { 'active': ttsEnabled }]"
+            :title="ttsEnabled ? 'Disable voice responses' : 'Enable voice responses'"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            </svg>
+          </button>
           <button 
             type="submit" 
             :disabled="!userInput.trim() || isTyping"
@@ -115,8 +162,11 @@
 </template>
 
 <script setup>
-import { ref, nextTick, onMounted, watch } from 'vue'
+import { ref, nextTick, onMounted, onUnmounted, watch, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { getSiteContext } from '@/composables/useSiteContext'
+
+const route = useRoute()
 
 const isOpen = ref(false)
 const siteContext = ref(null)
@@ -131,6 +181,252 @@ const STORAGE_KEY = 'gad_chatbot_messages'
 const defaultMessage = { role: 'assistant', content: "Hello! I'm Thoth, Gad's AI assistant. I can help you learn about Gad's research, save information to my memory, or even send him an SMS. What would you like to know?" }
 
 const inputField = ref(null)
+
+// Voice Input (Speech-to-Text)
+const isListening = ref(false)
+let recognition = null
+
+// Text-to-Speech
+const ttsEnabled = ref(false)
+const synth = typeof window !== 'undefined' ? window.speechSynthesis : null
+
+// Multi-language support
+const SUPPORTED_LANGUAGES = [
+  { code: 'en', name: 'English', speechCode: 'en-US', flag: '🇺🇸' },
+  { code: 'fr', name: 'Français', speechCode: 'fr-FR', flag: '🇫🇷' },
+  { code: 'ar', name: 'العربية', speechCode: 'ar-SA', flag: '🇸🇦', rtl: true },
+  { code: 'zh', name: '中文', speechCode: 'zh-CN', flag: '🇨🇳' }
+]
+const LANGUAGE_STORAGE_KEY = 'thoth_language'
+const currentLanguage = ref(localStorage.getItem(LANGUAGE_STORAGE_KEY) || 'en')
+const showLanguageMenu = ref(false)
+
+const getCurrentLanguageConfig = () => {
+  return SUPPORTED_LANGUAGES.find(l => l.code === currentLanguage.value) || SUPPORTED_LANGUAGES[0]
+}
+
+const setLanguage = (langCode) => {
+  currentLanguage.value = langCode
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, langCode)
+  showLanguageMenu.value = false
+  
+  // Reinitialize speech recognition with new language
+  if (recognition) {
+    recognition.lang = getCurrentLanguageConfig().speechCode
+  }
+  
+  // Notify user
+  const lang = getCurrentLanguageConfig()
+  const msgs = {
+    en: `Language set to English. I'll respond in English now.`,
+    fr: `Langue définie sur Français. Je répondrai en français maintenant.`,
+    ar: `تم تعيين اللغة إلى العربية. سأرد بالعربية الآن.`,
+    zh: `语言已设置为中文。我现在会用中文回复。`
+  }
+  messages.value.push({ role: 'assistant', content: msgs[langCode] })
+  speak(msgs[langCode])
+}
+
+// Proactive Engagement
+let inactivityTimer = null
+let proactiveShown = ref(false)
+const INACTIVITY_DELAY = 30000 // 30 seconds
+
+// Context-aware suggestions based on current page
+const getPageContext = () => {
+  const path = route.path
+  if (path === '/' || path === '/home') {
+    return { page: 'Home', suggestion: "I see you're on the home page. Would you like to learn about Gad's research areas or recent publications?" }
+  } else if (path === '/research') {
+    return { page: 'Research', suggestion: "I see you're exploring Gad's research. Want to know more about ISAC, Federated Learning, or Quantum Networks?" }
+  } else if (path === '/publications') {
+    return { page: 'Publications', suggestion: "Looking at publications? I can help you find specific papers or explain Gad's key contributions." }
+  } else if (path === '/contact') {
+    return { page: 'Contact', suggestion: "Want to reach Gad? I can send him an SMS right now, or you can book an appointment!" }
+  }
+  return { page: 'Unknown', suggestion: "How can I help you learn about Gad today?" }
+}
+
+// Initialize Speech Recognition
+const initSpeechRecognition = () => {
+  if (typeof window === 'undefined') return
+  
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+  if (!SpeechRecognition) {
+    console.warn('Speech recognition not supported')
+    return
+  }
+  
+  recognition = new SpeechRecognition()
+  recognition.continuous = true  // Keep listening
+  recognition.interimResults = true
+  recognition.maxAlternatives = 1
+  recognition.lang = getCurrentLanguageConfig().speechCode
+  
+  recognition.onstart = () => {
+    console.log('Speech recognition started')
+    isListening.value = true
+  }
+  
+  recognition.onresult = (event) => {
+    let finalTranscript = ''
+    let interimTranscript = ''
+    
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript
+      if (event.results[i].isFinal) {
+        finalTranscript += transcript
+      } else {
+        interimTranscript += transcript
+      }
+    }
+    
+    // Show interim results while speaking
+    if (interimTranscript) {
+      userInput.value = interimTranscript
+    }
+    
+    // When we have final results, use them
+    if (finalTranscript) {
+      userInput.value = finalTranscript
+      // Stop listening and send
+      recognition.stop()
+    }
+  }
+  
+  recognition.onend = () => {
+    console.log('Speech recognition ended')
+    isListening.value = false
+    // Auto-send if we have text
+    if (userInput.value.trim()) {
+      sendMessage()
+    }
+  }
+  
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error)
+    isListening.value = false
+    
+    if (event.error === 'no-speech') {
+      // User didn't say anything, just stop
+      console.log('No speech detected')
+    } else if (event.error === 'audio-capture') {
+      alert('No microphone found. Please check your microphone settings.')
+    } else if (event.error === 'not-allowed') {
+      alert('Microphone access denied. Please allow microphone access in your browser settings.')
+    }
+  }
+  
+  recognition.onspeechstart = () => {
+    console.log('Speech detected')
+  }
+  
+  recognition.onspeechend = () => {
+    console.log('Speech ended')
+  }
+}
+
+const toggleVoiceInput = () => {
+  if (!recognition) {
+    initSpeechRecognition()
+  }
+  
+  if (!recognition) {
+    alert('Voice input is not supported in your browser. Try Chrome or Edge.')
+    return
+  }
+  
+  if (isListening.value) {
+    recognition.stop()
+    isListening.value = false
+  } else {
+    userInput.value = ''
+    try {
+      recognition.lang = getCurrentLanguageConfig().speechCode
+      recognition.start()
+    } catch (e) {
+      console.error('Failed to start recognition:', e)
+      // Recognition might already be running, try stopping and restarting
+      recognition.stop()
+      setTimeout(() => {
+        recognition.start()
+      }, 100)
+    }
+  }
+}
+
+// Text-to-Speech
+const toggleTTS = () => {
+  ttsEnabled.value = !ttsEnabled.value
+  if (ttsEnabled.value) {
+    speak("Voice responses enabled. I'll read my messages aloud.")
+  }
+}
+
+const speak = (text) => {
+  if (!synth || !ttsEnabled.value) return
+  
+  // Cancel any ongoing speech
+  synth.cancel()
+  
+  const utterance = new SpeechSynthesisUtterance(text)
+  utterance.rate = 1.0
+  utterance.pitch = 1.0
+  utterance.volume = 1.0
+  
+  // Try to use a nice voice
+  const voices = synth.getVoices()
+  const preferredVoice = voices.find(v => v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Daniel'))
+  if (preferredVoice) {
+    utterance.voice = preferredVoice
+  }
+  
+  synth.speak(utterance)
+}
+
+// Proactive Engagement
+const startInactivityTimer = () => {
+  clearInactivityTimer()
+  if (proactiveShown.value || isOpen.value) return
+  
+  inactivityTimer = setTimeout(() => {
+    if (!isOpen.value && !proactiveShown.value) {
+      showProactiveMessage()
+    }
+  }, INACTIVITY_DELAY)
+}
+
+const clearInactivityTimer = () => {
+  if (inactivityTimer) {
+    clearTimeout(inactivityTimer)
+    inactivityTimer = null
+  }
+}
+
+const showProactiveMessage = () => {
+  proactiveShown.value = true
+  isOpen.value = true
+  
+  const context = getPageContext()
+  const proactiveMsg = { 
+    role: 'assistant', 
+    content: `👋 ${context.suggestion}` 
+  }
+  
+  // Only add if not already in messages
+  if (messages.value.length <= 1) {
+    messages.value.push(proactiveMsg)
+  }
+  
+  // Speak the proactive message
+  speak(context.suggestion)
+}
+
+// Reset inactivity timer on user activity
+const resetInactivityTimer = () => {
+  proactiveShown.value = false
+  startInactivityTimer()
+}
 
 const useHint = (hint) => {
   userInput.value = hint
@@ -218,7 +514,9 @@ const sendMessage = async () => {
       body: JSON.stringify({
         query: query,
         chat_id: GLOBAL_CHAT_ID,
-        context: siteContext.value || {}
+        context: siteContext.value || {},
+        language: currentLanguage.value,
+        language_name: getCurrentLanguageConfig().name
       })
     })
 
@@ -226,17 +524,58 @@ const sendMessage = async () => {
     
     if (data.success && data.response) {
       messages.value.push({ role: 'assistant', content: data.response })
+      // Speak the response if TTS is enabled
+      speak(data.response)
     } else {
-      messages.value.push({ role: 'assistant', content: "I couldn't process that request. Please try again." })
+      const errorMsg = "I couldn't process that request. Please try again."
+      messages.value.push({ role: 'assistant', content: errorMsg })
+      speak(errorMsg)
     }
   } catch (error) {
     console.error('Chat error:', error)
-    messages.value.push({ role: 'assistant', content: "Sorry, I'm having trouble connecting. Please try again later." })
+    const errorMsg = "Sorry, I'm having trouble connecting. Please try again later."
+    messages.value.push({ role: 'assistant', content: errorMsg })
+    speak(errorMsg)
   } finally {
     isTyping.value = false
     scrollToBottom()
   }
 }
+
+// Lifecycle hooks
+onMounted(() => {
+  // Initialize speech recognition
+  initSpeechRecognition()
+  
+  // Start proactive engagement timer
+  startInactivityTimer()
+  
+  // Listen for user activity to reset timer
+  document.addEventListener('mousemove', resetInactivityTimer)
+  document.addEventListener('keypress', resetInactivityTimer)
+  document.addEventListener('scroll', resetInactivityTimer)
+  document.addEventListener('click', resetInactivityTimer)
+})
+
+onUnmounted(() => {
+  clearInactivityTimer()
+  document.removeEventListener('mousemove', resetInactivityTimer)
+  document.removeEventListener('keypress', resetInactivityTimer)
+  document.removeEventListener('scroll', resetInactivityTimer)
+  document.removeEventListener('click', resetInactivityTimer)
+  
+  // Stop any ongoing speech
+  if (synth) {
+    synth.cancel()
+  }
+})
+
+// Watch for route changes to update context
+watch(() => route.path, () => {
+  // Reset proactive shown when navigating to new page
+  proactiveShown.value = false
+  startInactivityTimer()
+})
 </script>
 
 <style scoped>
@@ -340,6 +679,87 @@ const sendMessage = async () => {
   background: #2dd4bf;
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
+}
+
+/* Language Selector */
+.language-selector {
+  position: relative;
+}
+
+.lang-btn {
+  width: 32px;
+  height: 32px;
+  background: rgba(48, 54, 61, 0.5);
+  border: 1px solid rgba(48, 54, 61, 0.8);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lang-btn:hover {
+  background: rgba(45, 212, 191, 0.2);
+  border-color: rgba(45, 212, 191, 0.4);
+}
+
+.lang-flag {
+  font-size: 16px;
+}
+
+.lang-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: rgba(22, 27, 34, 0.98);
+  border: 1px solid rgba(48, 54, 61, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  min-width: 140px;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  color: #e6edf3;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.lang-option:hover {
+  background: rgba(45, 212, 191, 0.15);
+}
+
+.lang-option.active {
+  background: rgba(45, 212, 191, 0.2);
+  color: #2dd4bf;
+}
+
+.lang-name {
+  flex: 1;
+}
+
+/* Dropdown animation */
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: all 0.2s ease;
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
 }
 
 .clear-btn {
@@ -590,6 +1010,99 @@ const sendMessage = async () => {
 .send-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Voice Input Button */
+.voice-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(48, 54, 61, 0.6);
+  border: 1px solid rgba(48, 54, 61, 0.8);
+  border-radius: 8px;
+  color: #8b949e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.voice-btn:hover:not(:disabled) {
+  background: rgba(45, 212, 191, 0.2);
+  border-color: rgba(45, 212, 191, 0.4);
+  color: #2dd4bf;
+}
+
+.voice-btn.listening {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #ef4444;
+}
+
+.listening-indicator {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: voicePulse 1.5s ease-out infinite;
+}
+
+.pulse-ring.delay-1 {
+  animation-delay: 0.3s;
+}
+
+.pulse-ring.delay-2 {
+  animation-delay: 0.6s;
+}
+
+@keyframes voicePulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}
+
+/* TTS Toggle Button */
+.tts-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(48, 54, 61, 0.6);
+  border: 1px solid rgba(48, 54, 61, 0.8);
+  border-radius: 8px;
+  color: #8b949e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tts-btn:hover {
+  background: rgba(45, 212, 191, 0.2);
+  border-color: rgba(45, 212, 191, 0.4);
+  color: #2dd4bf;
+}
+
+.tts-btn.active {
+  background: rgba(45, 212, 191, 0.3);
+  border-color: rgba(45, 212, 191, 0.6);
+  color: #2dd4bf;
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.3);
 }
 
 /* Transition animations */
