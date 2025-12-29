@@ -22,7 +22,7 @@
           >
             <div class="card card-hover h-full cursor-pointer">
               <div class="flex items-start justify-between mb-4">
-                <span class="text-3xl text-primary group-hover:text-primary-dark transition-colors">
+                <span class="text-3xl">
                   {{ area.icon }}
                 </span>
                 <button class="text-text-tertiary group-hover:text-primary transition-colors">
@@ -95,6 +95,21 @@
                   </router-link>
                 </div>
               </div>
+              
+              <!-- External Link (e.g., ThothCraft) -->
+              <div v-if="expandedArea.link" class="mt-6 pt-6 border-t border-border dark:border-border-dark">
+                <a 
+                  :href="expandedArea.link" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg transition-colors"
+                >
+                  <span>Visit ThothCraft</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -115,26 +130,27 @@ const expandedArea = ref(null)
 const researchAreas = ref([
   {
     id: 1,
+    icon: '📡',
     title: 'Integrated Sensing and Communication (ISAC)',
-    summary: 'Leveraging wireless signals for environmental awareness.',
-    tags: ['WiFi Sensing', 'FMCW Radar', 'Smart Home', 'Environmental Awareness'],
-    fullDescription: 'Wireless sensing represents a paradigm shift in how we perceive and interact with our environments. By analyzing wireless signals (e.g., Channel State Information (CSI) from Wi-Fi signals, radar signals), we can detect human presence, recognize activities, and enhance security, all without invasive cameras or wearable devices.',
+    summary: 'Leveraging wireless signals for environmental awareness and next-gen wireless systems.',
+    tags: ['WiFi Sensing', 'FMCW Radar', 'CSI', '6G'],
+    fullDescription: 'ISAC represents a paradigm shift in wireless systems, combining communication and sensing into unified frameworks. By analyzing wireless signals (e.g., Channel State Information from Wi-Fi, radar signals), we can detect human presence, recognize activities, and enhance security without invasive cameras or wearables.',
     contributions: [
       'Enhanced environmental awareness and security for smart devices using WiFi-Sensing',
-      'Developed integrated sensing and communication (ISAC) systems based on FMCW radar',
+      'Developed integrated sensing and communication systems based on FMCW radar',
       'Created privacy-preserving sensing techniques for smart homes'
     ],
     publications: [
       'Enhanced Environmental Awareness and Security for Smart Devices using WiFi-Sensing (2025)'
-      
     ]
   },
   {
     id: 2,
-    title: 'Federated Learning',
-    summary: 'Communication-efficient and privacy-preserving distributed machine learning for heterogeneous systems.',
-    tags: ['Federated Learning', 'Knowledge Distillation', 'UAV-IoT', 'Communication Efficiency'],
-    fullDescription: 'Federated Learning enables collaborative model training across decentralized data sources without sharing raw data. My research focuses on making federated learning more efficient and practical for resource-constrained environments like UAV-IoT systems and heterogeneous networks.',
+    icon: '🔗',
+    title: 'Federated Learning (FL)',
+    summary: 'Communication-efficient distributed machine learning for heterogeneous systems.',
+    tags: ['Knowledge Distillation', 'UAV-IoT', 'Communication Efficiency', 'Heterogeneous Systems'],
+    fullDescription: 'Federated Learning enables collaborative model training across decentralized data sources without sharing raw data. My research focuses on making FL more efficient and practical for resource-constrained environments like UAV-IoT systems and heterogeneous networks through knowledge distillation techniques.',
     contributions: [
       'Joint self-organizing maps and knowledge distillation for UAV-IoT systems',
       'Communication-efficient federated learning with selective knowledge distillation',
@@ -142,18 +158,19 @@ const researchAreas = ref([
     ],
     publications: [
       'Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems (2024)',
-      'Communication-efficient federated learning in drone-assisted IoT networks (2023)', 
+      'Communication-efficient federated learning in drone-assisted IoT networks (2023)',
       'Federated learning via augmented knowledge distillation for heterogenous deep human activity recognition systems (2022)'
     ]
   },
   {
     id: 3,
-    title: 'Differential Privacy',
-    summary: 'Privacy-preserving deep learning models',
-    tags: ['Differential Privacy', 'Privacy Preservation', 'Membership Inference Attack (MIA)'],
-    fullDescription: 'Differential Privacy provides rigorous mathematical guarantees about the privacy of individuals in datasets. My research focuses on integrating differential privacy with federated learning and knowledge distillation for practical privacy-preserving systems.',
+    icon: '🔒',
+    title: 'Differential Privacy (DP)',
+    summary: 'Rigorous mathematical privacy guarantees for machine learning models.',
+    tags: ['Local DP', 'Privacy Preservation', 'MIA Defense', 'Privacy Budget'],
+    fullDescription: 'Differential Privacy provides rigorous mathematical guarantees about the privacy of individuals in datasets. My research focuses on integrating DP with federated learning and knowledge distillation for practical privacy-preserving systems that defend against membership inference attacks.',
     contributions: [
-      'Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy',
+      'Communication-efficient and privacy-preserving FL via joint knowledge distillation and differential privacy',
       'Joint knowledge distillation and local differential privacy for heterogeneous systems',
       'Privacy-preserving federated learning for human activity recognition systems'
     ],
@@ -161,6 +178,55 @@ const researchAreas = ref([
       'Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks (2024)',
       'Joint knowledge distillation and local differential privacy for communication-efficient federated learning in heterogeneous systems (2023)'
     ]
+  },
+  {
+    id: 4,
+    icon: '⚛️',
+    title: 'Quantum Networks',
+    summary: 'Quantum Key Distribution (QKD) and Quantum Federated Learning (QFL).',
+    tags: ['QKD', 'QFL', 'Post-Quantum Cryptography', 'Quantum Computing'],
+    fullDescription: 'Quantum networks represent the future of secure communication and distributed computing. My research explores Quantum Key Distribution (QKD) for unconditionally secure communication and Quantum Federated Learning (QFL) for leveraging quantum computing advantages in distributed machine learning.',
+    contributions: [
+      'Exploring quantum-safe federated learning protocols',
+      'Investigating QKD integration with classical networks',
+      'Developing hybrid quantum-classical learning frameworks'
+    ],
+    publications: [
+      'Research in progress - Quantum Federated Learning frameworks'
+    ]
+  },
+  {
+    id: 5,
+    icon: '🤖',
+    title: 'Artificial Intelligence',
+    summary: 'REDUS adaptive resampling and agentic AI applications.',
+    tags: ['REDUS', 'Agentic AI', 'Deep Learning', 'IoT Intelligence'],
+    fullDescription: 'My AI research spans adaptive learning techniques like REDUS (adaptive resampling for efficient deep learning) and agentic AI applications that can autonomously perform complex tasks. This includes developing intelligent systems that can reason, plan, and execute multi-step workflows.',
+    contributions: [
+      'REDUS: Adaptive resampling for efficient deep learning in centralized and federated IoT networks',
+      'Agentic AI applications for autonomous task execution',
+      'Intelligent systems for complex workflow automation'
+    ],
+    publications: [
+      'REDUS: Adaptive Resampling for Efficient Deep Learning in Centralized and Federated IoT Networks (2025)'
+    ]
+  },
+  {
+    id: 6,
+    icon: '🌐',
+    title: 'Edge Integrated Intelligence (EI²)',
+    summary: 'A paradigm coined by our research group - ThothCraft is an implementation.',
+    tags: ['Edge Computing', 'Distributed Intelligence', 'ThothCraft', 'Smart Systems'],
+    fullDescription: 'Edge Integrated Intelligence (EI²) is a term coined by our research group to describe the seamless integration of AI capabilities at the network edge. ThothCraft is a practical implementation of this concept, demonstrating how intelligent agents can operate at the edge to provide personalized, context-aware services.',
+    contributions: [
+      'Coined the EI² paradigm for edge-native intelligence',
+      'Developed ThothCraft as a reference implementation',
+      'Created frameworks for distributed agentic systems at the edge'
+    ],
+    publications: [
+      'ThothCraft: Edge Integrated Intelligence in Practice (Implementation)'
+    ],
+    link: 'https://www.thothcraft.com/'
   }
 ])
 
