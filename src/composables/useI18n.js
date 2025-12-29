@@ -143,7 +143,23 @@ const translations = {
       message: 'Message',
       github: 'GitHub',
       googleScholar: 'Google Scholar',
-      viewProfile: 'Voir le Profil'
+      viewProfile: 'Voir le Profil',
+      emailDesc: 'Collaborations de recherche et demandes académiques',
+      githubDesc: 'Projets open source et code de recherche',
+      scholarDesc: 'Publications et citations',
+      subject: 'Sujet',
+      researchCollab: 'Collaboration de Recherche',
+      teachingInquiry: 'Demande d\'Enseignement',
+      other: 'Autre',
+      sending: 'Envoi en cours...',
+      successMsg: 'Message envoyé avec succès ! Je vous répondrai bientôt.',
+      errorMsg: 'Une erreur s\'est produite. Veuillez réessayer ou m\'envoyer un email directement.',
+      yourName: 'Votre nom',
+      yourEmail: 'votre@email.com',
+      yourMessage: 'Votre message...'
+    },
+    common: {
+      viewGithub: 'Voir le Profil GitHub'
     },
     chat: {
       welcome: 'Bienvenue sur Thoth',
