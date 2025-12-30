@@ -406,10 +406,12 @@ const showProactiveMessage = async () => {
   }
 }
 
-// Reset inactivity timer on user activity
+// Reset inactivity timer on user activity (but don't reset proactiveShown - it should only show once)
 const resetInactivityTimer = () => {
-  proactiveShown.value = false
-  startInactivityTimer()
+  // Only restart timer if proactive message hasn't been shown yet
+  if (!proactiveShown.value) {
+    startInactivityTimer()
+  }
 }
 
 const useHint = (hint) => {
@@ -531,34 +533,14 @@ onMounted(() => {
   // Initialize speech recognition
   initSpeechRecognition()
   
-  // Start proactive engagement timer
-  startInactivityTimer()
-  
-  // Listen for user activity to reset timer
-  document.addEventListener('mousemove', resetInactivityTimer)
-  document.addEventListener('keypress', resetInactivityTimer)
-  document.addEventListener('scroll', resetInactivityTimer)
-  document.addEventListener('click', resetInactivityTimer)
+  // No proactive messages - Thoth only responds to user
 })
 
 onUnmounted(() => {
-  clearInactivityTimer()
-  document.removeEventListener('mousemove', resetInactivityTimer)
-  document.removeEventListener('keypress', resetInactivityTimer)
-  document.removeEventListener('scroll', resetInactivityTimer)
-  document.removeEventListener('click', resetInactivityTimer)
-  
   // Stop any ongoing speech
   if (synth) {
     synth.cancel()
   }
-})
-
-// Watch for route changes to update context
-watch(() => route.path, () => {
-  // Reset proactive shown when navigating to new page
-  proactiveShown.value = false
-  startInactivityTimer()
 })
 </script>
 

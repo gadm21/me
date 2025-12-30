@@ -104,20 +104,6 @@
               />
             </a>
           </div>
-          
-          <div class="flex justify-center gap-4 mt-6">
-            <a 
-              href="https://github.com/gadm21" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="btn-ghost inline-flex items-center gap-2"
-            >
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-              {{ t('common.viewGithub') }}
-            </a>
-          </div>
         </div>
       </div>
     </section>
@@ -152,7 +138,7 @@ const dotHovered = ref(false)
 // GitHub username
 const GITHUB_USERNAME = 'gadm21'
 
-// GitHub contributions graph URL - uses ghchart.rshah.org service
+// GitHub contributions graph URL
 const githubContributionsUrl = computed(() => {
   const theme = isDark.value ? 'teal' : '2dd4bf'
   return `https://ghchart.rshah.org/${theme}/${GITHUB_USERNAME}`
@@ -231,7 +217,7 @@ const handleMouseLeave = () => {
 const handleClick = () => {
   mouseState.value.clicked = true
   mouseState.value.clickTime = time
-  signalParams.value.perturbation = 1.5 // Big perturbation on click
+  signalParams.value.perturbation = 1.5
 }
 
 // Generate noisy composite signal value at position x
@@ -277,69 +263,72 @@ const generateSignal = (x, t, centerY, isNoisy = true) => {
   return value
 }
 
-// Draw a single 3D Fourier component emanating from center dot
-const draw3DFourierComponent = (centerX, centerY, dotRadius, endX, freq, amp, t, index, totalComponents, color, perturbation) => {
+// Rainbow colors for light refraction (7 colors - ROYGBIV)
+const rainbowColors = [
+  '#ff0000', // Red
+  '#ff8c00', // Orange
+  '#ffff00', // Yellow
+  '#00ff00', // Green
+  '#00ffff', // Cyan
+  '#0000ff', // Blue
+  '#8b00ff', // Violet
+]
+
+// Pre-calculate sin/cos for angles (optimization)
+const numRays = 7
+const angleSpread = Math.PI * 0.55
+const baseAngle = -angleSpread / 2
+const rayAngles = []
+for (let i = 0; i < numRays; i++) {
+  const angle = baseAngle + (i / (numRays - 1)) * angleSpread
+  rayAngles.push({ cos: Math.cos(angle), sin: Math.sin(angle) })
+}
+
+// Polished rainbow ray drawing - smooth lines with proper line caps
+const drawRainbowRay = (centerX, centerY, dotRadius, endX, t, index) => {
   if (!ctx) return
   
-  // Calculate the angle for this component (spread out in a fan from center)
-  const angleSpread = Math.PI * 0.5 // 90 degrees total spread
-  const baseAngle = -angleSpread / 2
-  const angleStep = totalComponents > 1 ? angleSpread / (totalComponents - 1) : 0
-  const angle = baseAngle + index * angleStep
+  const { cos: cosA, sin: sinA } = rayAngles[index]
+  const color = rainbowColors[index]
+  const startDistance = dotRadius + 8
+  const maxDistance = endX - centerX + 200
   
-  // 3D perspective parameters - affected by click
-  let clickEffect = 0
-  if (mouseState.value.clicked) {
-    const timeSinceClick = t - mouseState.value.clickTime
-    clickEffect = Math.sin(timeSinceClick * 5) * Math.exp(-timeSinceClick * 2)
-  }
-  const perspective = 600 + clickEffect * 200
-  const zDepth = (index - totalComponents / 2) * 50 + clickEffect * 30
+  // Smooth line rendering
+  ctx.lineCap = 'round'
+  ctx.lineJoin = 'round'
   
   ctx.beginPath()
   ctx.strokeStyle = color
-  ctx.lineWidth = 2.5 - Math.abs(index - totalComponents / 2) * 0.2
-  ctx.globalAlpha = 0.85 - Math.abs(index - totalComponents / 2) * 0.08
+  // Thicker lines in center, thinner at edges for depth
+  ctx.lineWidth = 2.2 - Math.abs(index - 3) * 0.15
+  // Fade opacity towards edges of spectrum
+  ctx.globalAlpha = 0.9 - Math.abs(index - 3) * 0.05
   
-  // Add glow effect
-  ctx.shadowColor = color
-  ctx.shadowBlur = 10 + perturbation * 5
-  
-  const startDistance = dotRadius + 3
-  const maxDistance = Math.max(endX - centerX, 100)
-  
+  const step = 3 // Smoother curves
   let firstPoint = true
-  for (let d = 0; d <= maxDistance; d += 3) {
+  
+  for (let d = 0; d <= maxDistance; d += step) {
     const progress = d / maxDistance
+    const baseX = centerX + cosA * (startDistance + d)
+    const baseY = centerY + sinA * (startDistance + d)
     
-    // Calculate base position along the ray from center
-    const baseX = centerX + Math.cos(angle) * (startDistance + d)
-    const baseY = centerY + Math.sin(angle) * (startDistance + d)
+    // Smooth wave with fade-in and fade-out
+    const fadeIn = Math.min(d / 60, 1) // Smooth start
+    const wavePhase = d * 0.008 - t * 1.0
+    const waveAmp = 12 * fadeIn * Math.min(progress * 2.5, 1) * (1 - progress * 0.6)
+    const wave = Math.sin(wavePhase) * waveAmp
     
-    // Add sine wave oscillation - moving from left to right (negative time)
-    const wavePhase = freq * d * 0.012 - t * (index + 1) * 0.6
-    const waveAmp = amp * 0.5 * Math.min(progress * 3, 1) * (1 - progress * 0.4)
-    
-    // Add perturbation from mouse movement
-    const perturbAmp = perturbation * 15 * Math.sin(d * 0.1 + t * 3)
-    
-    const perpX = -Math.sin(angle) * (Math.sin(wavePhase) * waveAmp + perturbAmp)
-    const perpY = Math.cos(angle) * (Math.sin(wavePhase) * waveAmp + perturbAmp)
-    
-    // Apply 3D perspective transformation
-    const scale = perspective / (perspective + zDepth * (1 - progress))
-    const x3d = centerX + (baseX + perpX - centerX) * scale
-    const y3d = centerY + (baseY + perpY - centerY) * scale
+    const x = baseX - sinA * wave
+    const y = baseY + cosA * wave
     
     if (firstPoint) {
-      ctx.moveTo(x3d, y3d)
+      ctx.moveTo(x, y)
       firstPoint = false
     } else {
-      ctx.lineTo(x3d, y3d)
+      ctx.lineTo(x, y)
     }
   }
   ctx.stroke()
-  ctx.shadowBlur = 0
   ctx.globalAlpha = 1
 }
 
@@ -370,29 +359,22 @@ const draw = () => {
     // Decay perturbation over time
     signalParams.value.perturbation *= 0.95
     
-    // Colors
-    const inputColor = '#2dd4bf' // Teal for noisy input
-    const outputColors = [
-      '#60a5fa', // Blue
-      '#a78bfa', // Purple
-      '#f472b6', // Pink
-      '#fbbf24', // Yellow
-      '#34d399', // Green
-    ]
+    // Draw input signal (left side) - spans from edge to center
+    const leftMargin = 0
+    const dotRadius = 20
+    const step = 3 // Smoother curves
     
-    // Draw noisy input signal (left side)
+    // Polished input beam - smooth line caps
+    ctx.lineCap = 'round'
+    ctx.lineJoin = 'round'
     ctx.beginPath()
-    ctx.strokeStyle = inputColor
+    ctx.strokeStyle = isDark.value ? '#ffffff' : '#1a1a1a'
     ctx.lineWidth = 2.5
-    ctx.shadowColor = inputColor
-    ctx.shadowBlur = 10
+    ctx.globalAlpha = 0.92
     
-    const leftMargin = 50
-    const dotRadius = 20 // Smaller dot radius
-    
-    for (let x = leftMargin; x < centerX - dotRadius - 10; x += 2) {
-      const fadeOut = Math.min((centerX - dotRadius - 10 - x) / 100, 1)
-      const fadeIn = Math.min((x - leftMargin) / 50, 1)
+    for (let x = leftMargin; x < centerX - dotRadius - 10; x += step) {
+      const fadeOut = Math.min((centerX - dotRadius - 10 - x) / 80, 1)
+      const fadeIn = Math.min(x / 60, 1) // Smooth fade in from edge
       const value = generateSignal(x, time, centerY, true) * fadeOut * fadeIn
       
       if (x === leftMargin) {
@@ -402,27 +384,12 @@ const draw = () => {
       }
     }
     ctx.stroke()
-    ctx.shadowBlur = 0
+    ctx.globalAlpha = 1
     
-    // Draw 3D decomposed Fourier components emanating from the dot
-    const { baseFrequencies, baseAmplitudes } = signalParams.value
-    const rightEnd = width - 30
-    
-    const perturbation = signalParams.value.perturbation
-    for (let i = 0; i < baseFrequencies.length; i++) {
-      draw3DFourierComponent(
-        centerX,
-        centerY,
-        dotRadius,
-        rightEnd,
-        baseFrequencies[i],
-        baseAmplitudes[i],
-        time,
-        i,
-        baseFrequencies.length,
-        outputColors[i % outputColors.length],
-        perturbation
-      )
+    // Draw rainbow refracted rays - span to right edge
+    const rightEnd = width // Extend to full width
+    for (let i = 0; i < numRays; i++) {
+      drawRainbowRay(centerX, centerY, dotRadius, rightEnd, time, i)
     }
     
     // Decay click effect
@@ -447,22 +414,49 @@ const draw = () => {
   animationId = requestAnimationFrame(draw)
 }
 
-// Particle system for visual flair - use plain array to avoid reactivity overhead
+// Optimized particle system - fewer particles, no shadows
 let particleList = []
-const maxParticles = 50
+const maxParticles = 25 // Reduced from 80
+
+// Rainbow particle colors (pre-computed RGB strings)
+const particleColorsLight = [
+  'rgba(0,0,0,',       // Black (input) for light theme
+  'rgba(255,0,0,',     // Red
+  'rgba(255,140,0,',   // Orange  
+  'rgba(255,255,0,',   // Yellow
+  'rgba(0,200,0,',     // Green (darker for light bg)
+  'rgba(0,200,200,',   // Cyan (darker for light bg)
+  'rgba(0,0,255,',     // Blue
+  'rgba(139,0,255,',   // Violet
+]
+
+const particleColorsDark = [
+  'rgba(255,255,255,', // White (input) for dark theme
+  'rgba(255,0,0,',     // Red
+  'rgba(255,140,0,',   // Orange  
+  'rgba(255,255,0,',   // Yellow
+  'rgba(0,255,0,',     // Green
+  'rgba(0,255,255,',   // Cyan
+  'rgba(0,0,255,',     // Blue
+  'rgba(139,0,255,',   // Violet
+]
 
 const drawParticles = (centerX, centerY, dotRadius) => {
   if (!ctx) return
   
-  // Spawn new particles more frequently
-  if (particleList.length < maxParticles && Math.random() < 0.5) {
+  const particleColors = isDark.value ? particleColorsDark : particleColorsLight
+  
+  // Spawn particles from left edge only (no mouse interaction)
+  if (particleList.length < maxParticles && Math.random() < 0.25) {
     particleList.push({
-      x: 30 + Math.random() * 50,
-      y: centerY + (Math.random() - 0.5) * 150,
-      vx: 1.5 + Math.random() * 2.5,
-      vy: (Math.random() - 0.5) * 1.5,
+      x: 10 + Math.random() * 40,
+      y: centerY + (Math.random() - 0.5) * 100,
+      vx: 2.5 + Math.random() * 2,
+      vy: (Math.random() - 0.5) * 1,
       life: 1,
-      size: 2 + Math.random() * 4
+      size: 2 + Math.random() * 3,
+      colorIdx: 0,
+      isRainbow: false
     })
   }
   
@@ -472,25 +466,34 @@ const drawParticles = (centerX, centerY, dotRadius) => {
     const p = particleList[i]
     p.x += p.vx
     p.y += p.vy
-    p.life -= 0.005 // Slower decay
+    p.life -= 0.012
     
-    // Attract towards center
+    // Attract towards center on input side
     if (p.x < centerX - dotRadius) {
-      const dy = centerY - p.y
-      p.vy += dy * 0.002
+      p.vy += (centerY - p.y) * 0.002
     }
     
-    // Draw particle only if radius is positive
-    const radius = Math.max(0.1, p.size * p.life)
-    if (radius > 0 && p.life > 0) {
+    // Transform to rainbow at prism
+    if (!p.isRainbow && p.x > centerX - dotRadius) {
+      p.isRainbow = true
+      p.colorIdx = 1 + Math.floor(Math.random() * 7)
+      const spreadAngle = (Math.random() - 0.5) * Math.PI * 0.6
+      const speed = 2.5 + Math.random() * 2
+      p.vx = Math.cos(spreadAngle) * speed
+      p.vy = Math.sin(spreadAngle) * speed
+      p.life = 0.85
+    }
+    
+    // Draw particle
+    if (p.life > 0) {
+      const radius = p.size * p.life
       ctx.beginPath()
-      ctx.fillStyle = `rgba(45, 212, 191, ${Math.max(0, p.life) * 0.8})`
+      ctx.fillStyle = particleColors[p.colorIdx] + (p.life * 0.85) + ')'
       ctx.arc(p.x, p.y, radius, 0, Math.PI * 2)
       ctx.fill()
     }
     
-    // Keep particle if still alive and not past center
-    if (p.life > 0.01 && p.x < centerX + 50) {
+    if (p.life > 0.02 && p.x < canvasWidth + 20) {
       newParticles.push(p)
     }
   }
@@ -631,19 +634,31 @@ onUnmounted(() => {
 }
 
 .center-dot {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #5eead4, #2dd4bf 40%, #14b8a6 70%, #0d9488);
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6) 30%, transparent 60%),
+    conic-gradient(from 180deg, 
+      #ff0000 0deg, 
+      #ff8c00 30deg, 
+      #ffff00 60deg, 
+      #00ff00 120deg, 
+      #00ffff 180deg, 
+      #0000ff 240deg, 
+      #8b00ff 300deg, 
+      #ff0000 360deg
+    );
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 
-    0 0 20px rgba(45, 212, 191, 0.6),
-    0 0 40px rgba(45, 212, 191, 0.3),
-    inset 0 0 10px rgba(255, 255, 255, 0.2);
+    0 0 25px rgba(255, 255, 255, 0.8),
+    0 0 50px rgba(255, 200, 100, 0.4),
+    0 0 80px rgba(255, 100, 100, 0.2),
+    inset 0 0 15px rgba(255, 255, 255, 0.5);
   position: relative;
   overflow: visible;
 }
@@ -651,29 +666,47 @@ onUnmounted(() => {
 .center-dot::before {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: -4px;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, transparent, #2dd4bf, transparent, #5eead4, transparent);
-  animation: rotate-glow 3s linear infinite;
-  opacity: 0.7;
+  background: conic-gradient(from 0deg, 
+    rgba(255, 0, 0, 0.6), 
+    rgba(255, 140, 0, 0.6), 
+    rgba(255, 255, 0, 0.6), 
+    rgba(0, 255, 0, 0.6), 
+    rgba(0, 255, 255, 0.6), 
+    rgba(0, 0, 255, 0.6), 
+    rgba(139, 0, 255, 0.6), 
+    rgba(255, 0, 0, 0.6)
+  );
+  animation: rotate-glow 4s linear infinite;
+  opacity: 0.8;
   z-index: -1;
+  filter: blur(3px);
 }
 
 .center-dot::after {
   content: '';
   position: absolute;
-  inset: -6px;
+  inset: -8px;
   border-radius: 50%;
-  border: 1.5px solid rgba(45, 212, 191, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.5);
   animation: pulse-ring 2s ease-out infinite;
+  background: conic-gradient(from 90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent
+  );
 }
 
 .center-dot.hovered {
   transform: scale(1.3);
   box-shadow: 
-    0 0 40px rgba(45, 212, 191, 0.8),
-    0 0 80px rgba(45, 212, 191, 0.5),
-    inset 0 0 15px rgba(255, 255, 255, 0.3);
+    0 0 40px rgba(255, 255, 255, 1),
+    0 0 80px rgba(255, 200, 100, 0.6),
+    0 0 120px rgba(255, 100, 100, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.6);
 }
 
 .dot-text {
@@ -764,19 +797,5 @@ onUnmounted(() => {
   display: block;
   margin: 0 auto;
   border-radius: 4px;
-}
-
-/* Scrollbar for mobile */
-.github-contributions-wrapper::-webkit-scrollbar {
-  height: 6px;
-}
-
-.github-contributions-wrapper::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.github-contributions-wrapper::-webkit-scrollbar-thumb {
-  background: rgba(45, 212, 191, 0.3);
-  border-radius: 3px;
 }
 </style>
