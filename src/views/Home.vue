@@ -186,6 +186,120 @@
       </div>
     </section>
 
+    <!-- Proactive Task Setting Section -->
+    <section class="section relative z-10 bg-surface-hover/50 dark:bg-surface-hover-dark/30">
+      <div class="content-container">
+        <div class="max-w-2xl mx-auto">
+          <h2 class="section-title text-center mb-8">{{ t('home.setYourTasks') || 'Set Your Tasks' }}</h2>
+          
+          <!-- Task Setting Form -->
+          <div class="task-setting-card" v-if="!currentTasks">
+            <div class="task-form-header">
+              <span class="task-icon">🎯</span>
+              <span>Be proactive! Set your tasks before Thoth asks</span>
+            </div>
+            
+            <form @submit.prevent="setTasksProactively" class="task-form">
+              <div class="form-group">
+                <label for="primary-task">
+                  <span class="task-label-icon">🎯</span>
+                  Primary Task (Required)
+                </label>
+                <input 
+                  id="primary-task"
+                  v-model="taskForm.primary" 
+                  type="text" 
+                  placeholder="e.g., Finish methodology section of paper"
+                  required
+                  class="task-input"
+                />
+              </div>
+              
+              <div class="form-group">
+                <label for="secondary-task">
+                  <span class="task-label-icon">📌</span>
+                  Secondary Task (Optional)
+                </label>
+                <input 
+                  id="secondary-task"
+                  v-model="taskForm.secondary" 
+                  type="text" 
+                  placeholder="e.g., Review literature for related work"
+                  class="task-input"
+                />
+              </div>
+              
+              <div class="form-group">
+                <label for="bonus-task">
+                  <span class="task-label-icon">⭐</span>
+                  Bonus Task (Optional)
+                </label>
+                <input 
+                  id="bonus-task"
+                  v-model="taskForm.bonus" 
+                  type="text" 
+                  placeholder="e.g., Prepare presentation slides"
+                  class="task-input"
+                />
+              </div>
+              
+              <button 
+                type="submit" 
+                :disabled="isSettingTasks || !taskForm.primary.trim()"
+                class="btn-primary w-full"
+              >
+                <span v-if="isSettingTasks">Setting Tasks...</span>
+                <span v-else>🚀 Set My Tasks</span>
+              </button>
+            </form>
+            
+            <!-- Success Message -->
+            <div v-if="taskSuccessMessage" class="success-message">
+              ✅ {{ taskSuccessMessage }}
+              <div v-if="xpAwarded" class="xp-award">+{{ xpAwarded }} XP earned!</div>
+            </div>
+            
+            <!-- Error Message -->
+            <div v-if="taskErrorMessage" class="error-message">
+              ❌ {{ taskErrorMessage }}
+            </div>
+          </div>
+          
+          <!-- Current Tasks Display -->
+          <div class="current-tasks-card" v-else>
+            <div class="current-tasks-header">
+              <span class="task-icon">✅</span>
+              <span>Today's Tasks Are Set</span>
+            </div>
+            
+            <div class="tasks-list">
+              <div class="task-item" v-if="currentTasks.tasks?.primary">
+                <span class="task-type">🎯 PRIMARY</span>
+                <span class="task-desc">{{ currentTasks.tasks.primary.description }}</span>
+                <span class="task-progress">{{ currentTasks.tasks.primary.progress }}%</span>
+              </div>
+              
+              <div class="task-item" v-if="currentTasks.tasks?.secondary">
+                <span class="task-type">📌 SECONDARY</span>
+                <span class="task-desc">{{ currentTasks.tasks.secondary.description }}</span>
+                <span class="task-progress">{{ currentTasks.tasks.secondary.progress }}%</span>
+              </div>
+              
+              <div class="task-item" v-if="currentTasks.tasks?.bonus">
+                <span class="task-type">⭐ BONUS</span>
+                <span class="task-desc">{{ currentTasks.tasks.bonus.description }}</span>
+                <span class="task-progress">{{ currentTasks.tasks.bonus.progress }}%</span>
+              </div>
+            </div>
+            
+            <div class="task-footer">
+              <p class="task-note">📱 Update progress via SMS or wait for Thoth's check-in messages</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Resume PDF Modal -->
     <PdfViewer 
       :is-open="showResumeModal"
@@ -226,6 +340,18 @@ const githubContributionsUrl = computed(() => {
 const thothStats = ref(null)
 const thothContributions = ref([])
 
+// Proactive task setting
+const currentTasks = ref(null)
+const taskForm = ref({
+  primary: '',
+  secondary: '',
+  bonus: ''
+})
+const isSettingTasks = ref(false)
+const taskSuccessMessage = ref('')
+const taskErrorMessage = ref('')
+const xpAwarded = ref(0)
+
 // Fetch Thoth gamification data
 const fetchThothData = async () => {
   try {
@@ -241,6 +367,80 @@ const fetchThothData = async () => {
     console.log('Thoth data not available:', error)
     // Generate placeholder data for demo
     generatePlaceholderData()
+  }
+}
+
+// Fetch current tasks
+const fetchCurrentTasks = async () => {
+  try {
+    const response = await fetch('https://api.thothcraft.com/data/tasks/current')
+    if (response.ok) {
+      const data = await response.json()
+      if (data.success) {
+        currentTasks.value = data.tasks
+      }
+    }
+  } catch (error) {
+    console.log('Current tasks not available:', error)
+  }
+}
+
+// Set tasks proactively
+const setTasksProactively = async () => {
+  if (!taskForm.value.primary.trim()) return
+  
+  isSettingTasks.value = true
+  taskSuccessMessage.value = ''
+  taskErrorMessage.value = ''
+  xpAwarded.value = 0
+  
+  try {
+    const response = await fetch('https://api.thothcraft.com/data/tasks/set', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        primary: taskForm.value.primary.trim(),
+        secondary: taskForm.value.secondary.trim() || undefined,
+        bonus: taskForm.value.bonus.trim() || undefined
+      })
+    })
+    
+    const data = await response.json()
+    
+    if (data.success) {
+      taskSuccessMessage.value = data.message
+      xpAwarded.value = data.xp_awarded || 0
+      
+      // Update current tasks
+      await fetchCurrentTasks()
+      
+      // Clear form
+      taskForm.value = { primary: '', secondary: '', bonus: '' }
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        taskSuccessMessage.value = ''
+        xpAwarded.value = 0
+      }, 5000)
+    } else {
+      taskErrorMessage.value = data.error || 'Failed to set tasks'
+      
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        taskErrorMessage.value = ''
+      }, 5000)
+    }
+  } catch (error) {
+    taskErrorMessage.value = 'Network error. Please try again.'
+    console.error('Error setting tasks:', error)
+    
+    setTimeout(() => {
+      taskErrorMessage.value = ''
+    }, 5000)
+  } finally {
+    isSettingTasks.value = false
   }
 }
 
@@ -756,6 +956,9 @@ onMounted(() => {
   // Fetch Thoth accountability data
   fetchThothData()
   
+  // Fetch current tasks
+  fetchCurrentTasks()
+  
   // Hero entrance animation
   gsap.timeline()
     .from('.center-dot', { 
@@ -1186,6 +1389,224 @@ onUnmounted(() => {
   .legend-cell {
     width: 10px;
     height: 10px;
+  }
+}
+
+/* Proactive Task Setting Styles */
+.task-setting-card,
+.current-tasks-card {
+  background: var(--color-surface-elevated, #f9fafb);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+:root.dark .task-setting-card,
+:root.dark .current-tasks-card {
+  background: rgba(22, 27, 34, 0.8);
+  border-color: rgba(48, 54, 61, 0.8);
+}
+
+.task-setting-card:hover {
+  border-color: var(--color-primary, #2dd4bf);
+  box-shadow: 0 4px 20px rgba(45, 212, 191, 0.15);
+}
+
+.task-form-header,
+.current-tasks-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text, #1f2937);
+}
+
+:root.dark .task-form-header,
+:root.dark .current-tasks-header {
+  color: #e5e7eb;
+}
+
+.task-icon {
+  font-size: 1.4rem;
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text, #1f2937);
+}
+
+:root.dark .form-group label {
+  color: #e5e7eb;
+}
+
+.task-label-icon {
+  font-size: 1rem;
+}
+
+.task-input {
+  padding: 12px 16px;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text, #1f2937);
+  transition: all 0.2s ease;
+}
+
+:root.dark .task-input {
+  background: rgba(17, 24, 39, 0.8);
+  border-color: rgba(48, 54, 61, 0.8);
+  color: #e5e7eb;
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: var(--color-primary, #2dd4bf);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1);
+}
+
+.task-input::placeholder {
+  color: var(--color-text-secondary, #6b7280);
+}
+
+:root.dark .task-input::placeholder {
+  color: #6b7280;
+}
+
+.success-message,
+.error-message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.success-message {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #16a34a;
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #dc2626;
+}
+
+.xp-award {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-top: 4px;
+  color: #f59e0b;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+}
+
+:root.dark .task-item {
+  background: rgba(17, 24, 39, 0.8);
+  border-color: rgba(48, 54, 61, 0.8);
+}
+
+.task-type {
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.task-desc {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--color-text, #1f2937);
+}
+
+:root.dark .task-desc {
+  color: #e5e7eb;
+}
+
+.task-progress {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #6b7280);
+  background: var(--color-surface-hover, #f3f4f6);
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+:root.dark .task-progress {
+  color: #9ca3af;
+  background: rgba(48, 54, 61, 0.8);
+}
+
+.task-footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border, #e5e7eb);
+}
+
+:root.dark .task-footer {
+  border-top-color: rgba(48, 54, 61, 0.8);
+}
+
+.task-note {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary, #6b7280);
+  text-align: center;
+}
+
+:root.dark .task-note {
+  color: #9ca3af;
+}
+
+/* Responsive adjustments for task setting */
+@media (max-width: 768px) {
+  .task-setting-card,
+  .current-tasks-card {
+    padding: 20px;
+  }
+  
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .task-progress {
+    align-self: flex-end;
   }
 }
 </style>
