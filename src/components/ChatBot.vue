@@ -37,8 +37,8 @@
 
         <!-- Messages -->
         <div ref="messagesContainer" class="chat-messages">
-          <!-- Welcome message with hints -->
-          <div v-if="messages.length <= 1" class="welcome-section">
+          <!-- Welcome message with hints (only show when no messages) -->
+          <div v-if="messages.length === 0" class="welcome-section">
             <div class="welcome-icon">𓂀</div>
             <h3 class="welcome-title">{{ t('chat.welcome') }}</h3>
             <p class="welcome-subtitle">{{ t('chat.subtitle') }}</p>
@@ -167,7 +167,8 @@ const messagesContainer = ref(null)
 const GLOBAL_CHAT_ID = 'gad_website_global_chat'
 const STORAGE_KEY = 'gad_chatbot_messages'
 
-const defaultMessage = { role: 'assistant', content: "Hello! I'm Thoth, Gad's AI assistant. I can help you learn about Gad's research, save information to my memory, or even send him an SMS. What would you like to know?" }
+// No default message - Thoth only responds when user initiates
+const defaultMessage = null
 
 const inputField = ref(null)
 
@@ -358,52 +359,10 @@ const clearInactivityTimer = () => {
   }
 }
 
+// Proactive messages disabled - Thoth only responds when user initiates
 const showProactiveMessage = async () => {
-  proactiveShown.value = true
-  isOpen.value = true
-  
-  const context = getPageContext()
-  
-  // Call AI to generate a unique, bold, poetic message
-  try {
-    isTyping.value = true
-    scrollToBottom()
-    
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${API_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query: `Generate a proactive greeting for a visitor on the ${context.page} page. Be bold, poetic, and philosophical like Gad's blog style. Reference: "God, delete my data now" - that level of boldness. Make it unique and thought-provoking. Keep it under 2 sentences.`,
-        chat_id: GLOBAL_CHAT_ID,
-        context: { page: context.page, ...siteContext.value },
-        language: websiteLanguage.value,
-        language_name: getWebsiteLanguageName(),
-        is_proactive: true
-      })
-    })
-
-    const data = await response.json()
-    
-    if (data.success && data.response) {
-      messages.value.push({ role: 'assistant', content: `👋 ${data.response}` })
-      speak(data.response)
-    } else {
-      // Fallback to context suggestion if AI fails
-      messages.value.push({ role: 'assistant', content: `👋 ${context.suggestion}` })
-      speak(context.suggestion)
-    }
-  } catch (error) {
-    console.error('Proactive message error:', error)
-    // Fallback to context suggestion
-    messages.value.push({ role: 'assistant', content: `👋 ${context.suggestion}` })
-    speak(context.suggestion)
-  } finally {
-    isTyping.value = false
-    scrollToBottom()
-  }
+  // Do nothing - disabled
+  return
 }
 
 // Reset inactivity timer on user activity (but don't reset proactiveShown - it should only show once)
@@ -424,11 +383,11 @@ const useHint = (hint) => {
 }
 
 const clearChat = () => {
-  messages.value = [defaultMessage]
+  messages.value = []
   localStorage.removeItem(STORAGE_KEY)
 }
 
-// Load messages from localStorage or use default
+// Load messages from localStorage or start empty
 const loadMessages = () => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
@@ -441,7 +400,7 @@ const loadMessages = () => {
   } catch (e) {
     console.error('Failed to load chat history:', e)
   }
-  return [defaultMessage]
+  return []
 }
 
 // Save messages to localStorage (limit to 50 messages)
