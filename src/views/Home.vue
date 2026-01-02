@@ -123,7 +123,7 @@
                   v-for="month in monthLabels" 
                   :key="month.name"
                   class="month-label"
-                  :style="{ left: ((month.start - 1) * 14) + 'px' }"
+                  :style="{ left: ((month.start - 1) * 14) + 7 + 'px' }"
                 >
                   {{ month.name }}
                 </div>
@@ -1056,6 +1056,7 @@ onUnmounted(() => {
   padding-left: 40px; /* Space for day labels */
   width: 100%;
   max-width: 100%;
+  min-width: 600px; /* Minimum width for proper spacing */
 }
 
 .month-label {
@@ -1066,6 +1067,7 @@ onUnmounted(() => {
   text-transform: uppercase;
   white-space: nowrap;
   top: 0;
+  transform: translateX(-50%); /* Center on the column */
 }
 
 :root.dark .month-label {
@@ -1078,6 +1080,7 @@ onUnmounted(() => {
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+  min-width: 600px; /* Match months container */
 }
 
 .day-labels {
