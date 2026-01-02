@@ -94,6 +94,7 @@
     <section class="section relative z-10 bg-surface dark:bg-surface-dark">
       <div class="content-container">
         <div class="max-w-4xl mx-auto">
+          <h2 class="section-title text-center mb-8">{{ t('home.githubContributions') || 'GitHub Contributions' }}</h2>
           <div class="github-contributions-wrapper">
             <a href="https://github.com/gadm21" target="_blank" rel="noopener noreferrer" class="block">
               <img 
@@ -108,17 +109,17 @@
       </div>
     </section>
 
-    <!-- Thoth Accountability Grid Section -->
+    <!-- Personal Task Tracking Section -->
     <section class="section relative z-10 bg-surface dark:bg-surface-dark pb-16">
       <div class="content-container">
         <div class="max-w-4xl mx-auto">
-          <h2 class="section-title text-center mb-8">{{ t('home.thothAccountability') || 'Thoth Accountability' }}</h2>
+          <h2 class="section-title text-center mb-8">{{ t('home.personalTaskTracking') || 'Personal Task Tracking' }}</h2>
           <div class="thoth-contributions-wrapper">
             <!-- Header with stats -->
             <div class="thoth-header">
               <div class="thoth-title">
                 <span class="thoth-icon">𓂀</span>
-                <span>Thoth Accountability</span>
+                <span>Personal Task Tracking</span>
               </div>
               <div class="thoth-stats" v-if="thothStats">
                 <span class="stat-item">
@@ -190,110 +191,152 @@
     <section class="section relative z-10 bg-surface-hover/50 dark:bg-surface-hover-dark/30">
       <div class="content-container">
         <div class="max-w-2xl mx-auto">
-          <h2 class="section-title text-center mb-8">{{ t('home.setYourTasks') || 'Set Your Tasks' }}</h2>
-          
-          <!-- Task Setting Form -->
-          <div class="task-setting-card" v-if="!currentTasks">
-            <div class="task-form-header">
-              <span class="task-icon">🎯</span>
-              <span>Be proactive! Set your tasks before Thoth asks</span>
-            </div>
-            
-            <form @submit.prevent="setTasksProactively" class="task-form">
-              <div class="form-group">
-                <label for="primary-task">
-                  <span class="task-label-icon">🎯</span>
-                  Primary Task (Required)
-                </label>
-                <input 
-                  id="primary-task"
-                  v-model="taskForm.primary" 
-                  type="text" 
-                  placeholder="e.g., Finish methodology section of paper"
-                  required
-                  class="task-input"
-                />
-              </div>
-              
-              <div class="form-group">
-                <label for="secondary-task">
-                  <span class="task-label-icon">📌</span>
-                  Secondary Task (Optional)
-                </label>
-                <input 
-                  id="secondary-task"
-                  v-model="taskForm.secondary" 
-                  type="text" 
-                  placeholder="e.g., Review literature for related work"
-                  class="task-input"
-                />
-              </div>
-              
-              <div class="form-group">
-                <label for="bonus-task">
-                  <span class="task-label-icon">⭐</span>
-                  Bonus Task (Optional)
-                </label>
-                <input 
-                  id="bonus-task"
-                  v-model="taskForm.bonus" 
-                  type="text" 
-                  placeholder="e.g., Prepare presentation slides"
-                  class="task-input"
-                />
-              </div>
-              
-              <button 
-                type="submit" 
-                :disabled="isSettingTasks || !taskForm.primary.trim()"
-                class="btn-primary w-full"
-              >
-                <span v-if="isSettingTasks">Setting Tasks...</span>
-                <span v-else>🚀 Set My Tasks</span>
-              </button>
-            </form>
-            
-            <!-- Success Message -->
-            <div v-if="taskSuccessMessage" class="success-message">
-              ✅ {{ taskSuccessMessage }}
-              <div v-if="xpAwarded" class="xp-award">+{{ xpAwarded }} XP earned!</div>
-            </div>
-            
-            <!-- Error Message -->
-            <div v-if="taskErrorMessage" class="error-message">
-              ❌ {{ taskErrorMessage }}
-            </div>
-          </div>
+          <h2 class="section-title text-center mb-8">{{ t('home.taskManagement') || 'Task Management' }}</h2>
           
           <!-- Current Tasks Display -->
-          <div class="current-tasks-card" v-else>
+          <div class="current-tasks-card" v-if="currentTasks">
             <div class="current-tasks-header">
-              <span class="task-icon">✅</span>
-              <span>Today's Tasks Are Set</span>
+              <span class="task-icon">📱</span>
+              <span>Today's Tasks (Set via SMS)</span>
             </div>
             
             <div class="tasks-list">
               <div class="task-item" v-if="currentTasks.tasks?.primary">
-                <span class="task-type">🎯 PRIMARY</span>
-                <span class="task-desc">{{ currentTasks.tasks.primary.description }}</span>
-                <span class="task-progress">{{ currentTasks.tasks.primary.progress }}%</span>
+                <div class="task-info">
+                  <span class="task-type">🎯 PRIMARY</span>
+                  <span class="task-desc">{{ currentTasks.tasks.primary.description }}</span>
+                </div>
+                <div class="task-controls">
+                  <span class="task-progress">{{ currentTasks.tasks.primary.progress }}%</span>
+                  <div class="task-buttons">
+                    <button 
+                      @click="updateTaskProgress('primary', 25)"
+                      :disabled="currentTasks.tasks.primary.progress >= 25"
+                      class="task-btn"
+                      title="25%"
+                    >25%</button>
+                    <button 
+                      @click="updateTaskProgress('primary', 50)"
+                      :disabled="currentTasks.tasks.primary.progress >= 50"
+                      class="task-btn"
+                      title="50%"
+                    >50%</button>
+                    <button 
+                      @click="updateTaskProgress('primary', 75)"
+                      :disabled="currentTasks.tasks.primary.progress >= 75"
+                      class="task-btn"
+                      title="75%"
+                    >75%</button>
+                    <button 
+                      @click="completeTask('primary')"
+                      :disabled="currentTasks.tasks.primary.completed"
+                      class="task-btn complete-btn"
+                      title="Complete"
+                    >✓</button>
+                  </div>
+                </div>
               </div>
               
               <div class="task-item" v-if="currentTasks.tasks?.secondary">
-                <span class="task-type">📌 SECONDARY</span>
-                <span class="task-desc">{{ currentTasks.tasks.secondary.description }}</span>
-                <span class="task-progress">{{ currentTasks.tasks.secondary.progress }}%</span>
+                <div class="task-info">
+                  <span class="task-type">📌 SECONDARY</span>
+                  <span class="task-desc">{{ currentTasks.tasks.secondary.description }}</span>
+                </div>
+                <div class="task-controls">
+                  <span class="task-progress">{{ currentTasks.tasks.secondary.progress }}%</span>
+                  <div class="task-buttons">
+                    <button 
+                      @click="updateTaskProgress('secondary', 25)"
+                      :disabled="currentTasks.tasks.secondary.progress >= 25"
+                      class="task-btn"
+                      title="25%"
+                    >25%</button>
+                    <button 
+                      @click="updateTaskProgress('secondary', 50)"
+                      :disabled="currentTasks.tasks.secondary.progress >= 50"
+                      class="task-btn"
+                      title="50%"
+                    >50%</button>
+                    <button 
+                      @click="updateTaskProgress('secondary', 75)"
+                      :disabled="currentTasks.tasks.secondary.progress >= 75"
+                      class="task-btn"
+                      title="75%"
+                    >75%</button>
+                    <button 
+                      @click="completeTask('secondary')"
+                      :disabled="currentTasks.tasks.secondary.completed"
+                      class="task-btn complete-btn"
+                      title="Complete"
+                    >✓</button>
+                  </div>
+                </div>
               </div>
               
               <div class="task-item" v-if="currentTasks.tasks?.bonus">
-                <span class="task-type">⭐ BONUS</span>
-                <span class="task-desc">{{ currentTasks.tasks.bonus.description }}</span>
-                <span class="task-progress">{{ currentTasks.tasks.bonus.progress }}%</span>
+                <div class="task-info">
+                  <span class="task-type">⭐ BONUS</span>
+                  <span class="task-desc">{{ currentTasks.tasks.bonus.description }}</span>
+                </div>
+                <div class="task-controls">
+                  <span class="task-progress">{{ currentTasks.tasks.bonus.progress }}%</span>
+                  <div class="task-buttons">
+                    <button 
+                      @click="updateTaskProgress('bonus', 25)"
+                      :disabled="currentTasks.tasks.bonus.progress >= 25"
+                      class="task-btn"
+                      title="25%"
+                    >25%</button>
+                    <button 
+                      @click="updateTaskProgress('bonus', 50)"
+                      :disabled="currentTasks.tasks.bonus.progress >= 50"
+                      class="task-btn"
+                      title="50%"
+                    >50%</button>
+                    <button 
+                      @click="updateTaskProgress('bonus', 75)"
+                      :disabled="currentTasks.tasks.bonus.progress >= 75"
+                      class="task-btn"
+                      title="75%"
+                    >75%</button>
+                    <button 
+                      @click="completeTask('bonus')"
+                      :disabled="currentTasks.tasks.bonus.completed"
+                      class="task-btn complete-btn"
+                      title="Complete"
+                    >✓</button>
+                  </div>
+                </div>
               </div>
             </div>
             
+            <!-- Task Management Messages -->
+            <div v-if="taskManagementMessage" class="task-management-message" :class="taskMessageType">
+              {{ taskManagementMessage }}
+              <div v-if="xpAwardedManagement" class="xp-award">+{{ xpAwardedManagement }} XP earned!</div>
+            </div>
+            
             <div class="task-footer">
-              <p class="task-note">📱 Update progress via SMS or wait for Thoth's check-in messages</p>
+              <p class="task-note">📱 Set tasks via SMS with Thoth. Manage progress here or via SMS.</p>
+              <button @click="refreshCurrentTasks" class="refresh-btn">🔄 Refresh Tasks</button>
+            </div>
+          </div>
+          
+          <!-- No Tasks Set -->
+          <div class="no-tasks-card" v-else>
+            <div class="no-tasks-header">
+              <span class="task-icon">📱</span>
+              <span>No Tasks Set Today</span>
+            </div>
+            <p class="no-tasks-message">
+              Wait for Thoth's morning SMS to set your daily tasks, or send your tasks proactively via SMS.
+            </p>
+            <div class="sms-instructions">
+              <h4>SMS Task Setting:</h4>
+              <p>• Single task: "Finish methodology section"</p>
+              <p>• Multiple tasks: "Primary task | Secondary task | Bonus task"</p>
+              <p>• Progress updates: Send numbers 0-100</p>
+              <p>• Complete: Send "done", "finished", or "completed"</p>
             </div>
           </div>
         </div>
@@ -340,17 +383,11 @@ const githubContributionsUrl = computed(() => {
 const thothStats = ref(null)
 const thothContributions = ref([])
 
-// Proactive task setting
+// Task management state
 const currentTasks = ref(null)
-const taskForm = ref({
-  primary: '',
-  secondary: '',
-  bonus: ''
-})
-const isSettingTasks = ref(false)
-const taskSuccessMessage = ref('')
-const taskErrorMessage = ref('')
-const xpAwarded = ref(0)
+const taskManagementMessage = ref('')
+const taskMessageType = ref('') // 'success' or 'error'
+const xpAwardedManagement = ref(0)
 
 // Fetch Thoth gamification data
 const fetchThothData = async () => {
@@ -361,11 +398,18 @@ const fetchThothData = async () => {
       if (data.success && data.data) {
         thothStats.value = data.data
         thothContributions.value = data.data.contributions || []
+        console.log('Thoth data loaded:', thothContributions.value.length, 'contributions')
       }
     }
   } catch (error) {
     console.log('Thoth data not available:', error)
     // Generate placeholder data for demo
+    generatePlaceholderData()
+  }
+  
+  // Ensure we always have some data
+  if (thothContributions.value.length === 0) {
+    console.log('No contributions data, generating placeholder')
     generatePlaceholderData()
   }
 }
@@ -385,67 +429,113 @@ const fetchCurrentTasks = async () => {
   }
 }
 
-// Set tasks proactively
-const setTasksProactively = async () => {
-  if (!taskForm.value.primary.trim()) return
-  
-  isSettingTasks.value = true
-  taskSuccessMessage.value = ''
-  taskErrorMessage.value = ''
-  xpAwarded.value = 0
-  
+// Task management functions
+const updateTaskProgress = async (taskType, progress) => {
   try {
-    const response = await fetch('https://api.thothcraft.com/data/tasks/set', {
+    const response = await fetch('https://api.thothcraft.com/data/tasks/progress', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        primary: taskForm.value.primary.trim(),
-        secondary: taskForm.value.secondary.trim() || undefined,
-        bonus: taskForm.value.bonus.trim() || undefined
+        task_type: taskType,
+        progress: progress
       })
     })
     
     const data = await response.json()
     
     if (data.success) {
-      taskSuccessMessage.value = data.message
-      xpAwarded.value = data.xp_awarded || 0
+      taskManagementMessage.value = data.message
+      taskMessageType.value = 'success'
+      xpAwardedManagement.value = data.xp_awarded || 0
       
-      // Update current tasks
+      // Refresh current tasks to show updated progress
       await fetchCurrentTasks()
       
-      // Clear form
-      taskForm.value = { primary: '', secondary: '', bonus: '' }
-      
-      // Clear success message after 5 seconds
+      // Clear message after 5 seconds
       setTimeout(() => {
-        taskSuccessMessage.value = ''
-        xpAwarded.value = 0
+        taskManagementMessage.value = ''
+        xpAwardedManagement.value = 0
       }, 5000)
     } else {
-      taskErrorMessage.value = data.error || 'Failed to set tasks'
+      taskManagementMessage.value = data.error || 'Failed to update progress'
+      taskMessageType.value = 'error'
       
-      // Clear error message after 5 seconds
       setTimeout(() => {
-        taskErrorMessage.value = ''
+        taskManagementMessage.value = ''
       }, 5000)
     }
   } catch (error) {
-    taskErrorMessage.value = 'Network error. Please try again.'
-    console.error('Error setting tasks:', error)
+    taskManagementMessage.value = 'Network error. Please try again.'
+    taskMessageType.value = 'error'
+    console.error('Error updating task progress:', error)
     
     setTimeout(() => {
-      taskErrorMessage.value = ''
+      taskManagementMessage.value = ''
     }, 5000)
-  } finally {
-    isSettingTasks.value = false
   }
+}
+
+const completeTask = async (taskType) => {
+  try {
+    const response = await fetch('https://api.thothcraft.com/data/tasks/complete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        task_type: taskType
+      })
+    })
+    
+    const data = await response.json()
+    
+    if (data.success) {
+      taskManagementMessage.value = data.message
+      taskMessageType.value = 'success'
+      xpAwardedManagement.value = data.xp_awarded || 0
+      
+      // Refresh current tasks to show completion
+      await fetchCurrentTasks()
+      
+      // Clear message after 5 seconds
+      setTimeout(() => {
+        taskManagementMessage.value = ''
+        xpAwardedManagement.value = 0
+      }, 5000)
+    } else {
+      taskManagementMessage.value = data.error || 'Failed to complete task'
+      taskMessageType.value = 'error'
+      
+      setTimeout(() => {
+        taskManagementMessage.value = ''
+      }, 5000)
+    }
+  } catch (error) {
+    taskManagementMessage.value = 'Network error. Please try again.'
+    taskMessageType.value = 'error'
+    console.error('Error completing task:', error)
+    
+    setTimeout(() => {
+      taskManagementMessage.value = ''
+    }, 5000)
+  }
+}
+
+const refreshCurrentTasks = async () => {
+  await fetchCurrentTasks()
+  taskManagementMessage.value = 'Tasks refreshed!'
+  taskMessageType.value = 'success'
+  
+  setTimeout(() => {
+    taskManagementMessage.value = ''
+  }, 2000)
 }
 
 // Generate placeholder data if API is not available
 const generatePlaceholderData = () => {
+  console.log('Generating placeholder contribution data...')
   const contributions = []
   const today = new Date()
   
@@ -498,6 +588,8 @@ const generatePlaceholderData = () => {
     level: { emoji: '🔥', level: 'Master', xp: 1250, xp_to_next: 250, next_level: 'Grandmaster', progress_percent: 50 },
     stats: { total_xp: 1250, current_streak: 7, longest_streak: 14, tasks_completed: 89, perfect_days: 23 }
   }
+  
+  console.log('Generated', contributions.length, 'placeholder contributions')
 }
 
 // Mouse/touch interaction state
@@ -1243,10 +1335,10 @@ onUnmounted(() => {
   letter-spacing: 0.5px;
 }
 
-/* Contribution Grid */
+/* Contribution Grid - GitHub-style */
 .contribution-grid-container {
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding: 16px 0;
 }
 
 .contribution-grid {
@@ -1254,23 +1346,27 @@ onUnmounted(() => {
   grid-template-columns: repeat(53, 1fr);
   grid-template-rows: repeat(7, 1fr);
   gap: 3px;
-  min-width: 700px;
+  min-width: 828px; /* GitHub's exact width */
+  width: 100%;
 }
 
 .contribution-cell {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   border-radius: 2px;
   transition: all 0.2s ease;
   cursor: pointer;
+  outline: none;
 }
 
 .contribution-cell:hover {
-  transform: scale(1.3);
+  transform: scale(1.1);
+  stroke: #0366d6;
+  stroke-width: 1px;
   z-index: 10;
 }
 
-/* Light mode colors - GitHub-style green theme */
+/* GitHub-style green colors for personal tasks */
 .contribution-cell.level-0 {
   background: #ebedf0;
 }
@@ -1287,7 +1383,7 @@ onUnmounted(() => {
   background: #216e39;
 }
 
-/* Dark mode colors - GitHub-style green theme */
+/* Dark mode GitHub colors */
 :root.dark .contribution-cell.level-0 {
   background: #0d1117;
 }
@@ -1304,28 +1400,35 @@ onUnmounted(() => {
   background: #39d353;
 }
 
-/* Legend */
+/* GitHub-style legend */
 .contribution-legend {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 4px;
-  margin-top: 12px;
-  font-size: 0.75rem;
-  color: var(--color-text-secondary, #6b7280);
+  gap: 3px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #586069;
+  padding-right: 8px;
 }
 
 :root.dark .contribution-legend {
-  color: #9ca3af;
+  color: #8b949e;
 }
 
 .legend-label {
   margin: 0 4px;
+  font-size: 11px;
+  color: #586069;
+}
+
+:root.dark .legend-label {
+  color: #8b949e;
 }
 
 .legend-cell {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   border-radius: 2px;
 }
 
@@ -1394,7 +1497,8 @@ onUnmounted(() => {
 
 /* Proactive Task Setting Styles */
 .task-setting-card,
-.current-tasks-card {
+.current-tasks-card,
+.no-tasks-card {
   background: var(--color-surface-elevated, #f9fafb);
   border: 1px solid var(--color-border, #e5e7eb);
   border-radius: 12px;
@@ -1403,18 +1507,20 @@ onUnmounted(() => {
 }
 
 :root.dark .task-setting-card,
-:root.dark .current-tasks-card {
+:root.dark .current-tasks-card,
+:root.dark .no-tasks-card {
   background: rgba(22, 27, 34, 0.8);
   border-color: rgba(48, 54, 61, 0.8);
 }
 
-.task-setting-card:hover {
+.current-tasks-card:hover {
   border-color: var(--color-primary, #2dd4bf);
   box-shadow: 0 4px 20px rgba(45, 212, 191, 0.15);
 }
 
 .task-form-header,
-.current-tasks-header {
+.current-tasks-header,
+.no-tasks-header {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1425,8 +1531,54 @@ onUnmounted(() => {
 }
 
 :root.dark .task-form-header,
-:root.dark .current-tasks-header {
+:root.dark .current-tasks-header,
+:root.dark .no-tasks-header {
   color: #e5e7eb;
+}
+
+.no-tasks-message {
+  text-align: center;
+  color: var(--color-text-secondary, #6b7280);
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+:root.dark .no-tasks-message {
+  color: #9ca3af;
+}
+
+.sms-instructions {
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+:root.dark .sms-instructions {
+  background: rgba(17, 24, 39, 0.8);
+  border-color: rgba(48, 54, 61, 0.8);
+}
+
+.sms-instructions h4 {
+  margin: 0 0 12px 0;
+  color: var(--color-text, #1f2937);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+:root.dark .sms-instructions h4 {
+  color: #e5e7eb;
+}
+
+.sms-instructions p {
+  margin: 4px 0;
+  color: var(--color-text-secondary, #6b7280);
+  font-size: 0.85rem;
+}
+
+:root.dark .sms-instructions p {
+  color: #9ca3af;
 }
 
 .task-icon {
@@ -1530,6 +1682,7 @@ onUnmounted(() => {
 .task-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   padding: 12px 16px;
   background: var(--color-surface, #ffffff);
@@ -1537,9 +1690,121 @@ onUnmounted(() => {
   border-radius: 8px;
 }
 
+.task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.task-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.task-btn {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 4px;
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text, #1f2937);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 32px;
+}
+
+.task-btn:hover:not(:disabled) {
+  background: var(--color-primary, #2dd4bf);
+  color: white;
+  border-color: var(--color-primary, #2dd4bf);
+}
+
+.task-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--color-surface-hover, #f3f4f6);
+}
+
+.complete-btn {
+  background: var(--color-success, #10b981);
+  color: white;
+  border-color: var(--color-success, #10b981);
+}
+
+.complete-btn:hover:not(:disabled) {
+  background: #059669;
+  border-color: #059669;
+}
+
+.task-management-message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.task-management-message.success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #16a34a;
+}
+
+.task-management-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #dc2626;
+}
+
+.refresh-btn {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 6px;
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text, #1f2937);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.refresh-btn:hover {
+  background: var(--color-surface-hover, #f3f4f6);
+  border-color: var(--color-primary, #2dd4bf);
+}
+
 :root.dark .task-item {
   background: rgba(17, 24, 39, 0.8);
   border-color: rgba(48, 54, 61, 0.8);
+}
+
+:root.dark .task-btn {
+  background: rgba(17, 24, 39, 0.8);
+  border-color: rgba(48, 54, 61, 0.8);
+  color: #e5e7eb;
+}
+
+:root.dark .task-btn:disabled {
+  background: rgba(48, 54, 61, 0.8);
+}
+
+:root.dark .refresh-btn {
+  background: rgba(17, 24, 39, 0.8);
+  border-color: rgba(48, 54, 61, 0.8);
+  color: #e5e7eb;
+}
+
+:root.dark .refresh-btn:hover {
+  background: rgba(48, 54, 61, 0.8);
 }
 
 .task-type {
