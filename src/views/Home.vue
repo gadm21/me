@@ -112,6 +112,7 @@
     <section class="section relative z-10 bg-surface dark:bg-surface-dark pb-16">
       <div class="content-container">
         <div class="max-w-4xl mx-auto">
+          <h2 class="section-title text-center mb-8">{{ t('home.thothAccountability') || 'Thoth Accountability' }}</h2>
           <div class="thoth-contributions-wrapper">
             <!-- Header with stats -->
             <div class="thoth-header">
@@ -153,7 +154,7 @@
                   :key="index"
                   class="contribution-cell"
                   :class="'level-' + day.level"
-                  :title="`${day.date}: ${day.xp_earned} XP${day.completed ? ' ✓' : ''}`"
+                  :title="`${day.date}: ${day.tasks_completed || 0} tasks${day.completed ? ' completed' : ''} (${day.xp_earned || 0} XP)`"
                 ></div>
               </div>
               <div class="contribution-legend">
@@ -253,19 +254,42 @@ const generatePlaceholderData = () => {
     date.setDate(date.getDate() - i)
     const dateStr = date.toISOString().split('T')[0]
     
-    // Random XP for demo (weighted towards lower values)
+    // Generate task count similar to GitHub contribution pattern
+    // Most days have 0-1 tasks, some have 2-3, few have 4+ tasks
     const rand = Math.random()
-    let xp = 0
-    if (rand > 0.3) xp = Math.floor(Math.random() * 25)
-    if (rand > 0.5) xp = Math.floor(Math.random() * 50) + 25
-    if (rand > 0.8) xp = Math.floor(Math.random() * 75) + 50
-    if (rand > 0.95) xp = Math.floor(Math.random() * 100) + 100
+    let tasksCompleted = 0
+    let xpEarned = 0
+    
+    if (rand > 0.7) {
+      tasksCompleted = 1
+      xpEarned = Math.floor(Math.random() * 20) + 10
+    }
+    if (rand > 0.85) {
+      tasksCompleted = 2
+      xpEarned = Math.floor(Math.random() * 30) + 25
+    }
+    if (rand > 0.93) {
+      tasksCompleted = 3
+      xpEarned = Math.floor(Math.random() * 40) + 40
+    }
+    if (rand > 0.97) {
+      tasksCompleted = Math.floor(Math.random() * 3) + 4
+      xpEarned = Math.floor(Math.random() * 50) + 60
+    }
+    
+    // GitHub-style level calculation based on task count
+    let level = 0
+    if (tasksCompleted >= 1 && tasksCompleted <= 1) level = 1
+    else if (tasksCompleted >= 2 && tasksCompleted <= 2) level = 2
+    else if (tasksCompleted >= 3 && tasksCompleted <= 4) level = 3
+    else if (tasksCompleted >= 5) level = 4
     
     contributions.push({
       date: dateStr,
-      xp_earned: xp,
-      completed: xp > 50,
-      level: Math.min(4, Math.floor(xp / 25))
+      xp_earned: xpEarned,
+      completed: tasksCompleted > 0,
+      tasks_completed: tasksCompleted,
+      level: level
     })
   }
   
@@ -949,8 +973,8 @@ onUnmounted(() => {
 }
 
 .thoth-contributions-wrapper:hover {
-  border-color: #f59e0b;
-  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+  border-color: #216e39;
+  box-shadow: 0 4px 20px rgba(33, 110, 57, 0.15);
 }
 
 .thoth-header {
@@ -1043,38 +1067,38 @@ onUnmounted(() => {
   z-index: 10;
 }
 
-/* Light mode colors - amber/gold theme for Thoth */
+/* Light mode colors - GitHub-style green theme */
 .contribution-cell.level-0 {
-  background: #f3f4f6;
+  background: #ebedf0;
 }
 .contribution-cell.level-1 {
-  background: #fef3c7;
+  background: #9be9a8;
 }
 .contribution-cell.level-2 {
-  background: #fcd34d;
+  background: #40c463;
 }
 .contribution-cell.level-3 {
-  background: #f59e0b;
+  background: #30a14e;
 }
 .contribution-cell.level-4 {
-  background: #d97706;
+  background: #216e39;
 }
 
-/* Dark mode colors */
+/* Dark mode colors - GitHub-style green theme */
 :root.dark .contribution-cell.level-0 {
-  background: #1f2937;
+  background: #0d1117;
 }
 :root.dark .contribution-cell.level-1 {
-  background: #78350f;
+  background: #0e4429;
 }
 :root.dark .contribution-cell.level-2 {
-  background: #b45309;
+  background: #006d32;
 }
 :root.dark .contribution-cell.level-3 {
-  background: #d97706;
+  background: #26a641;
 }
 :root.dark .contribution-cell.level-4 {
-  background: #f59e0b;
+  background: #39d353;
 }
 
 /* Legend */
@@ -1138,7 +1162,7 @@ onUnmounted(() => {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background: linear-gradient(90deg, #216e39, #30a14e);
   border-radius: 4px;
   transition: width 0.5s ease;
 }
