@@ -1,28 +1,28 @@
 <template>
-  <div class="blog-page">
+  <div class="blog-page" :dir="isRTL ? 'rtl' : 'ltr'">
     <!-- Header -->
     <section class="section pb-8">
       <div class="content-container text-center">
-        <h1 class="page-title mb-4">Thoughts</h1>
+        <h1 class="page-title mb-4">{{ t('blog.title') }}</h1>
       </div>
     </section>
     
     <!-- Featured Post -->
     <section v-if="featuredPost" class="pb-16 bg-surface-hover/50 dark:bg-surface-hover-dark/30 py-12">
       <div class="content-container">
-        <span class="text-primary text-sm font-medium mb-2 block">Featured</span>
+        <span class="text-primary text-sm font-medium mb-2 block">{{ t('blog.featured') }}</span>
         <article class="featured-post">
           <h2 class="section-title mb-4">{{ featuredPost.title }}</h2>
           <div class="flex items-center gap-4 text-sm text-text-tertiary mb-4">
             <span>{{ formatDate(featuredPost.date) }}</span>
             <span>•</span>
-            <span>{{ featuredPost.readTime }} min read</span>
+            <span>{{ featuredPost.readTime }} {{ t('blog.minRead') }}</span>
             <span>•</span>
             <span class="text-primary">{{ featuredPost.category }}</span>
           </div>
           <p class="body-text text-lg mb-6">{{ featuredPost.excerpt }}</p>
           <router-link :to="`/blog/${featuredPost.slug}`" class="link">
-            Continue reading →
+            {{ t('blog.continueReading') }}
           </router-link>
         </article>
       </div>
@@ -69,7 +69,7 @@
             <div class="flex items-center justify-between text-sm">
               <span class="text-text-tertiary">{{ formatDate(post.date) }}</span>
               <router-link :to="`/blog/${post.slug}`" class="link text-sm">
-                Read more →
+                {{ t('blog.readMore') }}
               </router-link>
             </div>
           </article>
@@ -78,7 +78,7 @@
         <!-- Load More -->
         <div v-if="hasMore" class="text-center mt-12">
           <button @click="loadMore" class="btn-secondary">
-            Load More Posts
+            {{ t('blog.loadMore') }}
           </button>
         </div>
       </div>
@@ -87,9 +87,9 @@
     <!-- Newsletter Signup -->
     <section class="bg-surface-hover/50 dark:bg-surface-hover-dark/30 py-12">
       <div class="content-container text-center">
-        <h2 class="section-title mb-4">Stay Connected</h2>
+        <h2 class="section-title mb-4">{{ t('blog.stayConnected') }}</h2>
         <p class="text-text-secondary dark:text-text-secondary-dark mb-6">
-          Subscribe to receive updates on new research, publications, and insights
+          {{ t('blog.subscribeText') }}
         </p>
         <form @submit.prevent="subscribe" class="flex gap-3 max-w-md mx-auto">
           <input 
@@ -100,7 +100,7 @@
             class="input flex-1"
           >
           <button type="submit" class="btn-primary">
-            Subscribe
+            {{ t('blog.subscribe') }}
           </button>
         </form>
       </div>
@@ -113,8 +113,11 @@ import { ref, computed, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import blogData from '@/data/blog.json'
+import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { t, isRTL } = useI18n()
 
 const selectedCategory = ref(null)
 const email = ref('')

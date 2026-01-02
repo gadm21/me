@@ -1,25 +1,25 @@
 <template>
-  <div class="cv-page py-12">
+  <div class="cv-page py-12" :dir="isRTL ? 'rtl' : 'ltr'">
     <!-- Header Section -->
     <section class="cv-header mb-12">
       <div class="prose-container text-center">
-        <h1 class="gothic-title text-sage mb-4">Curriculum Vitae</h1>
+        <h1 class="gothic-title text-sage mb-4">{{ t('cv.title') }}</h1>
         <p class="serene-text text-xl">Gad Mohamed</p>
-        <p class="text-gray-400">Ph.D. Student in Computer Science</p>
+        <p class="text-gray-400">{{ t('cv.phdStudent') }}</p>
         
         <!-- Quick Stats -->
         <div class="flex flex-wrap justify-center gap-6 mt-8">
           <div class="stat-item">
             <span class="stat-value">{{ stats.yearsTeaching }}</span>
-            <span class="stat-label">Years Teaching</span>
+            <span class="stat-label">{{ t('cv.yearsTeaching') }}</span>
           </div>
           <div class="stat-item">
             <span class="stat-value">{{ stats.publications }}</span>
-            <span class="stat-label">Publications</span>
+            <span class="stat-label">{{ t('cv.publications') }}</span>
           </div>
           <div class="stat-item">
             <span class="stat-value">{{ stats.hIndex }}</span>
-            <span class="stat-label">h-index</span>
+            <span class="stat-label">{{ t('publications.hIndex') }}</span>
             <a href="https://scholar.google.com/citations?user=bZRYJuAAAAAJ&hl=en" 
                target="_blank" 
                class="text-sage-dark hover:text-sage text-xs ml-1">
@@ -28,7 +28,7 @@
           </div>
           <div class="stat-item">
             <span class="stat-value">{{ stats.venues }}</span>
-            <span class="stat-label">Venues</span>
+            <span class="stat-label">{{ t('cv.venues') }}</span>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
     <!-- Skills Cloud -->
     <section class="mb-12">
       <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-6">Skills & Expertise</h2>
+        <h2 class="gothic-subtitle text-sage mb-6">{{ t('cv.skillsExpertise') }}</h2>
         <div class="skills-cloud">
           <div v-for="category in skills" :key="category.name" class="mb-6">
             <h3 class="font-serif text-lg text-gray-300 mb-3">{{ category.name }}</h3>
@@ -58,7 +58,7 @@
     <!-- Experience Timeline -->
     <section class="mb-12 bg-charcoal/30 py-12">
       <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8">Experience</h2>
+        <h2 class="gothic-subtitle text-sage mb-8">{{ t('cv.experience') }}</h2>
         <div class="timeline">
           <div 
             v-for="exp in experience" 
@@ -83,14 +83,14 @@
     <!-- Education -->
     <section class="mb-12">
       <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8">Education</h2>
+        <h2 class="gothic-subtitle text-sage mb-8">{{ t('cv.education') }}</h2>
         <div class="space-y-6">
           <div v-for="edu in education" :key="edu.id" class="card-calm">
             <h3 class="font-serif text-xl text-gray-300 mb-2">{{ edu.degree }}</h3>
             <p class="text-sage-light">{{ edu.institution }}</p>
             <p class="text-gray-500 text-sm">{{ edu.period }}</p>
             <p v-if="edu.thesis" class="text-gray-400 text-sm mt-2">
-              <span class="font-medium">Thesis:</span> {{ edu.thesis }}
+              <span class="font-medium">{{ t('cv.thesis') }}:</span> {{ edu.thesis }}
             </p>
           </div>
         </div>
@@ -100,7 +100,7 @@
     <!-- Recent Publications -->
     <section class="mb-12 bg-charcoal/30 py-12">
       <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8">Recent Publications</h2>
+        <h2 class="gothic-subtitle text-sage mb-8">{{ t('cv.recentPubs') }}</h2>
         <div class="space-y-4">
           <article v-for="pub in recentPublications" :key="pub.id" class="publication-item">
             <h3 class="font-serif text-lg text-gray-300 mb-2">{{ pub.title }}</h3>
@@ -115,7 +115,7 @@
         </div>
         <div class="mt-6 text-center">
           <router-link to="/publications" class="link-gothic">
-            View all publications →
+            {{ t('cv.viewAllPubs') }}
           </router-link>
         </div>
       </div>
@@ -124,7 +124,7 @@
     <!-- Awards & Grants -->
     <section class="mb-12">
       <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8">Awards & Grants</h2>
+        <h2 class="gothic-subtitle text-sage mb-8">{{ t('cv.awardsGrants') }}</h2>
         <div class="grid md:grid-cols-2 gap-4">
           <div v-for="award in awards" :key="award.id" class="card-calm">
             <h3 class="font-serif text-lg text-gray-300 mb-1">{{ award.title }}</h3>
@@ -138,7 +138,7 @@
     <!-- Teaching Snapshot -->
     <section class="mb-12">
       <div class="prose-container">
-        <h2 class="gothic-subtitle text-sage mb-8">Teaching</h2>
+        <h2 class="gothic-subtitle text-sage mb-8">{{ t('cv.teaching') }}</h2>
         <div class="space-y-4">
           <div v-for="course in teaching" :key="course.id" class="card-calm">
             <h3 class="font-serif text-lg text-gray-300 mb-2">{{ course.name }}</h3>
@@ -148,7 +148,7 @@
         </div>
         <div class="mt-6 text-center">
           <router-link to="/teaching" class="link-gothic">
-            View teaching portfolio →
+            {{ t('cv.viewTeaching') }}
           </router-link>
         </div>
       </div>
@@ -159,13 +159,13 @@
       <div class="prose-container">
         <div class="flex flex-wrap justify-center gap-4">
           <a href="/assets/docs/Gad_Gad_CV.pdf" target="_blank" class="btn-gothic">
-            Download PDF
+            {{ t('cv.downloadPdf') }}
           </a>
           <button @click="copyBio('short')" class="btn-gothic">
-            Copy Short Bio
+            {{ t('cv.copyShortBio') }}
           </button>
           <button @click="copyBio('full')" class="btn-gothic">
-            Copy Full Bio
+            {{ t('cv.copyFullBio') }}
           </button>
         </div>
       </div>
@@ -177,8 +177,11 @@
 import { ref, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { t, isRTL } = useI18n()
 
 // CV Data
 const stats = ref({

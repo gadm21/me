@@ -1,19 +1,19 @@
 <template>
-  <div class="publications-page">
+  <div class="publications-page" :dir="isRTL ? 'rtl' : 'ltr'">
     <!-- Header -->
     <section class="section pb-8">
       <div class="content-container text-center">
-        <h1 class="page-title mb-4">Publications</h1>
+        <h1 class="page-title mb-4">{{ t('publications.title') }}</h1>
         
         <!-- Publication Statistics -->
         <div class="flex flex-wrap justify-center gap-8 mb-8">
           <div class="stat-item">
             <span class="stat-value">{{ stats.publications }}</span>
-            <span class="stat-label">Publications</span>
+            <span class="stat-label">{{ t('publications.title') }}</span>
           </div>
           <div class="stat-item">
             <span class="stat-value">{{ stats.hIndex }}</span>
-            <span class="stat-label">h-index</span>
+            <span class="stat-label">{{ t('publications.hIndex') }}</span>
             <a href="https://scholar.google.com/citations?user=bZRYJuAAAAAJ&hl=en" 
                target="_blank" 
                class="text-primary hover:text-primary-dark text-xs ml-1">
@@ -28,7 +28,7 @@
             v-model="selectedYear" 
             class="input max-w-[160px]"
           >
-            <option value="">All Years</option>
+            <option value="">{{ t('publications.allYears') }}</option>
             <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
           </select>
           
@@ -36,7 +36,7 @@
             v-model="selectedVenue" 
             class="input max-w-[200px]"
           >
-            <option value="">All Venues</option>
+            <option value="">{{ t('publications.allVenues') }}</option>
             <option v-for="venue in venues" :key="venue" :value="venue">{{ venue }}</option>
           </select>
           
@@ -44,7 +44,7 @@
             v-model="selectedTopic" 
             class="input max-w-[180px]"
           >
-            <option value="">All Topics</option>
+            <option value="">{{ t('publications.allTopics') }}</option>
             <option v-for="topic in topics" :key="topic" :value="topic">{{ topic }}</option>
           </select>
         </div>
@@ -71,9 +71,9 @@
               <button 
                 @click="showBibTeX(pub)"
                 class="ml-4 text-primary hover:text-primary-dark text-sm font-medium transition-colors"
-                title="View BibTeX"
+                :title="t('publications.bibtex')"
               >
-                BibTeX
+                {{ t('publications.bibtex') }}
               </button>
             </div>
             
@@ -99,7 +99,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
-                View PDF
+                {{ t('publications.viewPdf') }}
               </button>
               <a 
                 v-if="pub.pdf" 
@@ -131,7 +131,7 @@
         
         <!-- No results message -->
         <div v-if="filteredPublications.length === 0" class="text-center py-12">
-          <p class="text-text-tertiary">No publications found matching your filters.</p>
+          <p class="text-text-tertiary">{{ t('publications.noResults') }}</p>
         </div>
       </div>
     </section>
@@ -145,7 +145,7 @@
       >
         <div class="bg-surface-elevated dark:bg-surface-elevated-dark border border-border dark:border-border-dark rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-auto shadow-elevated">
           <div class="flex justify-between items-start mb-4">
-            <h3 class="section-title text-primary">BibTeX Citation</h3>
+            <h3 class="section-title text-primary">{{ t('publications.bibtexCitation') }}</h3>
             <button 
               @click="closeBibTeX"
               class="text-text-tertiary hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
@@ -159,13 +159,13 @@
               @click="copyBibTeX"
               class="btn-primary text-sm"
             >
-              Copy to Clipboard
+              {{ t('publications.copyClipboard') }}
             </button>
             <button 
               @click="downloadBibTeX"
               class="btn-secondary text-sm"
             >
-              Download .bib
+              {{ t('publications.downloadBib') }}
             </button>
           </div>
         </div>
@@ -188,8 +188,11 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import publicationsData from '@/data/publications.json'
 import PdfViewer from '@/components/PdfViewer.vue'
+import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { t, isRTL } = useI18n()
 
 // Filters
 const selectedYear = ref('')

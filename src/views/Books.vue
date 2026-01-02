@@ -1,11 +1,11 @@
 <template>
-  <div class="books-page">
+  <div class="books-page" :dir="isRTL ? 'rtl' : 'ltr'">
     <!-- Header -->
     <section class="section pb-8">
       <div class="content-container text-center">
-        <h1 class="page-title mb-4">Literary Journey</h1>
+        <h1 class="page-title mb-4">{{ t('books.title') }}</h1>
         <p class="subtitle">
-          Books that have shaped my perspective and understanding
+          {{ t('books.subtitle') }}
         </p>
       </div>
     </section>
@@ -32,19 +32,19 @@
     <!-- Reading Stats -->
     <section class="pb-16 bg-surface-hover/50 dark:bg-surface-hover-dark/30 py-12">
       <div class="content-container">
-        <h2 class="section-title text-center mb-8">Reading Statistics</h2>
+        <h2 class="section-title text-center mb-8">{{ t('books.readingStats') }}</h2>
         <div class="grid md:grid-cols-3 gap-6 text-center">
           <div class="stat-card card">
             <div class="text-3xl font-bold text-primary mb-2">{{ totalBooks }}</div>
-            <div class="text-text-tertiary text-sm">Books Read</div>
+            <div class="text-text-tertiary text-sm">{{ t('books.booksRead') }}</div>
           </div>
           <div class="stat-card card">
             <div class="text-3xl font-bold text-primary mb-2">{{ favoriteAuthor }}</div>
-            <div class="text-text-tertiary text-sm">Favorite Author</div>
+            <div class="text-text-tertiary text-sm">{{ t('books.favoriteAuthor') }}</div>
           </div>
           <div class="stat-card card">
             <div class="text-3xl font-bold text-primary mb-2">{{ categories.length - 1 }}</div>
-            <div class="text-text-tertiary text-sm">Categories</div>
+            <div class="text-text-tertiary text-sm">{{ t('books.categories') }}</div>
           </div>
         </div>
       </div>
@@ -124,13 +124,9 @@
     <!-- Reading Philosophy -->
     <section class="bg-surface-hover/50 dark:bg-surface-hover-dark/30 py-12">
       <div class="content-container text-center">
-        <h2 class="section-title mb-6">Reading Philosophy</h2>
+        <h2 class="section-title mb-6">{{ t('books.readingPhilosophy') }}</h2>
         <p class="text-text-secondary dark:text-text-secondary-dark text-lg leading-relaxed max-w-3xl mx-auto">
-          "A reader lives a thousand lives before he dies. The man who never reads lives only one." 
-          These books have been companions in my intellectual journey, each offering unique perspectives 
-          on technology, philosophy, human nature, and the complexities of our world. From classic literature 
-          to contemporary non-fiction, each book has contributed to shaping my understanding of both 
-          technical and humanistic domains.
+          {{ t('books.philosophyText') }}
         </p>
       </div>
     </section>
@@ -140,10 +136,13 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useData } from '../composables/useData'
+import { useI18n } from '@/composables/useI18n'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { t, isRTL } = useI18n()
 
 const { data: books, loading, error } = useData('/src/data/books.json')
 const selectedCategory = ref(null)

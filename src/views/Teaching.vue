@@ -1,7 +1,7 @@
 <template>
-  <div class="teaching-page py-12">
+  <div class="teaching-page py-12" :dir="isRTL ? 'rtl' : 'ltr'">
     <div class="prose-container">
-      <h1 class="gothic-title text-sage text-center mb-8">Teaching</h1>
+      <h1 class="gothic-title text-sage text-center mb-8">{{ t('teaching.title') }}</h1>
 
     </div>
   
@@ -18,7 +18,7 @@
                   <h3 class="font-serif text-xl text-gray-300">Lumiere Education</h3>
                   <p class="text-sage-light text-lg">Research Mentor</p>
                 </div>
-                <span class="venue-badge">Volunteer</span>
+                <span class="venue-badge">{{ t('teaching.volunteer') }}</span>
               </div>
               
               <div class="space-y-3 mb-4">
@@ -85,7 +85,7 @@
                   :href="course.feedback"
                   class="link-gothic text-sm"
                 >
-                  Student Feedback →
+                  {{ t('teaching.studentFeedback') }}
                 </a>
               </div>
             </div>
@@ -100,8 +100,11 @@
 import { ref, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { t, isRTL } = useI18n()
 
 const pastCourses = ref([
   {

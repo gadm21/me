@@ -1,9 +1,9 @@
 <template>
-  <div class="awards-page">
+  <div class="awards-page" :dir="isRTL ? 'rtl' : 'ltr'">
     <!-- Header Section -->
     <section class="section pb-8">
       <div class="content-container text-center">
-        <h1 class="page-title mb-4">Awards & Recognition</h1>
+        <h1 class="page-title mb-4">{{ t('awards.title') }}</h1>
       </div>
     </section>
     
@@ -63,7 +63,7 @@
     <!-- Timeline View -->
     <section class="bg-surface-hover/50 dark:bg-surface-hover-dark/30 py-16">
       <div class="content-container">
-        <h2 class="section-title text-center mb-8">Achievement Timeline</h2>
+        <h2 class="section-title text-center mb-8">{{ t('awards.achievementTimeline') }}</h2>
         <div class="timeline relative">
           <div 
             v-for="(award, index) in sortedAwards" 
@@ -98,8 +98,11 @@ import { ref, computed, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import awardsData from '@/data/cv/awards.json'
+import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { t, isRTL } = useI18n()
 
 const selectedCategory = ref(null)
 const awards = ref(awardsData)

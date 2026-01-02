@@ -16,7 +16,13 @@ const translations = {
       home: 'Home',
       research: 'Research',
       publications: 'Publications',
-      contact: 'Contact'
+      contact: 'Contact',
+      cv: 'CV',
+      teaching: 'Teaching',
+      awards: 'Awards',
+      projects: 'Projects',
+      blog: 'Blog',
+      books: 'Books'
     },
     // Home page
     home: {
@@ -49,7 +55,70 @@ const translations = {
       filterJournal: 'Journal',
       filterConference: 'Conference',
       citations: 'citations',
-      viewPaper: 'View Paper'
+      viewPaper: 'View Paper',
+      allYears: 'All Years',
+      allVenues: 'All Venues',
+      allTopics: 'All Topics',
+      hIndex: 'h-index',
+      bibtex: 'BibTeX',
+      bibtexCitation: 'BibTeX Citation',
+      copyClipboard: 'Copy to Clipboard',
+      downloadBib: 'Download .bib',
+      viewPdf: 'View PDF',
+      noResults: 'No publications found matching your filters.'
+    },
+    // CV page
+    cv: {
+      title: 'Curriculum Vitae',
+      phdStudent: 'Ph.D. Student in Computer Science',
+      yearsTeaching: 'Years Teaching',
+      publications: 'Publications',
+      venues: 'Venues',
+      skillsExpertise: 'Skills & Expertise',
+      experience: 'Experience',
+      education: 'Education',
+      recentPubs: 'Recent Publications',
+      viewAllPubs: 'View all publications →',
+      awardsGrants: 'Awards & Grants',
+      teaching: 'Teaching',
+      viewTeaching: 'View teaching portfolio →',
+      downloadPdf: 'Download PDF',
+      copyShortBio: 'Copy Short Bio',
+      copyFullBio: 'Copy Full Bio',
+      thesis: 'Thesis'
+    },
+    // Teaching page
+    teaching: {
+      title: 'Teaching',
+      researchMentor: 'Research Mentor',
+      volunteer: 'Volunteer',
+      instructor: 'Instructor',
+      teachingAssistant: 'Teaching Assistant',
+      present: 'Present',
+      studentFeedback: 'Student Feedback →',
+      rating: 'Rating'
+    },
+    // Awards page
+    awards: {
+      title: 'Awards & Recognition',
+      achievementTimeline: 'Achievement Timeline',
+      all: 'All',
+      academic: 'Academic',
+      certifications: 'Certifications',
+      grantsScholarships: 'Grants & Scholarships'
+    },
+    // Projects page
+    projects: {
+      title: 'Project Portfolio',
+      subtitle: 'A collection of research projects, implementations, and experiments across various domains',
+      viewDetails: 'View Details →',
+      description: 'Description',
+      technologies: 'Technologies',
+      viewCode: 'View Code',
+      liveDemo: 'Live Demo',
+      readPaper: 'Read Paper',
+      completed: 'completed',
+      inProgress: 'in progress'
     },
     // Contact page
     contact: {
@@ -78,9 +147,36 @@ const translations = {
       yourEmail: 'your@email.com',
       yourMessage: 'Your message...'
     },
+    // Blog page
+    blog: {
+      title: 'Thoughts',
+      featured: 'Featured',
+      continueReading: 'Continue reading →',
+      readMore: 'Read more →',
+      loadMore: 'Load More Posts',
+      stayConnected: 'Stay Connected',
+      subscribeText: 'Subscribe to receive updates on new research, publications, and insights',
+      subscribe: 'Subscribe',
+      minRead: 'min read'
+    },
+    // Books page
+    books: {
+      title: 'Literary Journey',
+      subtitle: 'Books that have shaped my perspective and understanding',
+      readingStats: 'Reading Statistics',
+      booksRead: 'Books Read',
+      favoriteAuthor: 'Favorite Author',
+      categories: 'Categories',
+      readingPhilosophy: 'Reading Philosophy',
+      philosophyText: '"A reader lives a thousand lives before he dies. The man who never reads lives only one." These books have been companions in my intellectual journey, each offering unique perspectives on technology, philosophy, human nature, and the complexities of our world.'
+    },
     // Common
     common: {
-      viewGithub: 'View GitHub Profile'
+      viewGithub: 'View GitHub Profile',
+      close: 'Close',
+      loading: 'Loading...',
+      error: 'Error',
+      success: 'Success'
     },
     // Chatbot
     chat: {
@@ -100,7 +196,13 @@ const translations = {
       home: 'Accueil',
       research: 'Recherche',
       publications: 'Publications',
-      contact: 'Contact'
+      contact: 'Contact',
+      cv: 'CV',
+      teaching: 'Enseignement',
+      awards: 'Prix',
+      projects: 'Projets',
+      blog: 'Blog',
+      books: 'Livres'
     },
     home: {
       aboutTitle: 'À Propos',
@@ -130,7 +232,66 @@ const translations = {
       filterJournal: 'Journal',
       filterConference: 'Conférence',
       citations: 'citations',
-      viewPaper: 'Voir l\'article'
+      viewPaper: 'Voir l\'article',
+      allYears: 'Toutes les années',
+      allVenues: 'Tous les lieux',
+      allTopics: 'Tous les sujets',
+      hIndex: 'indice h',
+      bibtex: 'BibTeX',
+      bibtexCitation: 'Citation BibTeX',
+      copyClipboard: 'Copier dans le presse-papiers',
+      downloadBib: 'Télécharger .bib',
+      viewPdf: 'Voir le PDF',
+      noResults: 'Aucune publication trouvée correspondant à vos filtres.'
+    },
+    cv: {
+      title: 'Curriculum Vitae',
+      phdStudent: 'Doctorant en Informatique',
+      yearsTeaching: 'Années d\'Enseignement',
+      publications: 'Publications',
+      venues: 'Lieux',
+      skillsExpertise: 'Compétences et Expertise',
+      experience: 'Expérience',
+      education: 'Formation',
+      recentPubs: 'Publications Récentes',
+      viewAllPubs: 'Voir toutes les publications →',
+      awardsGrants: 'Prix et Subventions',
+      teaching: 'Enseignement',
+      viewTeaching: 'Voir le portfolio d\'enseignement →',
+      downloadPdf: 'Télécharger PDF',
+      copyShortBio: 'Copier Bio Courte',
+      copyFullBio: 'Copier Bio Complète',
+      thesis: 'Thèse'
+    },
+    teaching: {
+      title: 'Enseignement',
+      researchMentor: 'Mentor de Recherche',
+      volunteer: 'Bénévole',
+      instructor: 'Instructeur',
+      teachingAssistant: 'Assistant d\'Enseignement',
+      present: 'Présent',
+      studentFeedback: 'Retours des Étudiants →',
+      rating: 'Note'
+    },
+    awards: {
+      title: 'Prix et Reconnaissances',
+      achievementTimeline: 'Chronologie des Réalisations',
+      all: 'Tout',
+      academic: 'Académique',
+      certifications: 'Certifications',
+      grantsScholarships: 'Subventions et Bourses'
+    },
+    projects: {
+      title: 'Portfolio de Projets',
+      subtitle: 'Une collection de projets de recherche, implémentations et expériences dans divers domaines',
+      viewDetails: 'Voir les Détails →',
+      description: 'Description',
+      technologies: 'Technologies',
+      viewCode: 'Voir le Code',
+      liveDemo: 'Démo en Direct',
+      readPaper: 'Lire l\'Article',
+      completed: 'terminé',
+      inProgress: 'en cours'
     },
     contact: {
       title: 'Contact',
@@ -158,8 +319,33 @@ const translations = {
       yourEmail: 'votre@email.com',
       yourMessage: 'Votre message...'
     },
+    blog: {
+      title: 'Réflexions',
+      featured: 'À la une',
+      continueReading: 'Continuer la lecture →',
+      readMore: 'Lire la suite →',
+      loadMore: 'Charger plus d\'articles',
+      stayConnected: 'Restez Connecté',
+      subscribeText: 'Abonnez-vous pour recevoir les mises à jour sur les nouvelles recherches, publications et perspectives',
+      subscribe: 'S\'abonner',
+      minRead: 'min de lecture'
+    },
+    books: {
+      title: 'Voyage Littéraire',
+      subtitle: 'Livres qui ont façonné ma perspective et ma compréhension',
+      readingStats: 'Statistiques de Lecture',
+      booksRead: 'Livres Lus',
+      favoriteAuthor: 'Auteur Préféré',
+      categories: 'Catégories',
+      readingPhilosophy: 'Philosophie de Lecture',
+      philosophyText: '"Un lecteur vit mille vies avant de mourir. L\'homme qui ne lit jamais n\'en vit qu\'une." Ces livres ont été des compagnons dans mon parcours intellectuel.'
+    },
     common: {
-      viewGithub: 'Voir le Profil GitHub'
+      viewGithub: 'Voir le Profil GitHub',
+      close: 'Fermer',
+      loading: 'Chargement...',
+      error: 'Erreur',
+      success: 'Succès'
     },
     chat: {
       welcome: 'Bienvenue sur Thoth',
@@ -178,7 +364,13 @@ const translations = {
       home: 'الرئيسية',
       research: 'البحث',
       publications: 'المنشورات',
-      contact: 'اتصل بنا'
+      contact: 'اتصل بنا',
+      cv: 'السيرة الذاتية',
+      teaching: 'التدريس',
+      awards: 'الجوائز',
+      projects: 'المشاريع',
+      blog: 'المدونة',
+      books: 'الكتب'
     },
     home: {
       aboutTitle: 'نبذة عني',
@@ -208,7 +400,66 @@ const translations = {
       filterJournal: 'مجلة',
       filterConference: 'مؤتمر',
       citations: 'اقتباسات',
-      viewPaper: 'عرض الورقة'
+      viewPaper: 'عرض الورقة',
+      allYears: 'جميع السنوات',
+      allVenues: 'جميع الأماكن',
+      allTopics: 'جميع المواضيع',
+      hIndex: 'مؤشر h',
+      bibtex: 'BibTeX',
+      bibtexCitation: 'اقتباس BibTeX',
+      copyClipboard: 'نسخ إلى الحافظة',
+      downloadBib: 'تحميل .bib',
+      viewPdf: 'عرض PDF',
+      noResults: 'لم يتم العثور على منشورات تطابق معايير البحث.'
+    },
+    cv: {
+      title: 'السيرة الذاتية',
+      phdStudent: 'طالب دكتوراه في علوم الحاسوب',
+      yearsTeaching: 'سنوات التدريس',
+      publications: 'المنشورات',
+      venues: 'الأماكن',
+      skillsExpertise: 'المهارات والخبرات',
+      experience: 'الخبرة',
+      education: 'التعليم',
+      recentPubs: 'المنشورات الحديثة',
+      viewAllPubs: 'عرض جميع المنشورات ←',
+      awardsGrants: 'الجوائز والمنح',
+      teaching: 'التدريس',
+      viewTeaching: 'عرض ملف التدريس ←',
+      downloadPdf: 'تحميل PDF',
+      copyShortBio: 'نسخ السيرة المختصرة',
+      copyFullBio: 'نسخ السيرة الكاملة',
+      thesis: 'الأطروحة'
+    },
+    teaching: {
+      title: 'التدريس',
+      researchMentor: 'مرشد بحثي',
+      volunteer: 'متطوع',
+      instructor: 'مدرس',
+      teachingAssistant: 'مساعد تدريس',
+      present: 'الحالي',
+      studentFeedback: 'آراء الطلاب ←',
+      rating: 'التقييم'
+    },
+    awards: {
+      title: 'الجوائز والتقدير',
+      achievementTimeline: 'الجدول الزمني للإنجازات',
+      all: 'الكل',
+      academic: 'أكاديمي',
+      certifications: 'الشهادات',
+      grantsScholarships: 'المنح والبعثات'
+    },
+    projects: {
+      title: 'ملف المشاريع',
+      subtitle: 'مجموعة من مشاريع البحث والتنفيذ والتجارب في مجالات متنوعة',
+      viewDetails: 'عرض التفاصيل ←',
+      description: 'الوصف',
+      technologies: 'التقنيات',
+      viewCode: 'عرض الكود',
+      liveDemo: 'عرض مباشر',
+      readPaper: 'قراءة الورقة',
+      completed: 'مكتمل',
+      inProgress: 'قيد التنفيذ'
     },
     contact: {
       title: 'اتصل بنا',
@@ -236,8 +487,33 @@ const translations = {
       yourEmail: 'بريدك@email.com',
       yourMessage: 'رسالتك...'
     },
+    blog: {
+      title: 'أفكار',
+      featured: 'مميز',
+      continueReading: 'متابعة القراءة ←',
+      readMore: 'اقرأ المزيد ←',
+      loadMore: 'تحميل المزيد',
+      stayConnected: 'ابق على تواصل',
+      subscribeText: 'اشترك لتلقي التحديثات حول الأبحاث والمنشورات الجديدة',
+      subscribe: 'اشتراك',
+      minRead: 'دقيقة قراءة'
+    },
+    books: {
+      title: 'رحلة أدبية',
+      subtitle: 'كتب شكلت منظوري وفهمي',
+      readingStats: 'إحصائيات القراءة',
+      booksRead: 'الكتب المقروءة',
+      favoriteAuthor: 'المؤلف المفضل',
+      categories: 'التصنيفات',
+      readingPhilosophy: 'فلسفة القراءة',
+      philosophyText: '"القارئ يعيش ألف حياة قبل أن يموت. الرجل الذي لا يقرأ أبداً يعيش حياة واحدة فقط." هذه الكتب كانت رفاق في رحلتي الفكرية.'
+    },
     common: {
-      viewGithub: 'عرض ملف GitHub'
+      viewGithub: 'عرض ملف GitHub',
+      close: 'إغلاق',
+      loading: 'جاري التحميل...',
+      error: 'خطأ',
+      success: 'نجاح'
     },
     chat: {
       welcome: 'مرحباً بك في تحوت',
@@ -256,7 +532,13 @@ const translations = {
       home: '首页',
       research: '研究',
       publications: '发表论文',
-      contact: '联系方式'
+      contact: '联系方式',
+      cv: '简历',
+      teaching: '教学',
+      awards: '奖项',
+      projects: '项目',
+      blog: '博客',
+      books: '书籍'
     },
     home: {
       aboutTitle: '关于我',
@@ -286,7 +568,66 @@ const translations = {
       filterJournal: '期刊',
       filterConference: '会议',
       citations: '引用',
-      viewPaper: '查看论文'
+      viewPaper: '查看论文',
+      allYears: '所有年份',
+      allVenues: '所有场所',
+      allTopics: '所有主题',
+      hIndex: 'h指数',
+      bibtex: 'BibTeX',
+      bibtexCitation: 'BibTeX引用',
+      copyClipboard: '复制到剪贴板',
+      downloadBib: '下载 .bib',
+      viewPdf: '查看PDF',
+      noResults: '未找到符合筛选条件的论文。'
+    },
+    cv: {
+      title: '个人简历',
+      phdStudent: '计算机科学博士生',
+      yearsTeaching: '教学年限',
+      publications: '发表论文',
+      venues: '发表场所',
+      skillsExpertise: '技能与专长',
+      experience: '工作经历',
+      education: '教育背景',
+      recentPubs: '近期发表',
+      viewAllPubs: '查看所有论文 →',
+      awardsGrants: '奖项与资助',
+      teaching: '教学',
+      viewTeaching: '查看教学档案 →',
+      downloadPdf: '下载PDF',
+      copyShortBio: '复制简短简介',
+      copyFullBio: '复制完整简介',
+      thesis: '论文'
+    },
+    teaching: {
+      title: '教学',
+      researchMentor: '研究导师',
+      volunteer: '志愿者',
+      instructor: '讲师',
+      teachingAssistant: '助教',
+      present: '至今',
+      studentFeedback: '学生反馈 →',
+      rating: '评分'
+    },
+    awards: {
+      title: '奖项与荣誉',
+      achievementTimeline: '成就时间线',
+      all: '全部',
+      academic: '学术',
+      certifications: '证书',
+      grantsScholarships: '资助与奖学金'
+    },
+    projects: {
+      title: '项目作品集',
+      subtitle: '涵盖多个领域的研究项目、实现和实验集合',
+      viewDetails: '查看详情 →',
+      description: '描述',
+      technologies: '技术',
+      viewCode: '查看代码',
+      liveDemo: '在线演示',
+      readPaper: '阅读论文',
+      completed: '已完成',
+      inProgress: '进行中'
     },
     contact: {
       title: '联系方式',
@@ -314,8 +655,33 @@ const translations = {
       yourEmail: 'your@email.com',
       yourMessage: '您的消息...'
     },
+    blog: {
+      title: '思考',
+      featured: '精选',
+      continueReading: '继续阅读 →',
+      readMore: '阅读更多 →',
+      loadMore: '加载更多文章',
+      stayConnected: '保持联系',
+      subscribeText: '订阅以接收新研究、发表和见解的更新',
+      subscribe: '订阅',
+      minRead: '分钟阅读'
+    },
+    books: {
+      title: '文学之旅',
+      subtitle: '塑造我视角和理解的书籍',
+      readingStats: '阅读统计',
+      booksRead: '已读书籍',
+      favoriteAuthor: '最喜欢的作者',
+      categories: '分类',
+      readingPhilosophy: '阅读哲学',
+      philosophyText: '"读者在死亡之前会经历一千种人生。不读书的人只能活一种人生。"这些书籍是我智识之旅的伴侣。'
+    },
     common: {
-      viewGithub: '查看GitHub资料'
+      viewGithub: '查看GitHub资料',
+      close: '关闭',
+      loading: '加载中...',
+      error: '错误',
+      success: '成功'
     },
     chat: {
       welcome: '欢迎来到托特',

@@ -1,9 +1,9 @@
 <template>
-  <div class="projects-page py-12">
+  <div class="projects-page py-12" :dir="isRTL ? 'rtl' : 'ltr'">
     <div class="prose-container">
-      <h1 class="gothic-title text-sage text-center mb-8">Project Portfolio</h1>
+      <h1 class="gothic-title text-sage text-center mb-8">{{ t('projects.title') }}</h1>
       <p class="serene-text text-xl text-center mb-12">
-        A collection of research projects, implementations, and experiments across various domains
+        {{ t('projects.subtitle') }}
       </p>
     </div>
     
@@ -119,7 +119,7 @@
                   @click="selectedProject = project"
                   class="text-sage-dark hover:text-sage-light text-sm transition-colors"
                 >
-                  View Details →
+                  {{ t('projects.viewDetails') }}
                 </button>
               </div>
             </div>
@@ -170,10 +170,10 @@
                 >
               </div>
               <div>
-                <h3 class="text-lg font-medium text-gray-300 mb-3">Description</h3>
+                <h3 class="text-lg font-medium text-gray-300 mb-3">{{ t('projects.description') }}</h3>
                 <p class="text-gray-400 leading-relaxed mb-4">{{ selectedProject.description }}</p>
                 
-                <h3 class="text-lg font-medium text-gray-300 mb-3">Technologies</h3>
+                <h3 class="text-lg font-medium text-gray-300 mb-3">{{ t('projects.technologies') }}</h3>
                 <div class="flex flex-wrap gap-2 mb-4">
                   <span 
                     v-for="tech in selectedProject.technologies" 
@@ -192,7 +192,7 @@
                     class="btn-gothic text-sm"
                     @click="trackOutboundLink(selectedProject.github)"
                   >
-                    View Code
+                    {{ t('projects.viewCode') }}
                   </a>
                   <a 
                     v-if="selectedProject.demo" 
@@ -201,7 +201,7 @@
                     class="btn-gothic text-sm"
                     @click="trackOutboundLink(selectedProject.demo)"
                   >
-                    Live Demo
+                    {{ t('projects.liveDemo') }}
                   </a>
                   <a 
                     v-if="selectedProject.paper" 
@@ -210,7 +210,7 @@
                     class="btn-gothic text-sm"
                     @click="trackOutboundLink(selectedProject.paper)"
                   >
-                    Read Paper
+                    {{ t('projects.readPaper') }}
                   </a>
                 </div>
               </div>
@@ -226,10 +226,13 @@
 import { ref, computed, onMounted } from 'vue'
 import { useData } from '../composables/useData'
 import { useAnalytics } from '../composables/useAnalytics'
+import { useI18n } from '@/composables/useI18n'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const { t, isRTL } = useI18n()
 
 const { data: projects, loading, error } = useData('/src/data/projects.json')
 const { trackOutboundLink } = useAnalytics()

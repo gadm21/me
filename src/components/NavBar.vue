@@ -143,11 +143,11 @@ const navItems = computed(() => {
     { name: 'Home', path: '/', label: t('nav.home') },
     { name: 'Research', path: '/research', label: t('nav.research') },
     { name: 'Publications', path: '/publications', label: t('nav.publications') },
-    { name: 'Projects', path: '/projects', label: 'Projects' },
-    { name: 'Teaching', path: '/teaching', label: 'Teaching' },
-    { name: 'Blog', path: '/blog', label: 'Blog' },
-    { name: 'Books', path: '/books', label: 'Books' },
-    { name: 'Awards', path: '/awards', label: 'Awards' },
+    { name: 'Projects', path: '/projects', label: t('nav.projects') },
+    { name: 'Teaching', path: '/teaching', label: t('nav.teaching') },
+    { name: 'Blog', path: '/blog', label: t('nav.blog') },
+    { name: 'Books', path: '/books', label: t('nav.books') },
+    { name: 'Awards', path: '/awards', label: t('nav.awards') },
     { name: 'Contact', path: '/contact', label: t('nav.contact') }
   ]
 })
