@@ -37,7 +37,9 @@ const translations = {
       flDp: 'FL + DP',
       flDpDesc: 'Federated Learning with Differential Privacy guarantees',
       quantum: 'Quantum Networks',
-      quantumDesc: 'Quantum Key Distribution (QKD) and Quantum Federated Learning (QFL)'
+      quantumDesc: 'Quantum Key Distribution (QKD) and Quantum Federated Learning (QFL)',
+      githubContributions: 'GitHub Contributions',
+      taskTracking: 'Task Tracking'
     },
     // Research page
     research: {
@@ -216,7 +218,9 @@ const translations = {
       flDp: 'FL + DP',
       flDpDesc: 'Apprentissage Fédéré avec garanties de Confidentialité Différentielle',
       quantum: 'Réseaux Quantiques',
-      quantumDesc: 'Distribution de Clés Quantiques (QKD) et Apprentissage Fédéré Quantique (QFL)'
+      quantumDesc: 'Distribution de Clés Quantiques (QKD) et Apprentissage Fédéré Quantique (QFL)',
+      githubContributions: 'Contributions GitHub',
+      taskTracking: 'Suivi des Tâches'
     },
     research: {
       title: 'Recherche',
@@ -384,7 +388,9 @@ const translations = {
       flDp: 'FL + DP',
       flDpDesc: 'التعلم الموحد مع ضمانات الخصوصية التفاضلية',
       quantum: 'الشبكات الكمية',
-      quantumDesc: 'توزيع المفاتيح الكمية (QKD) والتعلم الموحد الكمي (QFL)'
+      quantumDesc: 'توزيع المفاتيح الكمية (QKD) والتعلم الموحد الكمي (QFL)',
+      githubContributions: 'مساهمات GitHub',
+      taskTracking: 'تتبع المهام'
     },
     research: {
       title: 'البحث',
@@ -552,7 +558,9 @@ const translations = {
       flDp: 'FL + DP',
       flDpDesc: '具有差分隐私保证的联邦学习',
       quantum: '量子网络',
-      quantumDesc: '量子密钥分发（QKD）和量子联邦学习（QFL）'
+      quantumDesc: '量子密钥分发（QKD）和量子联邦学习（QFL）',
+      githubContributions: 'GitHub 贡献',
+      taskTracking: '任务跟踪'
     },
     research: {
       title: '研究',
