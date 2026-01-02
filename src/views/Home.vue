@@ -109,44 +109,12 @@
       </div>
     </section>
 
-    <!-- Personal Task Tracking Section -->
+    <!-- Task Tracking Section -->
     <section class="section relative z-10 bg-surface dark:bg-surface-dark pb-16">
       <div class="content-container">
         <div class="max-w-4xl mx-auto">
-          <h2 class="section-title text-center mb-8">{{ t('home.personalTaskTracking') || 'Personal Task Tracking' }}</h2>
+          <h2 class="section-title text-center mb-8">{{ t('home.taskTracking') || 'Task Tracking' }}</h2>
           <div class="thoth-contributions-wrapper">
-            <!-- Header with stats -->
-            <div class="thoth-header">
-              <div class="thoth-title">
-                <span class="thoth-icon">𓂀</span>
-                <span>Personal Task Tracking</span>
-              </div>
-              <div class="thoth-stats" v-if="thothStats">
-                <span class="stat-item">
-                  <span class="stat-emoji">{{ thothStats.level?.emoji || '🌱' }}</span>
-                  <span class="stat-label">{{ thothStats.level?.level || 'Novice' }}</span>
-                </span>
-                <span class="stat-item">
-                  <span class="stat-value">{{ thothStats.stats?.total_xp || 0 }}</span>
-                  <span class="stat-label">XP</span>
-                </span>
-                <span class="stat-item" v-if="thothStats.stats?.current_streak > 0">
-                  <span class="stat-emoji">🔥</span>
-                  <span class="stat-value">{{ thothStats.stats?.current_streak }}</span>
-                  <span class="stat-label">streak</span>
-                </span>
-                <span class="stat-item">
-                  <span class="stat-value">{{ thothStats.stats?.tasks_completed || 0 }}</span>
-                  <span class="stat-label">tasks</span>
-                </span>
-                <span class="stat-item">
-                  <span class="stat-emoji">💯</span>
-                  <span class="stat-value">{{ thothStats.stats?.perfect_days || 0 }}</span>
-                  <span class="stat-label">perfect</span>
-                </span>
-              </div>
-            </div>
-            
             <!-- Contribution Grid -->
             <div class="contribution-grid-container">
               <div class="contribution-grid">
@@ -155,7 +123,7 @@
                   :key="index"
                   class="contribution-cell"
                   :class="'level-' + day.level"
-                  :title="`${day.date}: ${day.tasks_completed || 0} tasks${day.completed ? ' completed' : ''} (${day.xp_earned || 0} XP)`"
+                  :title="`${day.date}: ${day.tasks_completed || 0} tasks${day.completed ? ' completed' : ''}`"
                 ></div>
               </div>
               <div class="contribution-legend">
@@ -166,20 +134,6 @@
                 <div class="legend-cell level-3"></div>
                 <div class="legend-cell level-4"></div>
                 <span class="legend-label">More</span>
-              </div>
-            </div>
-            
-            <!-- Progress bar to next level -->
-            <div class="level-progress" v-if="thothStats?.level">
-              <div class="progress-info">
-                <span>{{ thothStats.level.emoji }} {{ thothStats.level.level }}</span>
-                <span>{{ thothStats.level.xp_to_next }} XP to {{ thothStats.level.next_level }}</span>
-              </div>
-              <div class="progress-bar">
-                <div 
-                  class="progress-fill" 
-                  :style="{ width: thothStats.level.progress_percent + '%' }"
-                ></div>
               </div>
             </div>
           </div>
@@ -313,7 +267,6 @@
             <!-- Task Management Messages -->
             <div v-if="taskManagementMessage" class="task-management-message" :class="taskMessageType">
               {{ taskManagementMessage }}
-              <div v-if="xpAwardedManagement" class="xp-award">+{{ xpAwardedManagement }} XP earned!</div>
             </div>
             
             <div class="task-footer">
@@ -373,44 +326,35 @@ const dotHovered = ref(false)
 // GitHub username
 const GITHUB_USERNAME = 'gadm21'
 
-// GitHub contributions graph URL
+// GitHub contributions graph URL - 2026 data
 const githubContributionsUrl = computed(() => {
   const theme = isDark.value ? 'teal' : '2dd4bf'
+  // GitHub automatically shows current year (2026) contributions
   return `https://ghchart.rshah.org/${theme}/${GITHUB_USERNAME}`
 })
 
-// Thoth Accountability data
-const thothStats = ref(null)
+// Task contribution data
 const thothContributions = ref([])
 
 // Task management state
 const currentTasks = ref(null)
 const taskManagementMessage = ref('')
 const taskMessageType = ref('') // 'success' or 'error'
-const xpAwardedManagement = ref(0)
 
-// Fetch Thoth gamification data
+// Fetch task contribution data
 const fetchThothData = async () => {
   try {
     const response = await fetch('https://api.thothcraft.com/data/gamification')
     if (response.ok) {
       const data = await response.json()
       if (data.success && data.data) {
-        thothStats.value = data.data
         thothContributions.value = data.data.contributions || []
-        console.log('Thoth data loaded:', thothContributions.value.length, 'contributions')
+        console.log('Task contributions loaded:', thothContributions.value.length, 'days')
       }
     }
   } catch (error) {
-    console.log('Thoth data not available:', error)
-    // Generate placeholder data for demo
-    generatePlaceholderData()
-  }
-  
-  // Ensure we always have some data
-  if (thothContributions.value.length === 0) {
-    console.log('No contributions data, generating placeholder')
-    generatePlaceholderData()
+    console.log('Task contribution data not available:', error)
+    // No placeholder data - only show real data
   }
 }
 
@@ -448,7 +392,6 @@ const updateTaskProgress = async (taskType, progress) => {
     if (data.success) {
       taskManagementMessage.value = data.message
       taskMessageType.value = 'success'
-      xpAwardedManagement.value = data.xp_awarded || 0
       
       // Refresh current tasks to show updated progress
       await fetchCurrentTasks()
@@ -456,7 +399,6 @@ const updateTaskProgress = async (taskType, progress) => {
       // Clear message after 5 seconds
       setTimeout(() => {
         taskManagementMessage.value = ''
-        xpAwardedManagement.value = 0
       }, 5000)
     } else {
       taskManagementMessage.value = data.error || 'Failed to update progress'
@@ -494,7 +436,6 @@ const completeTask = async (taskType) => {
     if (data.success) {
       taskManagementMessage.value = data.message
       taskMessageType.value = 'success'
-      xpAwardedManagement.value = data.xp_awarded || 0
       
       // Refresh current tasks to show completion
       await fetchCurrentTasks()
@@ -502,7 +443,6 @@ const completeTask = async (taskType) => {
       // Clear message after 5 seconds
       setTimeout(() => {
         taskManagementMessage.value = ''
-        xpAwardedManagement.value = 0
       }, 5000)
     } else {
       taskManagementMessage.value = data.error || 'Failed to complete task'
@@ -531,65 +471,6 @@ const refreshCurrentTasks = async () => {
   setTimeout(() => {
     taskManagementMessage.value = ''
   }, 2000)
-}
-
-// Generate placeholder data if API is not available
-const generatePlaceholderData = () => {
-  console.log('Generating placeholder contribution data...')
-  const contributions = []
-  const today = new Date()
-  
-  for (let i = 364; i >= 0; i--) {
-    const date = new Date(today)
-    date.setDate(date.getDate() - i)
-    const dateStr = date.toISOString().split('T')[0]
-    
-    // Generate task count similar to GitHub contribution pattern
-    // Most days have 0-1 tasks, some have 2-3, few have 4+ tasks
-    const rand = Math.random()
-    let tasksCompleted = 0
-    let xpEarned = 0
-    
-    if (rand > 0.7) {
-      tasksCompleted = 1
-      xpEarned = Math.floor(Math.random() * 20) + 10
-    }
-    if (rand > 0.85) {
-      tasksCompleted = 2
-      xpEarned = Math.floor(Math.random() * 30) + 25
-    }
-    if (rand > 0.93) {
-      tasksCompleted = 3
-      xpEarned = Math.floor(Math.random() * 40) + 40
-    }
-    if (rand > 0.97) {
-      tasksCompleted = Math.floor(Math.random() * 3) + 4
-      xpEarned = Math.floor(Math.random() * 50) + 60
-    }
-    
-    // GitHub-style level calculation based on task count
-    let level = 0
-    if (tasksCompleted >= 1 && tasksCompleted <= 1) level = 1
-    else if (tasksCompleted >= 2 && tasksCompleted <= 2) level = 2
-    else if (tasksCompleted >= 3 && tasksCompleted <= 4) level = 3
-    else if (tasksCompleted >= 5) level = 4
-    
-    contributions.push({
-      date: dateStr,
-      xp_earned: xpEarned,
-      completed: tasksCompleted > 0,
-      tasks_completed: tasksCompleted,
-      level: level
-    })
-  }
-  
-  thothContributions.value = contributions
-  thothStats.value = {
-    level: { emoji: '🔥', level: 'Master', xp: 1250, xp_to_next: 250, next_level: 'Grandmaster', progress_percent: 50 },
-    stats: { total_xp: 1250, current_streak: 7, longest_streak: 14, tasks_completed: 89, perfect_days: 23 }
-  }
-  
-  console.log('Generated', contributions.length, 'placeholder contributions')
 }
 
 // Mouse/touch interaction state
@@ -1663,13 +1544,6 @@ onUnmounted(() => {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.2);
   color: #dc2626;
-}
-
-.xp-award {
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-top: 4px;
-  color: #f59e0b;
 }
 
 .tasks-list {
