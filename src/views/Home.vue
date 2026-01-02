@@ -108,6 +108,83 @@
       </div>
     </section>
 
+    <!-- Thoth Accountability Grid Section -->
+    <section class="section relative z-10 bg-surface dark:bg-surface-dark pb-16">
+      <div class="content-container">
+        <div class="max-w-4xl mx-auto">
+          <div class="thoth-contributions-wrapper">
+            <!-- Header with stats -->
+            <div class="thoth-header">
+              <div class="thoth-title">
+                <span class="thoth-icon">𓂀</span>
+                <span>Thoth Accountability</span>
+              </div>
+              <div class="thoth-stats" v-if="thothStats">
+                <span class="stat-item">
+                  <span class="stat-emoji">{{ thothStats.level?.emoji || '🌱' }}</span>
+                  <span class="stat-label">{{ thothStats.level?.level || 'Novice' }}</span>
+                </span>
+                <span class="stat-item">
+                  <span class="stat-value">{{ thothStats.stats?.total_xp || 0 }}</span>
+                  <span class="stat-label">XP</span>
+                </span>
+                <span class="stat-item" v-if="thothStats.stats?.current_streak > 0">
+                  <span class="stat-emoji">🔥</span>
+                  <span class="stat-value">{{ thothStats.stats?.current_streak }}</span>
+                  <span class="stat-label">streak</span>
+                </span>
+                <span class="stat-item">
+                  <span class="stat-value">{{ thothStats.stats?.tasks_completed || 0 }}</span>
+                  <span class="stat-label">tasks</span>
+                </span>
+                <span class="stat-item">
+                  <span class="stat-emoji">💯</span>
+                  <span class="stat-value">{{ thothStats.stats?.perfect_days || 0 }}</span>
+                  <span class="stat-label">perfect</span>
+                </span>
+              </div>
+            </div>
+            
+            <!-- Contribution Grid -->
+            <div class="contribution-grid-container">
+              <div class="contribution-grid">
+                <div 
+                  v-for="(day, index) in thothContributions" 
+                  :key="index"
+                  class="contribution-cell"
+                  :class="'level-' + day.level"
+                  :title="`${day.date}: ${day.xp_earned} XP${day.completed ? ' ✓' : ''}`"
+                ></div>
+              </div>
+              <div class="contribution-legend">
+                <span class="legend-label">Less</span>
+                <div class="legend-cell level-0"></div>
+                <div class="legend-cell level-1"></div>
+                <div class="legend-cell level-2"></div>
+                <div class="legend-cell level-3"></div>
+                <div class="legend-cell level-4"></div>
+                <span class="legend-label">More</span>
+              </div>
+            </div>
+            
+            <!-- Progress bar to next level -->
+            <div class="level-progress" v-if="thothStats?.level">
+              <div class="progress-info">
+                <span>{{ thothStats.level.emoji }} {{ thothStats.level.level }}</span>
+                <span>{{ thothStats.level.xp_to_next }} XP to {{ thothStats.level.next_level }}</span>
+              </div>
+              <div class="progress-bar">
+                <div 
+                  class="progress-fill" 
+                  :style="{ width: thothStats.level.progress_percent + '%' }"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Resume PDF Modal -->
     <PdfViewer 
       :is-open="showResumeModal"
@@ -143,6 +220,61 @@ const githubContributionsUrl = computed(() => {
   const theme = isDark.value ? 'teal' : '2dd4bf'
   return `https://ghchart.rshah.org/${theme}/${GITHUB_USERNAME}`
 })
+
+// Thoth Accountability data
+const thothStats = ref(null)
+const thothContributions = ref([])
+
+// Fetch Thoth gamification data
+const fetchThothData = async () => {
+  try {
+    const response = await fetch('https://api.thothcraft.com/data/gamification')
+    if (response.ok) {
+      const data = await response.json()
+      if (data.success && data.data) {
+        thothStats.value = data.data
+        thothContributions.value = data.data.contributions || []
+      }
+    }
+  } catch (error) {
+    console.log('Thoth data not available:', error)
+    // Generate placeholder data for demo
+    generatePlaceholderData()
+  }
+}
+
+// Generate placeholder data if API is not available
+const generatePlaceholderData = () => {
+  const contributions = []
+  const today = new Date()
+  
+  for (let i = 364; i >= 0; i--) {
+    const date = new Date(today)
+    date.setDate(date.getDate() - i)
+    const dateStr = date.toISOString().split('T')[0]
+    
+    // Random XP for demo (weighted towards lower values)
+    const rand = Math.random()
+    let xp = 0
+    if (rand > 0.3) xp = Math.floor(Math.random() * 25)
+    if (rand > 0.5) xp = Math.floor(Math.random() * 50) + 25
+    if (rand > 0.8) xp = Math.floor(Math.random() * 75) + 50
+    if (rand > 0.95) xp = Math.floor(Math.random() * 100) + 100
+    
+    contributions.push({
+      date: dateStr,
+      xp_earned: xp,
+      completed: xp > 50,
+      level: Math.min(4, Math.floor(xp / 25))
+    })
+  }
+  
+  thothContributions.value = contributions
+  thothStats.value = {
+    level: { emoji: '🔥', level: 'Master', xp: 1250, xp_to_next: 250, next_level: 'Grandmaster', progress_percent: 50 },
+    stats: { total_xp: 1250, current_streak: 7, longest_streak: 14, tasks_completed: 89, perfect_days: 23 }
+  }
+}
 
 // Mouse/touch interaction state
 const mouseState = ref({
@@ -597,6 +729,9 @@ onMounted(() => {
   // Start animation
   draw()
   
+  // Fetch Thoth accountability data
+  fetchThothData()
+  
   // Hero entrance animation
   gsap.timeline()
     .from('.center-dot', { 
@@ -797,5 +932,236 @@ onUnmounted(() => {
   display: block;
   margin: 0 auto;
   border-radius: 4px;
+}
+
+/* Thoth Accountability Grid */
+.thoth-contributions-wrapper {
+  background: var(--color-surface-elevated, #f9fafb);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+:root.dark .thoth-contributions-wrapper {
+  background: rgba(22, 27, 34, 0.8);
+  border-color: rgba(48, 54, 61, 0.8);
+}
+
+.thoth-contributions-wrapper:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+}
+
+.thoth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.thoth-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text, #1f2937);
+}
+
+:root.dark .thoth-title {
+  color: #e5e7eb;
+}
+
+.thoth-icon {
+  font-size: 1.4rem;
+}
+
+.thoth-stats {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+:root.dark .stat-item {
+  color: #9ca3af;
+}
+
+.stat-emoji {
+  font-size: 1rem;
+}
+
+.stat-value {
+  font-weight: 700;
+  color: var(--color-text, #1f2937);
+}
+
+:root.dark .stat-value {
+  color: #f3f4f6;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Contribution Grid */
+.contribution-grid-container {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.contribution-grid {
+  display: grid;
+  grid-template-columns: repeat(53, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+  min-width: 700px;
+}
+
+.contribution-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.contribution-cell:hover {
+  transform: scale(1.3);
+  z-index: 10;
+}
+
+/* Light mode colors - amber/gold theme for Thoth */
+.contribution-cell.level-0 {
+  background: #f3f4f6;
+}
+.contribution-cell.level-1 {
+  background: #fef3c7;
+}
+.contribution-cell.level-2 {
+  background: #fcd34d;
+}
+.contribution-cell.level-3 {
+  background: #f59e0b;
+}
+.contribution-cell.level-4 {
+  background: #d97706;
+}
+
+/* Dark mode colors */
+:root.dark .contribution-cell.level-0 {
+  background: #1f2937;
+}
+:root.dark .contribution-cell.level-1 {
+  background: #78350f;
+}
+:root.dark .contribution-cell.level-2 {
+  background: #b45309;
+}
+:root.dark .contribution-cell.level-3 {
+  background: #d97706;
+}
+:root.dark .contribution-cell.level-4 {
+  background: #f59e0b;
+}
+
+/* Legend */
+.contribution-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+:root.dark .contribution-legend {
+  color: #9ca3af;
+}
+
+.legend-label {
+  margin: 0 4px;
+}
+
+.legend-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+/* Level Progress Bar */
+.level-progress {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border, #e5e7eb);
+}
+
+:root.dark .level-progress {
+  border-top-color: rgba(48, 54, 61, 0.8);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+:root.dark .progress-info {
+  color: #9ca3af;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--color-border, #e5e7eb);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+:root.dark .progress-bar {
+  background: #374151;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .thoth-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .contribution-grid {
+    gap: 2px;
+  }
+  
+  .contribution-cell {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .legend-cell {
+    width: 10px;
+    height: 10px;
+  }
 }
 </style>
