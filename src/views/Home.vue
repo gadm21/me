@@ -115,25 +115,47 @@
         <div class="max-w-4xl mx-auto">
           <h2 class="section-title text-center mb-8">{{ t('home.taskTracking') || 'Task Tracking' }}</h2>
           <div class="thoth-contributions-wrapper">
-            <!-- Contribution Grid -->
-            <div class="contribution-grid-container">
-              <div class="contribution-grid">
+            <!-- Month labels and grid container that scroll together -->
+            <div class="contribution-scroll-container" :style="{ '--weeks-count': weekCount }">
+              <!-- Month labels -->
+              <div class="contribution-months">
                 <div 
-                  v-for="(day, index) in thothContributions" 
-                  :key="index"
-                  class="contribution-cell"
-                  :class="'level-' + day.level"
-                  :title="`${day.date}: ${day.tasks_completed || 0} tasks${day.completed ? ' completed' : ''}`"
-                ></div>
+                  v-for="month in monthLabels" 
+                  :key="month.name"
+                  class="month-label"
+                  :style="{ left: ((month.start - 1) * 14) + 'px' }"
+                >
+                  {{ month.name }}
+                </div>
               </div>
-              <div class="contribution-legend">
-                <span class="legend-label">Less</span>
-                <div class="legend-cell level-0"></div>
-                <div class="legend-cell level-1"></div>
-                <div class="legend-cell level-2"></div>
-                <div class="legend-cell level-3"></div>
-                <div class="legend-cell level-4"></div>
-                <span class="legend-label">More</span>
+              
+              <!-- Contribution Grid with day labels -->
+              <div class="contribution-grid-container">
+                <div class="day-labels">
+                  <div 
+                    v-for="day in dayLabels" 
+                    :key="day"
+                    class="day-label"
+                  >
+                    {{ day }}
+                  </div>
+                </div>
+                <div class="contribution-grid">
+                  <div 
+                    v-for="(day, index) in thothContributions" 
+                    :key="index"
+                    class="contribution-cell"
+                    :class="'level-' + day.level"
+                    :title="`${day.date}: ${day.tasks_completed || 0} tasks${day.completed ? ' completed' : ''}`"
+                  ></div>
+                </div>
+                <div class="contribution-legend">
+                  <div class="legend-cell level-0"></div>
+                  <div class="legend-cell level-1"></div>
+                  <div class="legend-cell level-2"></div>
+                  <div class="legend-cell level-3"></div>
+                  <div class="legend-cell level-4"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -174,12 +196,57 @@ const GITHUB_USERNAME = 'gadm21'
 // GitHub contributions graph URL - 2026 data
 const githubContributionsUrl = computed(() => {
   const theme = isDark.value ? 'teal' : '2dd4bf'
-  // GitHub automatically shows current year (2026) contributions
-  return `https://ghchart.rshah.org/${theme}/${GITHUB_USERNAME}`
+  // Try to get 2026 data, fallback to current year
+  const year = new Date().getFullYear()
+  return `https://ghchart.rshah.org/${theme}/${GITHUB_USERNAME}?year=${year}`
 })
 
 // Task contribution data
 const thothContributions = ref([])
+
+// Generate month labels for GitHub-style layout
+const monthLabels = computed(() => {
+  const months = []
+  const today = new Date()
+  
+  // Start from January 1, 2026
+  const startDate = new Date('2026-01-01')
+  const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24))
+  const weeksToShow = Math.ceil(daysSinceStart / 7)
+  
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  
+  // Generate weeks from Jan 1, 2026 to today
+  let currentMonth = -1
+  for (let week = 0; week <= weeksToShow && week < 53; week++) {
+    const weekDate = new Date(startDate)
+    weekDate.setDate(weekDate.getDate() + week * 7)
+    
+    const monthIndex = weekDate.getMonth()
+    
+    // Only add month when it changes from the previous week
+    if (monthIndex !== currentMonth) {
+      currentMonth = monthIndex
+      months.push({
+        name: monthNames[monthIndex],
+        start: week + 1 // Grid columns are 1-based
+      })
+    }
+  }
+  
+  return months
+})
+
+// Day labels for GitHub-style layout
+const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+// Calculate week count for grid
+const weekCount = computed(() => {
+  const today = new Date()
+  const startDate = new Date('2026-01-01')
+  const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24))
+  return Math.min(Math.ceil(daysSinceStart / 7) + 1, 53) // +1 for partial week, max 53
+})
 
 // Fetch task contribution data
 const fetchThothData = async () => {
@@ -207,10 +274,14 @@ const createGrayGrid = () => {
   const contributions = []
   const today = new Date()
   
-  // Create 365 days of gray (level-0) cells like GitHub
-  for (let i = 364; i >= 0; i--) {
-    const date = new Date(today)
-    date.setDate(date.getDate() - i)
+  // Start from January 1, 2026 for proper 2026 data
+  const startDate = new Date('2026-01-01')
+  const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24))
+  
+  // Create contributions from Jan 1 to today (max 365 days)
+  for (let i = Math.min(daysSinceStart, 364); i >= 0; i--) {
+    const date = new Date(startDate)
+    date.setDate(date.getDate() + i)
     const dateStr = date.toISOString().split('T')[0]
     
     contributions.push({
@@ -222,7 +293,7 @@ const createGrayGrid = () => {
   }
   
   thothContributions.value = contributions
-  console.log('Created gray grid with', contributions.length, 'days')
+  console.log('Created 2026 gray grid with', contributions.length, 'days')
 }
 
 // Mouse/touch interaction state
@@ -966,18 +1037,78 @@ onUnmounted(() => {
 }
 
 /* Contribution Grid - GitHub-style */
+.thoth-contributions-wrapper {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.contribution-scroll-container {
+  overflow-x: hidden; /* No horizontal scrolling */
+  padding-bottom: 8px;
+}
+
+.contribution-months {
+  position: relative;
+  height: 20px;
+  margin-bottom: 4px;
+  padding-left: 40px; /* Space for day labels */
+  width: 100%;
+  max-width: 100%;
+}
+
+.month-label {
+  position: absolute;
+  font-size: 10px;
+  color: #586069;
+  font-weight: 500;
+  text-transform: uppercase;
+  white-space: nowrap;
+  top: 0;
+}
+
+:root.dark .month-label {
+  color: #8b949e;
+}
+
 .contribution-grid-container {
-  overflow-x: auto;
-  padding: 16px 0;
+  display: flex;
+  padding-left: 40px; /* Space for day labels */
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.day-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 40px;
+  margin-right: 8px;
+  font-size: 9px;
+  color: #586069;
+  font-weight: 500;
+}
+
+:root.dark .day-labels {
+  color: #8b949e;
+}
+
+.day-label {
+  height: 11px;
+  display: flex;
+  align-items: center;
 }
 
 .contribution-grid {
   display: grid;
-  grid-template-columns: repeat(53, 1fr);
+  grid-template-columns: repeat(var(--weeks-count, 53), 1fr);
   grid-template-rows: repeat(7, 1fr);
   gap: 3px;
-  min-width: 828px; /* GitHub's exact width */
   width: 100%;
+  flex: 1;
+  min-width: 0; /* Prevent overflow */
 }
 
 .contribution-cell {
@@ -1124,3 +1255,4 @@ onUnmounted(() => {
     height: 10px;
   }
 }
+</style>
