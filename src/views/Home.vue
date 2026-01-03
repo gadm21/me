@@ -969,8 +969,8 @@ onUnmounted(() => {
 }
 
 .thoth-contributions-wrapper:hover {
-  border-color: #216e39;
-  box-shadow: 0 4px 20px rgba(33, 110, 57, 0.15);
+  border-color: #3182bd;
+  box-shadow: 0 4px 20px rgba(49, 130, 189, 0.15);
 }
 
 .thoth-header {
@@ -1130,38 +1130,38 @@ onUnmounted(() => {
   z-index: 10;
 }
 
-/* GitHub-style green colors for personal tasks */
+/* GitHub-style blue colors for task tracking */
 .contribution-cell.level-0 {
   background: #ebedf0;
 }
 .contribution-cell.level-1 {
-  background: #9be9a8;
+  background: #9ecae9;
 }
 .contribution-cell.level-2 {
-  background: #40c463;
+  background: #6baed6;
 }
 .contribution-cell.level-3 {
-  background: #30a14e;
+  background: #3182bd;
 }
 .contribution-cell.level-4 {
-  background: #216e39;
+  background: #08519c;
 }
 
-/* Dark mode GitHub colors */
+/* Dark mode blue colors */
 :root.dark .contribution-cell.level-0 {
-  background: #0d1117;
+  background: #161b22;
 }
 :root.dark .contribution-cell.level-1 {
-  background: #0e4429;
+  background: #0e4a6e;
 }
 :root.dark .contribution-cell.level-2 {
-  background: #006d32;
+  background: #0969a2;
 }
 :root.dark .contribution-cell.level-3 {
-  background: #26a641;
+  background: #2188d6;
 }
 :root.dark .contribution-cell.level-4 {
-  background: #39d353;
+  background: #58a6ff;
 }
 
 /* GitHub-style legend */
@@ -1232,7 +1232,7 @@ onUnmounted(() => {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #216e39, #30a14e);
+  background: linear-gradient(90deg, #08519c, #3182bd);
   border-radius: 4px;
   transition: width 0.5s ease;
 }
