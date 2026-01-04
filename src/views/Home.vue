@@ -121,9 +121,9 @@
               <div class="contribution-months">
                 <div 
                   v-for="month in monthLabels" 
-                  :key="month.name"
+                  :key="month.name + month.start"
                   class="month-label"
-                  :style="{ left: ((month.start - 1) * 14) + 7 + 'px' }"
+                  :style="{ left: ((month.start - 1) * 14) + 'px' }"
                 >
                   {{ month.name }}
                 </div>
@@ -133,11 +133,11 @@
               <div class="contribution-grid-container">
                 <div class="day-labels">
                   <div 
-                    v-for="day in dayLabels" 
-                    :key="day"
+                    v-for="(day, idx) in dayLabels" 
+                    :key="idx"
                     class="day-label"
                   >
-                    {{ day }}
+                    {{ idx === 1 || idx === 3 || idx === 5 ? day : '' }}
                   </div>
                 </div>
                 <div class="contribution-grid">
@@ -149,14 +149,17 @@
                     :title="`${day.date}: ${day.tasks_completed || 0} tasks${day.completed ? ' completed' : ''}`"
                   ></div>
                 </div>
-                <div class="contribution-legend">
-                  <div class="legend-cell level-0"></div>
-                  <div class="legend-cell level-1"></div>
-                  <div class="legend-cell level-2"></div>
-                  <div class="legend-cell level-3"></div>
-                  <div class="legend-cell level-4"></div>
-                </div>
               </div>
+            </div>
+            <!-- Legend at bottom right like GitHub -->
+            <div class="contribution-legend">
+              <span class="legend-label">Less</span>
+              <div class="legend-cell level-0"></div>
+              <div class="legend-cell level-1"></div>
+              <div class="legend-cell level-2"></div>
+              <div class="legend-cell level-3"></div>
+              <div class="legend-cell level-4"></div>
+              <span class="legend-label">More</span>
             </div>
           </div>
         </div>
@@ -209,18 +212,23 @@ const monthLabels = computed(() => {
   const months = []
   const today = new Date()
   
-  // Start from January 1, 2026
-  const startDate = new Date('2026-01-01')
-  const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24))
-  const weeksToShow = Math.ceil(daysSinceStart / 7)
+  // Start from 52 weeks ago, adjusted to Sunday
+  const startDate = new Date(today)
+  startDate.setDate(today.getDate() - 52 * 7)
+  const startDay = startDate.getDay()
+  if (startDay !== 0) {
+    startDate.setDate(startDate.getDate() - startDay)
+  }
   
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   
-  // Generate weeks from Jan 1, 2026 to today
+  // Generate month labels for each week
   let currentMonth = -1
-  for (let week = 0; week <= weeksToShow && week < 53; week++) {
+  for (let week = 0; week < 53; week++) {
     const weekDate = new Date(startDate)
-    weekDate.setDate(weekDate.getDate() + week * 7)
+    weekDate.setDate(startDate.getDate() + week * 7)
+    
+    if (weekDate > today) break
     
     const monthIndex = weekDate.getMonth()
     
@@ -229,7 +237,7 @@ const monthLabels = computed(() => {
       currentMonth = monthIndex
       months.push({
         name: monthNames[monthIndex],
-        start: week + 1 // Grid columns are 1-based
+        start: week + 1
       })
     }
   }
@@ -237,63 +245,78 @@ const monthLabels = computed(() => {
   return months
 })
 
-// Day labels for GitHub-style layout
-const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+// Day labels for GitHub-style layout (Sun-Sat, only show Mon, Wed, Fri)
+const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-// Calculate week count for grid
+// Calculate week count for grid (always 53 weeks like GitHub)
 const weekCount = computed(() => {
-  const today = new Date()
-  const startDate = new Date('2026-01-01')
-  const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24))
-  return Math.min(Math.ceil(daysSinceStart / 7) + 1, 53) // +1 for partial week, max 53
+  return 53
 })
 
 // Fetch task contribution data
 const fetchThothData = async () => {
+  // Always create the base gray grid first
+  createGrayGrid()
+  
+  // Then try to overlay with real data
   try {
     const response = await fetch('https://api.thothcraft.com/data/gamification')
     if (response.ok) {
       const data = await response.json()
-      if (data.success && data.data) {
-        thothContributions.value = data.data.contributions || []
-        console.log('Task contributions loaded:', thothContributions.value.length, 'days')
+      if (data.success && data.data && data.data.contributions && data.data.contributions.length > 0) {
+        // Merge real data into the grid
+        const realData = data.data.contributions
+        const dataMap = new Map(realData.map(d => [d.date, d]))
+        
+        thothContributions.value = thothContributions.value.map(cell => {
+          const realCell = dataMap.get(cell.date)
+          return realCell ? { ...cell, ...realCell } : cell
+        })
+        console.log('Task contributions merged:', realData.length, 'days with data')
       }
     }
   } catch (error) {
-    console.log('Task contribution data not available:', error)
-  }
-  
-  // If no data, create gray grid like GitHub
-  if (thothContributions.value.length === 0) {
-    createGrayGrid()
+    console.log('Task contribution data not available, using gray grid')
   }
 }
 
 // Create gray grid like GitHub when no data available
+// GitHub grid flows: columns are weeks, rows are days (Sun=0 to Sat=6)
+// Grid fills column by column (week by week)
 const createGrayGrid = () => {
   const contributions = []
   const today = new Date()
   
-  // Start from January 1, 2026 for proper 2026 data
-  const startDate = new Date('2026-01-01')
-  const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24))
+  // Calculate start date: 52 weeks ago from today, adjusted to Sunday
+  const startDate = new Date(today)
+  startDate.setDate(today.getDate() - 52 * 7)
   
-  // Create contributions from Jan 1 to today (max 365 days)
-  for (let i = Math.min(daysSinceStart, 364); i >= 0; i--) {
-    const date = new Date(startDate)
-    date.setDate(date.getDate() + i)
-    const dateStr = date.toISOString().split('T')[0]
+  // Adjust to start on Sunday (like GitHub)
+  const startDay = startDate.getDay()
+  if (startDay !== 0) {
+    startDate.setDate(startDate.getDate() - startDay)
+  }
+  
+  // Generate exactly 53 weeks * 7 days = 371 cells for full grid
+  // This ensures the grid is always complete
+  for (let i = 0; i < 53 * 7; i++) {
+    const cellDate = new Date(startDate)
+    cellDate.setDate(startDate.getDate() + i)
+    
+    // Only include dates up to today
+    const isFuture = cellDate > today
+    const dateStr = cellDate.toISOString().split('T')[0]
     
     contributions.push({
       date: dateStr,
       tasks_completed: 0,
       completed: false,
-      level: 0  // Gray cells
+      level: isFuture ? -1 : 0  // -1 for future dates (invisible), 0 for gray
     })
   }
   
   thothContributions.value = contributions
-  console.log('Created 2026 gray grid with', contributions.length, 'days')
+  console.log('Created gray grid with', contributions.length, 'cells')
 }
 
 // Mouse/touch interaction state
@@ -1041,33 +1064,29 @@ onUnmounted(() => {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   max-width: 100%;
   margin: 0 auto;
-  overflow: hidden;
 }
 
 .contribution-scroll-container {
-  overflow-x: hidden; /* No horizontal scrolling */
+  overflow-x: auto;
   padding-bottom: 8px;
+  width: 100%;
+  min-width: 0;
 }
 
 .contribution-months {
   position: relative;
-  height: 20px;
-  margin-bottom: 4px;
-  padding-left: 40px; /* Space for day labels */
-  width: 100%;
-  max-width: 100%;
-  min-width: 600px; /* Minimum width for proper spacing */
+  height: 15px;
+  margin-bottom: 2px;
+  margin-left: 32px; /* Space for day labels */
 }
 
 .month-label {
   position: absolute;
   font-size: 10px;
   color: #586069;
-  font-weight: 500;
-  text-transform: uppercase;
+  font-weight: 400;
   white-space: nowrap;
   top: 0;
-  transform: translateX(-50%); /* Center on the column */
 }
 
 :root.dark .month-label {
@@ -1076,22 +1095,21 @@ onUnmounted(() => {
 
 .contribution-grid-container {
   display: flex;
-  padding-left: 40px; /* Space for day labels */
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  min-width: 600px; /* Match months container */
+  align-items: flex-start;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  min-width: min-content;
 }
 
 .day-labels {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 40px;
-  margin-right: 8px;
+  display: grid;
+  grid-template-rows: repeat(7, 11px);
+  gap: 3px;
+  width: 28px;
+  margin-right: 4px;
   font-size: 9px;
   color: #586069;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 :root.dark .day-labels {
@@ -1102,16 +1120,15 @@ onUnmounted(() => {
   height: 11px;
   display: flex;
   align-items: center;
+  line-height: 11px;
 }
 
 .contribution-grid {
   display: grid;
-  grid-template-columns: repeat(var(--weeks-count, 53), 1fr);
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 11px);
+  grid-auto-flow: column;
+  grid-auto-columns: 11px;
   gap: 3px;
-  width: 100%;
-  flex: 1;
-  min-width: 0; /* Prevent overflow */
 }
 
 .contribution-cell {
@@ -1130,12 +1147,28 @@ onUnmounted(() => {
   z-index: 10;
 }
 
-/* GitHub-style blue colors for task tracking */
+/* Task tracking colors:
+   level -1: Future dates (transparent)
+   level 0: No tasks set (gray)
+   level -2: Tasks set but not done (red)
+   level -3: Mixed - some done, some not (blue + red gradient)
+   level 1-4: Tasks completed (blue gradient based on number)
+*/
+.contribution-cell.level--1 {
+  background: transparent;
+  pointer-events: none;
+}
 .contribution-cell.level-0 {
   background: #ebedf0;
 }
+.contribution-cell.level--2 {
+  background: #ef4444; /* Red - tasks not done */
+}
+.contribution-cell.level--3 {
+  background: linear-gradient(135deg, #3182bd 50%, #ef4444 50%); /* Mixed */
+}
 .contribution-cell.level-1 {
-  background: #9ecae9;
+  background: #9ecae9; /* Light blue */
 }
 .contribution-cell.level-2 {
   background: #6baed6;
@@ -1144,12 +1177,18 @@ onUnmounted(() => {
   background: #3182bd;
 }
 .contribution-cell.level-4 {
-  background: #08519c;
+  background: #08519c; /* Dark blue */
 }
 
-/* Dark mode blue colors */
+/* Dark mode colors */
 :root.dark .contribution-cell.level-0 {
   background: #161b22;
+}
+:root.dark .contribution-cell.level--2 {
+  background: #dc2626; /* Red - tasks not done (dark mode) */
+}
+:root.dark .contribution-cell.level--3 {
+  background: linear-gradient(135deg, #2188d6 50%, #dc2626 50%); /* Mixed (dark mode) */
 }
 :root.dark .contribution-cell.level-1 {
   background: #0e4a6e;
@@ -1195,6 +1234,22 @@ onUnmounted(() => {
   height: 11px;
   border-radius: 2px;
 }
+
+.legend-cell.level-0 { background: #ebedf0; }
+.legend-cell.level--2 { background: #ef4444; }
+.legend-cell.level--3 { background: linear-gradient(135deg, #3182bd 50%, #ef4444 50%); }
+.legend-cell.level-1 { background: #9ecae9; }
+.legend-cell.level-2 { background: #6baed6; }
+.legend-cell.level-3 { background: #3182bd; }
+.legend-cell.level-4 { background: #08519c; }
+
+:root.dark .legend-cell.level-0 { background: #161b22; }
+:root.dark .legend-cell.level--2 { background: #dc2626; }
+:root.dark .legend-cell.level--3 { background: linear-gradient(135deg, #2188d6 50%, #dc2626 50%); }
+:root.dark .legend-cell.level-1 { background: #0e4a6e; }
+:root.dark .legend-cell.level-2 { background: #0969a2; }
+:root.dark .legend-cell.level-3 { background: #2188d6; }
+:root.dark .legend-cell.level-4 { background: #58a6ff; }
 
 /* Level Progress Bar */
 .level-progress {
