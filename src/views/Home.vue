@@ -814,6 +814,9 @@ const navigateToWork = (link) => {
   router.push(link)
 }
 
+// Polling interval for task status updates
+let taskStatusInterval = null
+
 onMounted(() => {
   // Check dark mode and watch for changes
   checkDarkMode()
@@ -829,6 +832,11 @@ onMounted(() => {
   
   // Fetch task contribution data
   fetchThothData()
+  
+  // Poll for task status updates every 30 seconds
+  taskStatusInterval = setInterval(() => {
+    fetchTodayTaskStatus()
+  }, 30000) // 30 seconds
   
   // Hero entrance animation
   gsap.timeline()
@@ -850,6 +858,9 @@ onMounted(() => {
 onUnmounted(() => {
   if (animationId) {
     cancelAnimationFrame(animationId)
+  }
+  if (taskStatusInterval) {
+    clearInterval(taskStatusInterval)
   }
   window.removeEventListener('resize', resizeCanvas)
 })
