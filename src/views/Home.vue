@@ -278,6 +278,61 @@ const fetchThothData = async () => {
   } catch (error) {
     console.log('Task contribution data not available, using gray grid')
   }
+  
+  // Fetch today's task status for real-time updates
+  await fetchTodayTaskStatus()
+}
+
+// Fetch today's task status from API
+const fetchTodayTaskStatus = async () => {
+  try {
+    const response = await fetch('https://api.thothcraft.com/tasks/status')
+    if (response.ok) {
+      const data = await response.json()
+      const today = new Date().toISOString().split('T')[0]
+      
+      // Find today's cell in the grid
+      const todayIndex = thothContributions.value.findIndex(cell => cell.date === today)
+      
+      if (todayIndex !== -1) {
+        const cell = thothContributions.value[todayIndex]
+        
+        if (data.has_tasks) {
+          const completionCount = data.completion_count || 0
+          const totalCount = data.total_count || 0
+          
+          // Determine level based on task completion status
+          // level -2: Tasks set but none completed (RED)
+          // level -3: Some tasks done, some not (MIXED - blue/red gradient)
+          // level 1-4: All tasks completed (BLUE gradient based on number of tasks)
+          let level = 0
+          if (completionCount === 0) {
+            // Tasks exist but none completed - RED
+            level = -2
+          } else if (completionCount < totalCount) {
+            // Some tasks completed, some not - MIXED
+            level = -3
+          } else {
+            // All tasks completed - BLUE gradient (1-4 based on number of tasks)
+            level = Math.min(totalCount, 4)
+          }
+          
+          // Update today's cell with task status
+          thothContributions.value[todayIndex] = {
+            ...cell,
+            tasks_completed: completionCount,
+            total_tasks: totalCount,
+            completed: data.all_completed,
+            has_tasks: true,
+            level: level
+          }
+          console.log('Today task status updated:', { date: today, completionCount, totalCount, level, data })
+        }
+      }
+    }
+  } catch (error) {
+    console.log('Could not fetch today task status:', error)
+  }
 }
 
 // Create gray grid like GitHub when no data available
