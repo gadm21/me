@@ -50,7 +50,7 @@ export function useSEO(options = {}) {
         '@type': 'Organization',
         'name': 'Western University'
       },
-      'url': 'https://gadm21.github.io',
+      'url': 'https://gadgad.me',
       'sameAs': [
         'https://github.com/gadm21',
         'https://scholar.google.com/citations?user=bZRYJuAAAAAJ&hl=en',

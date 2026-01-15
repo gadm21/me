@@ -1,0 +1,1369 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://gadgad.me#person",
+      "name": "Gad Mohamed",
+      "url": "https://gadgad.me",
+      "jobTitle": "Ph.D. Student in Computer Science",
+      "description": "Ph.D. Student specializing in Wi-Fi Sensing, Federated Learning, and Differential Privacy",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Western University"
+      },
+      "sameAs": [
+        "https://github.com/gadm21",
+        "https://scholar.google.com/citations?user=bZRYJuAAAAAJ&hl=en",
+        "https://www.linkedin.com/in/gadm/"
+      ],
+      "knowsAbout": [
+        "Wi-Fi Sensing",
+        "Federated Learning",
+        "Differential Privacy",
+        "Machine Learning",
+        "Computer Vision",
+        "Deep Learning",
+        "IoT",
+        "Human Activity Recognition"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://gadgad.me#website",
+      "url": "https://gadgad.me",
+      "name": "Gad Mohamed - Ph.D. Student in Computer Science",
+      "description": "Exploring the frontiers of Wi-Fi Sensing, Federated Learning, and Differential Privacy",
+      "publisher": {
+        "@id": "https://gadgad.me#person"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://gadgad.me/blog/ai-revolution#blogpost",
+      "url": "https://gadgad.me/blog/ai-revolution",
+      "name": "The AI revolution",
+      "headline": "The AI revolution",
+      "description": "The black box nature of AI models is a double-edged sword. On the one hand, it makes the data speak for themselves. On the other hand, it cancels our ability to understand why AI makes its judgments, not just because the models are complex, but because the data are complex. But the data has always existed, and we always needed to make predictions.",
+      "datePublished": "2025-12-26",
+      "dateModified": "2025-12-26",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "publisher": {
+        "@id": "https://gadgad.me#person"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://gadgad.me/blog/ai-revolution"
+      },
+      "image": "https://gadgad.me/assets/img/blog/pexels-beth-fitzpatrick-742222899-32563997.jpg",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://gadgad.me/blog#blog"
+      }
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://gadgad.me/blog/dear-god-delete-my-data-now#blogpost",
+      "url": "https://gadgad.me/blog/dear-god-delete-my-data-now",
+      "name": "Dear GOD: Delete My Data Now!",
+      "headline": "Dear GOD: Delete My Data Now!",
+      "description": "DID YOU GET MY CONSENT? Let me be clear... NO, I DID NOT AND I DO NOT CONSENT TO THIS.\nDELETE MY DATA AND REMOVE MY SELF FROM THIS SILLY GAME RIGHT NOW... RIGHT NOW... RIGHT NOW...",
+      "datePublished": "2025-12-23",
+      "dateModified": "2025-12-23",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "publisher": {
+        "@id": "https://gadgad.me#person"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://gadgad.me/blog/dear-god-delete-my-data-now"
+      },
+      "image": "https://gadgad.me/assets/img/blog/god.jpg",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://gadgad.me/blog#blog"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#1",
+      "name": "Federated learning via augmented knowledge distillation for heterogenous deep human activity recognition systems",
+      "headline": "Federated learning via augmented knowledge distillation for heterogenous deep human activity recognition systems",
+      "description": "This paper presents federated learning with knowledge distillation for heterogeneous human activity recognition systems.",
+      "datePublished": "2022-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "Z Fadlullah"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Sensors"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "Sensors"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        },
+        {
+          "@type": "Thing",
+          "name": "Human Activity Recognition"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:qjMakFHDy7sC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#2",
+      "name": "Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems",
+      "headline": "Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems",
+      "description": "This work proposes a novel federated learning approach for UAV-IoT systems using self-organizing maps and knowledge distillation.",
+      "datePublished": "2024-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "A Farrag"
+        },
+        {
+          "@type": "Person",
+          "name": "A Aboulfotouh"
+        },
+        {
+          "@type": "Person",
+          "name": "K Bedda"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE Internet of Things Journal"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "IEEE Internet of Things Journal"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "UAV-IoT"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:W7OEmFMy1HYC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#3",
+      "name": "Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks",
+      "headline": "Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks",
+      "description": "This paper addresses communication efficiency and privacy preservation in federated learning through joint knowledge distillation and differential privacy.",
+      "datePublished": "2024-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "E Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        },
+        {
+          "@type": "Person",
+          "name": "N Kato"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE Transactions on Vehicular Technology"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "IEEE Transactions on Vehicular Technology"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Differential Privacy"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:_FxGoFyzp5QC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#4",
+      "name": "An explainable AI system for medical image segmentation with preserved local resolution: Mammogram tumor segmentation",
+      "headline": "An explainable AI system for medical image segmentation with preserved local resolution: Mammogram tumor segmentation",
+      "description": "This work presents an explainable AI system for medical image segmentation focusing on mammogram tumor detection.",
+      "datePublished": "2023-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "A Farrag"
+        },
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        },
+        {
+          "@type": "Person",
+          "name": "M Alsabaan"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE Access"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "IEEE Access"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Explainable AI"
+        },
+        {
+          "@type": "Thing",
+          "name": "Medical Imaging"
+        },
+        {
+          "@type": "Thing",
+          "name": "Image Segmentation"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:Y0pCki6q_DkC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#5",
+      "name": "Real-time lane instance segmentation using SegNet and image processing",
+      "headline": "Real-time lane instance segmentation using SegNet and image processing",
+      "description": "This paper presents a real-time lane detection system using SegNet architecture combined with image processing techniques.",
+      "datePublished": "2020-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "GM Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "AM Annaby"
+        },
+        {
+          "@type": "Person",
+          "name": "NK Negied"
+        },
+        {
+          "@type": "Person",
+          "name": "MS Darweesh"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "2020 2nd Novel Intelligent and Leading Emerging Sciences Conference (NILES)"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "2020 2nd Novel Intelligent and Leading Emerging Sciences Conference (NILES)"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Computer Vision"
+        },
+        {
+          "@type": "Thing",
+          "name": "Image Segmentation"
+        },
+        {
+          "@type": "Thing",
+          "name": "Autonomous Driving"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:u5HHmVD_uO8C"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#6",
+      "name": "Communication-efficient federated learning in drone-assisted IoT networks: Path planning and enhanced knowledge distillation techniques",
+      "headline": "Communication-efficient federated learning in drone-assisted IoT networks: Path planning and enhanced knowledge distillation techniques",
+      "description": "This paper presents communication-efficient federated learning techniques for drone-assisted IoT networks with enhanced path planning.",
+      "datePublished": "2023-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "A Farrag"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "2023 IEEE 34th Annual International Symposium on Personal, Indoor and Mobile Radio Communications"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "2023 IEEE 34th Annual International Symposium on Personal, Indoor and Mobile Radio Communications"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "UAV-IoT"
+        },
+        {
+          "@type": "Thing",
+          "name": "Path Planning"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:zYLM7Y9cAGgC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#7",
+      "name": "Communication-efficient privacy-preserving federated learning via knowledge distillation for human activity recognition systems",
+      "headline": "Communication-efficient privacy-preserving federated learning via knowledge distillation for human activity recognition systems",
+      "description": "This work proposes communication-efficient privacy-preserving federated learning for human activity recognition using knowledge distillation.",
+      "datePublished": "2023-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "K Rabie"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "ICC 2023-IEEE International Conference on Communications"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "ICC 2023-IEEE International Conference on Communications"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Privacy Preservation"
+        },
+        {
+          "@type": "Thing",
+          "name": "Human Activity Recognition"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:IjCSPb-OGe4C"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#8",
+      "name": "Joint knowledge distillation and local differential privacy for communication-efficient federated learning in heterogeneous systems",
+      "headline": "Joint knowledge distillation and local differential privacy for communication-efficient federated learning in heterogeneous systems",
+      "description": "This paper presents joint knowledge distillation and local differential privacy techniques for communication-efficient federated learning.",
+      "datePublished": "2023-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        },
+        {
+          "@type": "Person",
+          "name": "MI Ibrahem"
+        },
+        {
+          "@type": "Person",
+          "name": "N Nasser"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "GLOBECOM 2023-2023 IEEE Global Communications Conference"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "GLOBECOM 2023-2023 IEEE Global Communications Conference"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Differential Privacy"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:eQOLeE2rZwMC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#9",
+      "name": "Deep learning-based context-aware video content analysis on IoT devices",
+      "headline": "Deep learning-based context-aware video content analysis on IoT devices",
+      "description": "This work presents deep learning-based context-aware video content analysis techniques optimized for IoT devices.",
+      "datePublished": "2022-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "E Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "K Cengiz"
+        },
+        {
+          "@type": "Person",
+          "name": "Z Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "B Mokhtar"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Electronics"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "Electronics"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Deep Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Video Analysis"
+        },
+        {
+          "@type": "Thing",
+          "name": "IoT"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:d1gkVwhDpl0C"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#10",
+      "name": "Federated learning with selective knowledge distillation over bandwidth-constrained wireless networks",
+      "headline": "Federated learning with selective knowledge distillation over bandwidth-constrained wireless networks",
+      "description": "This paper proposes federated learning with selective knowledge distillation for bandwidth-constrained wireless networks.",
+      "datePublished": "2024-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        },
+        {
+          "@type": "Person",
+          "name": "MI Ibrahem"
+        },
+        {
+          "@type": "Person",
+          "name": "N Kato"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "ICC 2024-IEEE International Conference on Communications"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "ICC 2024-IEEE International Conference on Communications"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        },
+        {
+          "@type": "Thing",
+          "name": "Wireless Networks"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:LkGwnXOMwfcC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#11",
+      "name": "Mammogram tumor segmentation with preserved local resolution: An explainable ai system",
+      "headline": "Mammogram tumor segmentation with preserved local resolution: An explainable ai system",
+      "description": "This work presents an explainable AI system for mammogram tumor segmentation with preserved local resolution.",
+      "datePublished": "2023-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "A Farrag"
+        },
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "GLOBECOM 2023-2023 IEEE Global Communications Conference"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "GLOBECOM 2023-2023 IEEE Global Communications Conference"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Explainable AI"
+        },
+        {
+          "@type": "Thing",
+          "name": "Medical Imaging"
+        },
+        {
+          "@type": "Thing",
+          "name": "Tumor Segmentation"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:YsMSGLbcyi4C"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#12",
+      "name": "Light-weight federated learning with augmented knowledge distillation for human activity recognition",
+      "headline": "Light-weight federated learning with augmented knowledge distillation for human activity recognition",
+      "description": "This work presents light-weight federated learning techniques with augmented knowledge distillation for human activity recognition.",
+      "datePublished": "2023-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "arXiv preprint"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "arXiv preprint"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        },
+        {
+          "@type": "Thing",
+          "name": "Human Activity Recognition"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:UeHWp8X0CEIC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#13",
+      "name": "Towards Optimized IoT-based Context-aware Video Content Analysis Framework",
+      "headline": "Towards Optimized IoT-based Context-aware Video Content Analysis Framework",
+      "description": "This paper presents an optimized IoT-based framework for context-aware video content analysis.",
+      "datePublished": "2021-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "E Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "B Mokhtar"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "2021 IEEE 7th World Forum on Internet of Things (WF-IoT)"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "2021 IEEE 7th World Forum on Internet of Things (WF-IoT)"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "IoT"
+        },
+        {
+          "@type": "Thing",
+          "name": "Video Analysis"
+        },
+        {
+          "@type": "Thing",
+          "name": "Context-Aware Computing"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:u-x6o8ySG0sC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#14",
+      "name": "Optimizing VNF Migration in B5G Core Networks: A Machine Learning Approach",
+      "headline": "Optimizing VNF Migration in B5G Core Networks: A Machine Learning Approach",
+      "description": "This paper presents a machine learning approach for optimizing VNF migration in B5G core networks.",
+      "datePublished": "2024-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "BR Tanuboddi"
+        },
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "2024 International Conference on Smart Applications, Communications and Networking"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "2024 International Conference on Smart Applications, Communications and Networking"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "5G Networks"
+        },
+        {
+          "@type": "Thing",
+          "name": "Machine Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "VNF Migration"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:WF5omc3nYNoC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#15",
+      "name": "REDUS: Adaptive Resampling for Efficient Deep Learning in Centralized and Federated IoT Networks",
+      "headline": "REDUS: Adaptive Resampling for Efficient Deep Learning in Centralized and Federated IoT Networks",
+      "description": "This work presents REDUS, an adaptive resampling technique for efficient deep learning in centralized and federated IoT networks.",
+      "datePublished": "2025-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "E Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        },
+        {
+          "@type": "Person",
+          "name": "MI Ibrahem"
+        },
+        {
+          "@type": "Person",
+          "name": "M Ismail"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "arXiv preprint"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "arXiv preprint"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Deep Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "IoT"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:UebtZRa9Y70C"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#16",
+      "name": "Enhanced Environmental Awareness and Security for Smart Devices using WiFi-Sensing",
+      "headline": "Enhanced Environmental Awareness and Security for Smart Devices using WiFi-Sensing",
+      "description": "This paper presents enhanced environmental awareness and security techniques for smart devices using WiFi sensing.",
+      "datePublished": "2025-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "I Batool"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        },
+        {
+          "@type": "Person",
+          "name": "MI Ibrahem"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "2025 7th International Congress on Human-Computer Interaction, Optimization and Robotic Applications"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "2025 7th International Congress on Human-Computer Interaction, Optimization and Robotic Applications"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "WiFi Sensing"
+        },
+        {
+          "@type": "Thing",
+          "name": "Smart Devices"
+        },
+        {
+          "@type": "Thing",
+          "name": "Security"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:Se3iqnhoufwC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#17",
+      "name": "EXAD: Framework for Designing Explanations in Adaptive User Interfaces",
+      "headline": "EXAD: Framework for Designing Explanations in Adaptive User Interfaces",
+      "description": "This work presents EXAD, a framework for designing explanations in adaptive user interfaces.",
+      "datePublished": "2025-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "I Batool"
+        },
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        },
+        {
+          "@type": "Person",
+          "name": "MI Ibrahem"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "2025 7th International Congress on Human-Computer Interaction, Optimization and Robotic Applications"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "2025 7th International Congress on Human-Computer Interaction, Optimization and Robotic Applications"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Explainable AI"
+        },
+        {
+          "@type": "Thing",
+          "name": "User Interfaces"
+        },
+        {
+          "@type": "Thing",
+          "name": "Adaptive Systems"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:roLk4NBRz8UC"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://gadgad.me/publications#18",
+      "name": "Combating Malware Traffic in Emerging Networks: A Collaborative Learning Approach",
+      "headline": "Combating Malware Traffic in Emerging Networks: A Collaborative Learning Approach",
+      "description": "This paper presents a collaborative learning approach for combating malware traffic in emerging networks.",
+      "datePublished": "2024-01-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "H Vaitla"
+        },
+        {
+          "@type": "Person",
+          "name": "G Gad"
+        },
+        {
+          "@type": "Person",
+          "name": "ZM Fadlullah"
+        },
+        {
+          "@type": "Person",
+          "name": "MM Fouda"
+        }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "2024 International Conference on Smart Applications, Communications and Networking"
+      },
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "name": "2024 International Conference on Smart Applications, Communications and Networking"
+      },
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Cybersecurity"
+        },
+        {
+          "@type": "Thing",
+          "name": "Machine Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Network Security"
+        }
+      ],
+      "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bZRYJuAAAAAJ&citation_for_view=bZRYJuAAAAAJ:ufrVoPGSRksC"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#1",
+      "name": "Automatic Microscope Backend System",
+      "description": "Developed the backend of an automatic microscope system with deep learning detection, tracking, and segmentation to automate human semen assessment at Delta-care.",
+      "startDate": "2021-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "Deep Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Computer Vision"
+        },
+        {
+          "@type": "Thing",
+          "name": "Image Processing"
+        },
+        {
+          "@type": "Thing",
+          "name": "Medical Imaging"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Computer Vision"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#2",
+      "name": "Autonomous Underwater Vehicle (AUV) Software",
+      "description": "Software development for Vortex RoboSub 2021 competition AUV team. Designed and implemented collaborative ROS nodes for smart underwater detection and motion planning.",
+      "startDate": "2020-2021-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "ROS"
+        },
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "C++"
+        },
+        {
+          "@type": "Thing",
+          "name": "Computer Vision"
+        },
+        {
+          "@type": "Thing",
+          "name": "Motion Planning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Underwater Robotics"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Robotics"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#3",
+      "name": "Real-time Lane Instance Segmentation",
+      "description": "Real-time lane detection system using SegNet architecture combined with image processing techniques for autonomous driving applications.",
+      "startDate": "2020-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "SegNet"
+        },
+        {
+          "@type": "Thing",
+          "name": "Deep Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Computer Vision"
+        },
+        {
+          "@type": "Thing",
+          "name": "Real-time Processing"
+        },
+        {
+          "@type": "Thing",
+          "name": "Autonomous Driving"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Computer Vision"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#4",
+      "name": "Satellite Imagery Analysis for Urban Development",
+      "description": "Machine learning project for UN ESCWA analyzing satellite imagery for urban development projects using geospatial data analysis techniques.",
+      "startDate": "2020-2021-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "Machine Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Satellite Imagery"
+        },
+        {
+          "@type": "Thing",
+          "name": "Geospatial Analysis"
+        },
+        {
+          "@type": "Thing",
+          "name": "Remote Sensing"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Machine Learning"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#5",
+      "name": "Federated Learning Framework for UAV-IoT Systems",
+      "description": "Joint self-organizing maps and knowledge-distillation-based communication-efficient federated learning for resource-constrained UAV-IoT systems.",
+      "startDate": "2023-2024-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        },
+        {
+          "@type": "Thing",
+          "name": "UAV-IoT"
+        },
+        {
+          "@type": "Thing",
+          "name": "Self-Organizing Maps"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Research"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#6",
+      "name": "Privacy-Preserving Federated Learning with Differential Privacy",
+      "description": "Communication-efficient and privacy-preserving federated learning via joint knowledge distillation and differential privacy in bandwidth-constrained networks.",
+      "startDate": "2023-2024-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Differential Privacy"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        },
+        {
+          "@type": "Thing",
+          "name": "Privacy Preservation"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Research"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#7",
+      "name": "Explainable AI for Medical Image Segmentation",
+      "description": "Explainable AI system for medical image segmentation with preserved local resolution, focusing on mammogram tumor segmentation.",
+      "startDate": "2023-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "Deep Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Medical Imaging"
+        },
+        {
+          "@type": "Thing",
+          "name": "Explainable AI"
+        },
+        {
+          "@type": "Thing",
+          "name": "Image Segmentation"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Research"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#8",
+      "name": "Human Activity Recognition with Federated Learning",
+      "description": "Federated learning via augmented knowledge distillation for heterogeneous deep human activity recognition systems.",
+      "startDate": "2022-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "Federated Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Knowledge Distillation"
+        },
+        {
+          "@type": "Thing",
+          "name": "Human Activity Recognition"
+        },
+        {
+          "@type": "Thing",
+          "name": "Deep Learning"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Research"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#9",
+      "name": "Deep Learning-based Context-aware Video Content Analysis",
+      "description": "Deep learning-based context-aware video content analysis on IoT devices for smart environments.",
+      "startDate": "2022-01-01",
+      "status": "Completed",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "Deep Learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "Video Analysis"
+        },
+        {
+          "@type": "Thing",
+          "name": "IoT"
+        },
+        {
+          "@type": "Thing",
+          "name": "Context-aware Computing"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Research"
+    },
+    {
+      "@type": "Project",
+      "@id": "https://gadgad.me/projects#10",
+      "name": "WiFi Sensing for Smart Environments",
+      "description": "Enhanced environmental awareness and security for smart devices using WiFi-sensing technologies.",
+      "startDate": "2024-2025-01-01",
+      "status": "InProgress",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Python"
+        },
+        {
+          "@type": "Thing",
+          "name": "WiFi Sensing"
+        },
+        {
+          "@type": "Thing",
+          "name": "Smart Devices"
+        },
+        {
+          "@type": "Thing",
+          "name": "Environmental Awareness"
+        },
+        {
+          "@type": "Thing",
+          "name": "Security"
+        }
+      ],
+      "url": "https://gadgad.me/projects",
+      "category": "Research"
+    }
+  ]
+}

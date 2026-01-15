@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-blog.js && node scripts/generate-sitemap.js && vite build",
+    "build": "node scripts/build-blog.js && node scripts/generate-sitemap.js && node scripts/generate-rss.js && node scripts/generate-structured-data.js && vite build",
     "preview": "vite preview",
     "serve": "vite preview",
     "generate-sitemap": "node scripts/generate-sitemap.js",
+    "generate-rss": "node scripts/generate-rss.js",
+    "generate-structured-data": "node scripts/generate-structured-data.js",
     "build-blog": "node scripts/build-blog.js"
   },
   "dependencies": {

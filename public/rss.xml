@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gad Mohamed - Blog</title>
+    <description>Ph.D. Student in Computer Science specializing in Wi-Fi Sensing, Federated Learning, and Differential Privacy</description>
+    <link>https://gadgad.me/</link>
+    <atom:link href="https://gadgad.me/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 15 Jan 2026 12:01:44 GMT</lastBuildDate>
+    <generator>Gad Mohamed Blog Generator</generator>
+    <managingEditor>gad@gadgad.me (Gad Mohamed)</managingEditor>
+    <webMaster>gad@gadgad.me (Gad Mohamed)</webMaster>
+    <item>
+      <title><![CDATA[Dear GOD: Delete My Data Now!]]></title>
+      <description><![CDATA[DID YOU GET MY CONSENT? Let me be clear... NO, I DID NOT AND I DO NOT CONSENT TO THIS.
+DELETE MY DATA AND REMOVE MY SELF FROM THIS SILLY GAME RIGHT NOW... RIGHT NOW... RIGHT NOW...]]></description>
+      <link>https://gadgad.me/blog/dear-god-delete-my-data-now</link>
+      <guid>https://gadgad.me/blog/dear-god-delete-my-data-now</guid>
+      <pubDate>Tue, 23 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Personal]]></category>
+    </item>
+  </channel>
+</rss>
