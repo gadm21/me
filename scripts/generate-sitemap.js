@@ -27,7 +27,7 @@ try {
   const pubData = readFileSync(join(__dirname, '..', 'src', 'data', 'publications.json'), 'utf8')
   const pubs = JSON.parse(pubData)
   publications = pubs.map(pub => ({
-    path: `/publications#${pub.id}`,
+    path: `/publications`,
     priority: 0.8,
     changefreq: 'monthly',
     lastmod: `${pub.year}-12-31`
@@ -37,7 +37,7 @@ try {
   const projData = readFileSync(join(__dirname, '..', 'src', 'data', 'projects.json'), 'utf8')
   const projs = JSON.parse(projData)
   projects = projs.map(project => ({
-    path: `/projects#${project.id}`,
+    path: `/projects`,
     priority: 0.8,
     changefreq: 'monthly',
     lastmod: `${project.year}-12-31`
