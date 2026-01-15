@@ -4,7 +4,7 @@
     <section class="cv-header mb-12">
       <div class="prose-container text-center">
         <h1 class="gothic-title text-sage mb-4">{{ t('cv.title') }}</h1>
-        <p class="serene-text text-xl">Gad Mohamed</p>
+        <p class="serene-text text-xl">Gad Gad</p>
         <p class="text-gray-400">{{ t('cv.phdStudent') }}</p>
         
         <!-- Quick Stats -->
@@ -379,9 +379,9 @@ const teaching = ref([
 ])
 
 const copyBio = (type) => {
-  const shortBio = 'Gad Mohamed is a Ph.D. student in Computer Science at Western University, Canada, specializing in privacy-preserving Wi-Fi sensing and federated learning.'
+  const shortBio = 'Gad Gad is a Ph.D. student in Computer Science at Western University, Canada, specializing in privacy-preserving Wi-Fi sensing and federated learning.'
   
-  const fullBio = `Gad Mohamed is a Ph.D. student in Computer Science at Western University, Canada. His research focuses on privacy-preserving machine learning, Wi-Fi sensing technologies, and federated learning systems. He holds a Master's degree from Lakehead University and a Bachelor's in Computer Engineering from Nile University, Egypt. His work has been published in top-tier venues including IEEE INFOCOM and ACM Computing Surveys. He is passionate about teaching and has received multiple awards for research and teaching excellence.`
+  const fullBio = `Gad Gad is a Ph.D. student in Computer Science at Western University, Canada. His research focuses on privacy-preserving machine learning, Wi-Fi sensing technologies, and federated learning systems. He holds a Master's degree from Lakehead University and a Bachelor's in Computer Engineering from Nile University, Egypt. His work has been published in top-tier venues including IEEE INFOCOM and ACM Computing Surveys. He is passionate about teaching and has received multiple awards for research and teaching excellence.`
   
   const textToCopy = type === 'short' ? shortBio : fullBio
   navigator.clipboard.writeText(textToCopy)

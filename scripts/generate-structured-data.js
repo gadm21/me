@@ -40,7 +40,7 @@ function generateStructuredData() {
       {
         "@type": "Person",
         "@id": `${BASE_URL}#person`,
-        "name": "Gad Mohamed",
+        "name": "Gad Gad",
         "url": BASE_URL,
         "jobTitle": "Ph.D. Student in Computer Science",
         "description": "Ph.D. Student specializing in Wi-Fi Sensing, Federated Learning, and Differential Privacy",
@@ -70,7 +70,7 @@ function generateStructuredData() {
         "@type": "WebSite",
         "@id": `${BASE_URL}#website`,
         "url": BASE_URL,
-        "name": "Gad Mohamed - Ph.D. Student in Computer Science",
+        "name": "Gad Gad - Ph.D. Student in Computer Science",
         "description": "Exploring the frontiers of Wi-Fi Sensing, Federated Learning, and Differential Privacy",
         "publisher": {
           "@id": `${BASE_URL}#person`

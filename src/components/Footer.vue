@@ -24,7 +24,7 @@
         
         <!-- Copyright -->
         <div class="text-center text-sm text-text-tertiary space-y-1">
-          <p>&copy; {{ currentYear }} Gad Mohamed Gad with some help from AI..</p>
+          <p>&copy; {{ currentYear }} Gad Gad Gad with some help from AI..</p>
           <p>Ok, it did most of the work. But still, all rights reserved.</p>
         </div>
       </div>

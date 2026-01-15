@@ -23,15 +23,15 @@ function generateRSS() {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Gad Mohamed - Blog</title>
+    <title>Gad Gad - Blog</title>
     <description>Ph.D. Student in Computer Science specializing in Wi-Fi Sensing, Federated Learning, and Differential Privacy</description>
     <link>${BASE_URL}/</link>
     <atom:link href="${BASE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <generator>Gad Mohamed Blog Generator</generator>
-    <managingEditor>gad@gadgad.me (Gad Mohamed)</managingEditor>
-    <webMaster>gad@gadgad.me (Gad Mohamed)</webMaster>
+    <generator>Gad Gad Blog Generator</generator>
+    <managingEditor>gad@gadgad.me (Gad Gad)</managingEditor>
+    <webMaster>gad@gadgad.me (Gad Gad)</webMaster>
 ${blogPosts.map(post => `    <item>
       <title><![CDATA[${post.title}]]></title>
       <description><![CDATA[${post.excerpt || ''}]]></description>

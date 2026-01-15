@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Gad Mohamed - Blog</title>
+    <title>Gad Gad - Blog</title>
     <description>Ph.D. Student in Computer Science specializing in Wi-Fi Sensing, Federated Learning, and Differential Privacy</description>
     <link>https://gadgad.me/</link>
     <atom:link href="https://gadgad.me/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Jan 2026 12:01:44 GMT</lastBuildDate>
-    <generator>Gad Mohamed Blog Generator</generator>
-    <managingEditor>gad@gadgad.me (Gad Mohamed)</managingEditor>
-    <webMaster>gad@gadgad.me (Gad Mohamed)</webMaster>
+    <lastBuildDate>Thu, 15 Jan 2026 13:41:50 GMT</lastBuildDate>
+    <generator>Gad Gad Blog Generator</generator>
+    <managingEditor>gad@gadgad.me (Gad Gad)</managingEditor>
+    <webMaster>gad@gadgad.me (Gad Gad)</webMaster>
+    <item>
+      <title><![CDATA[G in the impolite town]]></title>
+      <description><![CDATA[Oh god, give me strength]]></description>
+      <link>https://gadgad.me/blog/G-in-the-impolite-town</link>
+      <guid>https://gadgad.me/blog/G-in-the-impolite-town</guid>
+      <pubDate>Tue, 13 Jan 2026 00:00:00 GMT</pubDate>
+      <category><![CDATA[Personal]]></category>
+    </item>
+    <item>
+      <title><![CDATA[The AI revolution]]></title>
+      <description><![CDATA[The black box nature of AI models is a double-edged sword. On the one hand, it makes the data speak for themselves. On the other hand, it cancels our ability to understand why AI makes its judgments, not just because the models are complex, but because the data are complex. But the data has always existed, and we always needed to make predictions.]]></description>
+      <link>https://gadgad.me/blog/ai-revolution</link>
+      <guid>https://gadgad.me/blog/ai-revolution</guid>
+      <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Technology]]></category>
+    </item>
     <item>
       <title><![CDATA[Dear GOD: Delete My Data Now!]]></title>
       <description><![CDATA[DID YOU GET MY CONSENT? Let me be clear... NO, I DID NOT AND I DO NOT CONSENT TO THIS.

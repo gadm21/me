@@ -125,7 +125,7 @@ onMounted(() => {
   
   // Update page title
   if (post.value) {
-    document.title = `${post.value.title} - Gad Mohamed`
+    document.title = `${post.value.title} - Gad Gad`
   }
 })
 </script>

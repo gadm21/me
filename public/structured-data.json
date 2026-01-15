@@ -4,7 +4,7 @@
     {
       "@type": "Person",
       "@id": "https://gadgad.me#person",
-      "name": "Gad Mohamed",
+      "name": "Gad Gad",
       "url": "https://gadgad.me",
       "jobTitle": "Ph.D. Student in Computer Science",
       "description": "Ph.D. Student specializing in Wi-Fi Sensing, Federated Learning, and Differential Privacy",
@@ -32,12 +32,38 @@
       "@type": "WebSite",
       "@id": "https://gadgad.me#website",
       "url": "https://gadgad.me",
-      "name": "Gad Mohamed - Ph.D. Student in Computer Science",
+      "name": "Gad Gad - Ph.D. Student in Computer Science",
       "description": "Exploring the frontiers of Wi-Fi Sensing, Federated Learning, and Differential Privacy",
       "publisher": {
         "@id": "https://gadgad.me#person"
       },
       "inLanguage": "en-US"
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://gadgad.me/blog/G-in-the-impolite-town#blogpost",
+      "url": "https://gadgad.me/blog/G-in-the-impolite-town",
+      "name": "G in the impolite town",
+      "headline": "G in the impolite town",
+      "description": "Oh god, give me strength",
+      "datePublished": "2026-01-13",
+      "dateModified": "2026-01-13",
+      "author": {
+        "@id": "https://gadgad.me#person"
+      },
+      "publisher": {
+        "@id": "https://gadgad.me#person"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://gadgad.me/blog/G-in-the-impolite-town"
+      },
+      "image": "https://gadgad.me/assets/img/blog/hell.png",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@type": "Blog",
+        "@id": "https://gadgad.me/blog#blog"
+      }
     },
     {
       "@type": "BlogPosting",

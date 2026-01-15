@@ -3,9 +3,9 @@ import { onMounted } from 'vue'
 export function useSEO(options = {}) {
   const updateMeta = () => {
     const {
-      title = 'Gad Mohamed Gad - Ph.D. Student in Computer Science',
+      title = 'Gad Gad Gad - Ph.D. Student in Computer Science',
       description = 'Exploring the frontiers of Wi-Fi Sensing, Federated Learning, and Differential Privacy',
-      keywords = 'Gad Mohamed Gad, Computer Science, PhD, Wi-Fi Sensing, Federated Learning, Differential Privacy',
+      keywords = 'Gad Gad Gad, Computer Science, PhD, Wi-Fi Sensing, Federated Learning, Differential Privacy',
       image = '/assets/img/me.jpg',
       url = window.location.href
     } = options
@@ -44,7 +44,7 @@ export function useSEO(options = {}) {
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'Person',
-      'name': 'Gad Mohamed',
+      'name': 'Gad Gad',
       'jobTitle': 'Ph.D. Student',
       'affiliation': {
         '@type': 'Organization',
