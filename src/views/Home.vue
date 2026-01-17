@@ -12,7 +12,7 @@
         @click="handleClick"
       ></canvas>
       
-      <!-- Center dot with ThothCrafter link -->
+      <!-- Center dot with ThothCraft link -->
       <a 
         href="https://www.thothcraft.com/" 
         target="_blank"
@@ -22,7 +22,7 @@
         @mouseleave="dotHovered = false"
       >
         <div class="center-dot" :class="{ 'hovered': dotHovered }">
-          <span class="dot-text" v-show="dotHovered">thothcrafter</span>
+          <span class="dot-text" v-show="dotHovered">thothcraft</span>
         </div>
       </a>
     </div>
