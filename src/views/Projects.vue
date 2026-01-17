@@ -39,6 +39,8 @@
               <img 
                 :src="project.image" 
                 :alt="project.title"
+                loading="lazy"
+                decoding="async"
                 class="w-full h-48 object-cover"
                 @error="handleImageError"
               >
@@ -223,16 +225,20 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useData } from '../composables/useData'
 import { useAnalytics } from '../composables/useAnalytics'
 import { useI18n } from '@/composables/useI18n'
+import { useSEO } from '@/composables/useSEO'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const { t, isRTL } = useI18n()
+
+const SITE_URL = 'https://gadgad.me'
+const { updateMeta } = useSEO()
 
 const { data: projects, loading, error } = useData('/src/data/projects.json')
 const { trackOutboundLink } = useAnalytics()
@@ -283,7 +289,93 @@ const handleImageError = (event) => {
   event.target.src = '/assets/img/project-placeholder.jpg'
 }
 
+const updateProjectsSEO = () => {
+  const canonical = `${SITE_URL}/projects`
+
+  const projectItems = (projects.value || []).map((project) => {
+    const hasGithub = Boolean(project.github)
+
+    const base = {
+      '@type': hasGithub ? 'SoftwareSourceCode' : 'CreativeWork',
+      'name': project.title,
+      'description': project.description,
+      'datePublished': project.year ? String(project.year).split('-').slice(-1)[0] : undefined,
+      'keywords': Array.isArray(project.technologies) ? project.technologies.join(', ') : undefined,
+      'image': project.image ? new URL(project.image, SITE_URL).toString() : undefined,
+      'url': hasGithub ? project.github : (project.demo || canonical)
+    }
+
+    if (hasGithub) {
+      base.codeRepository = project.github
+    }
+
+    if (project.demo) {
+      base.sameAs = [project.demo]
+    }
+
+    return base
+  })
+
+  updateMeta({
+    title: `${t('projects.title')} - Gad Gad`,
+    description: 'A selection of projects by Gad Gad, including research prototypes and software systems.',
+    url: canonical,
+    canonical,
+    ogType: 'website',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          '@id': `${canonical}#webpage`,
+          'url': canonical,
+          'name': t('projects.title'),
+          'about': {
+            '@type': 'Person',
+            'name': 'Gad Gad',
+            'url': SITE_URL
+          },
+          'mainEntity': {
+            '@type': 'ItemList',
+            'itemListElement': projectItems.map((item, index) => ({
+              '@type': 'ListItem',
+              'position': index + 1,
+              'item': item
+            }))
+          }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': `${SITE_URL}/`
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': t('projects.title'),
+              'item': canonical
+            }
+          ]
+        }
+      ]
+    }
+  })
+}
+
 onMounted(() => {
+  updateProjectsSEO()
+
+  watch(
+    () => projects.value,
+    (val) => {
+      if (val && val.length) updateProjectsSEO()
+    }
+  )
+
   // Animate project cards on scroll
   gsap.utils.toArray('.project-card').forEach((card, index) => {
     gsap.fromTo(card, 

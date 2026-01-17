@@ -26,6 +26,8 @@
           <img 
             :src="post.image" 
             :alt="post.title"
+            loading="lazy"
+            decoding="async"
             class="w-full h-64 object-cover rounded-lg"
           >
         </div>
@@ -75,9 +77,13 @@ import { useRoute } from 'vue-router'
 import { marked } from 'marked'
 import blogData from '@/data/blog.json'
 import GiscusComments from '@/components/GiscusComments.vue'
+import { useSEO } from '@/composables/useSEO'
 
 const route = useRoute()
 const post = ref(null)
+
+const SITE_URL = 'https://gadgad.me'
+const { updateMeta } = useSEO()
 
 // Find the post by slug
 const findPost = () => {
@@ -122,12 +128,98 @@ const shareArticle = (platform) => {
 
 onMounted(() => {
   findPost()
-  
-  // Update page title
-  if (post.value) {
-    document.title = `${post.value.title} - Gad Gad`
+
+  const slug = route.params.slug
+  const canonical = `${SITE_URL}/blog/${slug}`
+
+  if (!post.value) {
+    updateMeta({
+      title: 'Article Not Found - Gad Gad',
+      description: "The article you're looking for doesn't exist or has been moved.",
+      url: canonical,
+      canonical
+    })
+    return
   }
+
+  const description = post.value.excerpt || ''
+  const image = post.value.image || '/assets/img/me.jpg'
+
+  updateMeta({
+    title: `${post.value.title} - Gad Gad`,
+    description,
+    image,
+    url: canonical,
+    canonical,
+    ogType: 'article',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'BlogPosting',
+          '@id': `${canonical}#blogpost`,
+          'url': canonical,
+          'headline': post.value.title,
+          'name': post.value.title,
+          'description': description,
+          'datePublished': post.value.date,
+          'dateModified': post.value.date,
+          'author': {
+            '@type': 'Person',
+            'name': 'Gad Gad',
+            'url': SITE_URL
+          },
+          'publisher': {
+            '@type': 'Person',
+            'name': 'Gad Gad',
+            'url': SITE_URL
+          },
+          'mainEntityOfPage': {
+            '@type': 'WebPage',
+            '@id': canonical
+          },
+          'image': normalizeImageUrl(image),
+          'isPartOf': {
+            '@type': 'Blog',
+            '@id': `${SITE_URL}/blog#blog`
+          }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': `${SITE_URL}/`
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Blog',
+              'item': `${SITE_URL}/blog`
+            },
+            {
+              '@type': 'ListItem',
+              'position': 3,
+              'name': post.value.title,
+              'item': canonical
+            }
+          ]
+        }
+      ]
+    }
+  })
 })
+
+const normalizeImageUrl = (img) => {
+  if (!img) return ''
+  try {
+    return new URL(img, SITE_URL).toString()
+  } catch {
+    return img
+  }
+}
 </script>
 
 <style scoped>

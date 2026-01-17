@@ -189,10 +189,23 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import publicationsData from '@/data/publications.json'
 import PdfViewer from '@/components/PdfViewer.vue'
 import { useI18n } from '@/composables/useI18n'
+import { useSEO } from '@/composables/useSEO'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const { t, isRTL } = useI18n()
+
+const SITE_URL = 'https://gadgad.me'
+const { updateMeta } = useSEO()
+
+const normalizeUrl = (url) => {
+  if (!url) return ''
+  try {
+    return new URL(url, SITE_URL).toString()
+  } catch {
+    return url
+  }
+}
 
 // Filters
 const selectedYear = ref('')
@@ -288,6 +301,81 @@ const closePdfViewer = () => {
 }
 
 onMounted(() => {
+  const canonical = `${SITE_URL}/publications`
+
+  const scholarlyArticles = publications.value.map((pub) => {
+    const pubUrl = pub.scholarLink || pub.arxiv || pub.pdf || pub.code || pub.pdfPath || canonical
+
+    return {
+      '@type': 'ScholarlyArticle',
+      '@id': `${canonical}#pub-${pub.id}`,
+      'url': normalizeUrl(pubUrl),
+      'name': pub.title,
+      'headline': pub.title,
+      'datePublished': pub.year ? `${pub.year}-01-01` : undefined,
+      'author': Array.isArray(pub.authors)
+        ? pub.authors.map((name) => ({ '@type': 'Person', 'name': name }))
+        : undefined,
+      'isPartOf': pub.venue ? { '@type': 'Periodical', 'name': pub.venue } : undefined,
+      'sameAs': pub.scholarLink ? [pub.scholarLink] : undefined,
+      'encoding': pub.pdfPath
+        ? {
+            '@type': 'MediaObject',
+            'contentUrl': normalizeUrl(pub.pdfPath)
+          }
+        : undefined
+    }
+  })
+
+  updateMeta({
+    title: `${t('publications.title')} - Gad Gad`,
+    description: 'Publications by Gad Gad across privacy, federated learning, and Wi-Fi sensing.',
+    url: canonical,
+    canonical,
+    ogType: 'website',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          '@id': `${canonical}#webpage`,
+          'url': canonical,
+          'name': t('publications.title'),
+          'about': {
+            '@type': 'Person',
+            'name': 'Gad Gad',
+            'url': SITE_URL
+          },
+          'mainEntity': {
+            '@type': 'ItemList',
+            'itemListElement': scholarlyArticles.map((item, index) => ({
+              '@type': 'ListItem',
+              'position': index + 1,
+              'item': item
+            }))
+          }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': `${SITE_URL}/`
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': t('publications.title'),
+              'item': canonical
+            }
+          ]
+        }
+      ]
+    }
+  })
+
   // Animate publication cards on scroll
   gsap.utils.toArray('.publication-card').forEach(card => {
     gsap.fromTo(card, 

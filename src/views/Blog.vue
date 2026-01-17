@@ -60,6 +60,8 @@
               <img 
                 :src="post.image" 
                 :alt="post.title"
+                loading="lazy"
+                decoding="async"
                 class="w-full h-48 object-cover"
               >
             </div>
@@ -114,10 +116,14 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import blogData from '@/data/blog.json'
 import { useI18n } from '@/composables/useI18n'
+import { useSEO } from '@/composables/useSEO'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const { t, isRTL } = useI18n()
+
+const SITE_URL = 'https://gadgad.me'
+const { updateMeta } = useSEO()
 
 const selectedCategory = ref(null)
 const email = ref('')
@@ -175,6 +181,47 @@ const subscribe = () => {
 }
 
 onMounted(() => {
+  updateMeta({
+    title: `${t('blog.title')} - Gad Gad`,
+    description: 'Essays and notes by Gad Gad on research, technology, and privacy.',
+    url: `${SITE_URL}/blog`,
+    canonical: `${SITE_URL}/blog`,
+    ogType: 'website',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Blog',
+          '@id': `${SITE_URL}/blog#blog`,
+          'url': `${SITE_URL}/blog`,
+          'name': t('blog.title'),
+          'publisher': {
+            '@type': 'Person',
+            'name': 'Gad Gad',
+            'url': SITE_URL
+          }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': `${SITE_URL}/`
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': t('blog.title'),
+              'item': `${SITE_URL}/blog`
+            }
+          ]
+        }
+      ]
+    }
+  })
+
   // Animate blog cards on scroll
   gsap.utils.toArray('.blog-card').forEach((card, index) => {
     gsap.fromTo(card, 
