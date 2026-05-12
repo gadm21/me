@@ -187,7 +187,7 @@ const { t, currentLanguage, isRTL } = useI18n()
 
 // Resume modal state
 const showResumeModal = ref(false)
-const RESUME_PDF_URL = '/assets/docs/Gad_Gad_CV.pdf'
+const RESUME_PDF_URL = new URL('../assets/docs/Gad_Gad_CV.pdf', import.meta.url).href
 
 const router = useRouter()
 const signalCanvas = ref(null)
