@@ -158,7 +158,7 @@
     <section class="py-12 border-t border-slate">
       <div class="prose-container">
         <div class="flex flex-wrap justify-center gap-4">
-          <a href="/assets/docs/Gad_Gad_CV.pdf" target="_blank" class="btn-gothic">
+          <a :href="CV_PDF_URL" target="_blank" class="btn-gothic">
             {{ t('cv.downloadPdf') }}
           </a>
           <button @click="copyBio('short')" class="btn-gothic">
@@ -182,6 +182,7 @@ import { useI18n } from '@/composables/useI18n'
 gsap.registerPlugin(ScrollTrigger)
 
 const { t, isRTL } = useI18n()
+const CV_PDF_URL = new URL('../assets/docs/Gad_Gad_CV.pdf', import.meta.url).href
 
 // CV Data
 const stats = ref({
