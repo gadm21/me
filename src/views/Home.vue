@@ -182,12 +182,13 @@ import { useRouter } from 'vue-router'
 import gsap from 'gsap'
 import { useI18n } from '@/composables/useI18n'
 import PdfViewer from '@/components/PdfViewer.vue'
+import resumePdf from '../../assets/docs/Gad_Gad_CV.pdf'
 
 const { t, currentLanguage, isRTL } = useI18n()
 
 // Resume modal state
 const showResumeModal = ref(false)
-const RESUME_PDF_URL = new URL('../assets/docs/Gad_Gad_CV.pdf', import.meta.url).href
+const RESUME_PDF_URL = resumePdf
 
 const router = useRouter()
 const signalCanvas = ref(null)

@@ -2,10 +2,10 @@ import { ref, computed } from 'vue'
 
 // Supported languages
 export const SUPPORTED_LANGUAGES = [
-  { code: 'en', name: 'English', flag: '🇺🇸', dir: 'ltr' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl' },
-  { code: 'zh', name: '中文', flag: '🇨🇳', dir: 'ltr' }
+  { code: 'en', name: 'English', flag: '🇺🇸', dir: 'ltr', speechCode: 'en-US' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr', speechCode: 'fr-FR' },
+  { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl', speechCode: 'ar-SA' },
+  { code: 'zh', name: '中文', flag: '🇨🇳', dir: 'ltr', speechCode: 'zh-CN' }
 ]
 
 // Translation strings

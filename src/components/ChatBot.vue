@@ -146,7 +146,7 @@
 import { ref, nextTick, onMounted, onUnmounted, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSiteContext } from '@/composables/useSiteContext'
-import { useI18n, SUPPORTED_LANGUAGES as I18N_LANGUAGES } from '@/composables/useI18n'
+import { useI18n, SUPPORTED_LANGUAGES as I18N_LANGUAGES, getCurrentLanguageConfig } from '@/composables/useI18n'
 
 const route = useRoute()
 const { t, currentLanguage: websiteLanguage } = useI18n()
@@ -179,12 +179,6 @@ let recognition = null
 // Text-to-Speech
 const ttsEnabled = ref(false)
 const synth = typeof window !== 'undefined' ? window.speechSynthesis : null
-
-// Speech code mapping for TTS based on website language
-const getSpeechCode = () => {
-  const codes = { en: 'en-US', fr: 'fr-FR', ar: 'ar-SA', zh: 'zh-CN' }
-  return codes[websiteLanguage.value] || 'en-US'
-}
 
 // Proactive Engagement
 let inactivityTimer = null
@@ -321,22 +315,26 @@ const toggleTTS = () => {
 
 const speak = (text) => {
   if (!synth || !ttsEnabled.value) return
-  
+
   // Cancel any ongoing speech
   synth.cancel()
-  
+
   const utterance = new SpeechSynthesisUtterance(text)
   utterance.rate = 1.0
   utterance.pitch = 1.0
   utterance.volume = 1.0
-  
+
+  // Set language based on current selection
+  const langConfig = getCurrentLanguageConfig()
+  utterance.lang = langConfig.speechCode
+
   // Try to use a nice voice
   const voices = synth.getVoices()
   const preferredVoice = voices.find(v => v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Daniel'))
   if (preferredVoice) {
     utterance.voice = preferredVoice
   }
-  
+
   synth.speak(utterance)
 }
 
@@ -420,10 +418,16 @@ const messages = ref(loadMessages())
 // Watch for message changes and persist
 watch(messages, saveMessages, { deep: true })
 
-const API_URL = import.meta.env.DEV 
-  ? '/api/chat' 
-  : 'https://web-production-80b7.up.railway.app/query'
-const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTE3IiwiZXhwIjoxNzY5Mzc4MjgzfQ.lo9eqn6ZIS4pqFA7K8tzf2J80rtSjB96syaOcbVVH8E'
+// API Configuration - supports both OpenAI and custom backend
+const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY
+const OPENAI_MODEL = import.meta.env.VITE_OPENAI_MODEL || 'gpt-4o-mini'
+const CUSTOM_API_URL = import.meta.env.VITE_CHAT_API_URL || (import.meta.env.DEV
+  ? '/api/chat'
+  : 'https://web-production-80b7.up.railway.app/query')
+const CUSTOM_API_TOKEN = import.meta.env.VITE_CHAT_API_TOKEN
+
+// Determine which API to use
+const useOpenAI = !!OPENAI_API_KEY
 
 const toggleChat = async () => {
   isOpen.value = !isOpen.value
@@ -449,36 +453,97 @@ const sendMessage = async () => {
   isTyping.value = true
   scrollToBottom()
 
-  try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${API_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query: query,
-        chat_id: GLOBAL_CHAT_ID,
-        context: siteContext.value || {},
-        language: websiteLanguage.value,
-        language_name: getWebsiteLanguageName()
-      })
-    })
+  // Check if API is configured
+  if (!useOpenAI && !CUSTOM_API_TOKEN) {
+    const errorMsg = "Chat is not configured. Please set VITE_OPENAI_API_KEY or VITE_CHAT_API_TOKEN environment variable."
+    messages.value.push({ role: 'assistant', content: errorMsg })
+    speak(errorMsg)
+    isTyping.value = false
+    scrollToBottom()
+    return
+  }
 
-    const data = await response.json()
-    
-    if (data.success && data.response) {
-      messages.value.push({ role: 'assistant', content: data.response })
-      // Speak the response if TTS is enabled
-      speak(data.response)
+  try {
+    let response, data
+
+    if (useOpenAI) {
+      // Use OpenAI API
+      const systemPrompt = `You are Thoth, Gad's AI assistant. You help visitors learn about Gad's research in Wi-Fi Sensing, Federated Learning, Differential Privacy, and Quantum Networks.
+
+Current website language: ${getWebsiteLanguageName()}
+Site context: ${JSON.stringify(siteContext.value || {})}
+
+Keep responses concise (under 150 words), friendly, and helpful. If asked about sending SMS or saving memory, explain those features are available.`
+
+      // Format messages for OpenAI (convert our format to theirs)
+      const openaiMessages = [
+        { role: 'system', content: systemPrompt },
+        ...messages.value.map(msg => ({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: msg.content
+        }))
+      ]
+
+      response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: OPENAI_MODEL,
+          messages: openaiMessages,
+          max_tokens: 500,
+          temperature: 0.7
+        })
+      })
+
+      data = await response.json()
+
+      if (data.error) {
+        throw new Error(data.error.message)
+      }
+
+      const assistantMessage = data.choices[0].message.content
+      messages.value.push({ role: 'assistant', content: assistantMessage })
+      speak(assistantMessage)
+
     } else {
-      const errorMsg = "I couldn't process that request. Please try again."
-      messages.value.push({ role: 'assistant', content: errorMsg })
-      speak(errorMsg)
+      // Use custom backend API
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+
+      if (CUSTOM_API_TOKEN) {
+        headers['Authorization'] = `Bearer ${CUSTOM_API_TOKEN}`
+      }
+
+      response = await fetch(CUSTOM_API_URL, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          query: query,
+          chat_id: GLOBAL_CHAT_ID,
+          context: siteContext.value || {},
+          language: websiteLanguage.value,
+          language_name: getWebsiteLanguageName()
+        })
+      })
+
+      data = await response.json()
+
+      if (data.success && data.response) {
+        messages.value.push({ role: 'assistant', content: data.response })
+        speak(data.response)
+      } else {
+        const errorMsg = data.detail || "I couldn't process that request. Please try again."
+        messages.value.push({ role: 'assistant', content: errorMsg })
+        speak(errorMsg)
+      }
     }
   } catch (error) {
     console.error('Chat error:', error)
-    const errorMsg = "Sorry, I'm having trouble connecting. Please try again later."
+    const errorMsg = `Sorry, I'm having trouble connecting: ${error.message}. Please try again later.`
     messages.value.push({ role: 'assistant', content: errorMsg })
     speak(errorMsg)
   } finally {
