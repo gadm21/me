@@ -49,12 +49,20 @@
           
           <!-- PDF Embed Container -->
           <div class="flex-1 overflow-hidden bg-gray-100 dark:bg-gray-900">
-            <iframe 
+            <object
               v-if="isOpen"
-              :src="encodedPdfUrl"
+              :data="encodedPdfUrl"
+              type="application/pdf"
               class="w-full h-full border-0"
               title="PDF Viewer"
-            ></iframe>
+            >
+              <div class="flex items-center justify-center h-full">
+                <p class="text-text-secondary dark:text-text-secondary-dark">
+                  Unable to display PDF. 
+                  <a :href="encodedPdfUrl" target="_blank" class="text-primary hover:underline">Click here to open</a>
+                </p>
+              </div>
+            </object>
           </div>
         </div>
       </div>
