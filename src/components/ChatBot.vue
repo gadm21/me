@@ -87,6 +87,7 @@
           <button @click="useHint(`What are Gad's publications?`)" class="quick-btn">{{ t('chat.publications') }}</button>
           <button @click="useHint('What is ThothCraft?')" class="quick-btn">{{ t('chat.thothcraft') }}</button>
           <button @click="useHint('Contact Gad')" class="quick-btn">{{ t('chat.contactBtn') }}</button>
+          <button @click="useHint('What do you remember?')" class="quick-btn">Memory</button>
         </div>
 
         <!-- Input -->
@@ -147,6 +148,7 @@ import { ref, nextTick, onMounted, onUnmounted, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSiteContext } from '@/composables/useSiteContext'
 import { useI18n, SUPPORTED_LANGUAGES as I18N_LANGUAGES, getCurrentLanguageConfig } from '@/composables/useI18n'
+import { useMemory, getMemoryContext, parseMemoryCommand, saveToMemory } from '@/composables/useMemory'
 
 const route = useRoute()
 const { t, currentLanguage: websiteLanguage } = useI18n()
@@ -159,6 +161,7 @@ const getWebsiteLanguageName = () => {
 
 const isOpen = ref(false)
 const siteContext = ref(null)
+const memoryContext = ref('')
 const isTyping = ref(false)
 const userInput = ref('')
 const messagesContainer = ref(null)
@@ -435,6 +438,10 @@ const toggleChat = async () => {
   if (isOpen.value && !siteContext.value) {
     siteContext.value = await getSiteContext()
   }
+  // Load memory context when chat is opened
+  if (isOpen.value) {
+    memoryContext.value = await getMemoryContext()
+  }
 }
 
 const scrollToBottom = async () => {
@@ -452,6 +459,39 @@ const sendMessage = async () => {
   userInput.value = ''
   isTyping.value = true
   scrollToBottom()
+
+  // Check if this is a memory command
+  const memoryCommand = parseMemoryCommand(query)
+  if (memoryCommand.isMemoryCommand) {
+    try {
+      const success = await saveToMemory(memoryCommand.content)
+      if (success) {
+        // Reload memory context
+        memoryContext.value = await getMemoryContext()
+        messages.value.push({ 
+          role: 'assistant', 
+          content: `I've saved that to memory: "${memoryCommand.content}"` 
+        })
+        speak(`I've saved that to memory`)
+      } else {
+        messages.value.push({ 
+          role: 'assistant', 
+          content: 'Sorry, I couldn\'t save that to memory. Please try again.' 
+        })
+        speak('Sorry, I couldn\'t save that to memory')
+      }
+    } catch (error) {
+      console.error('Memory save error:', error)
+      messages.value.push({ 
+        role: 'assistant', 
+        content: 'Sorry, there was an error saving to memory.' 
+      })
+      speak('Sorry, there was an error saving to memory')
+    }
+    isTyping.value = false
+    scrollToBottom()
+    return
+  }
 
   // Check if API is configured
   if (!useOpenAI && !CUSTOM_API_TOKEN) {
@@ -472,6 +512,8 @@ const sendMessage = async () => {
 
 Current website language: ${getWebsiteLanguageName()}
 Site context: ${JSON.stringify(siteContext.value || {})}
+
+${memoryContext.value}
 
 Keep responses concise (under 150 words), friendly, and helpful. If asked about sending SMS or saving memory, explain those features are available.`
 
@@ -525,6 +567,7 @@ Keep responses concise (under 150 words), friendly, and helpful. If asked about 
           query: query,
           chat_id: GLOBAL_CHAT_ID,
           context: siteContext.value || {},
+          memory: memoryContext.value,
           language: websiteLanguage.value,
           language_name: getWebsiteLanguageName()
         })
