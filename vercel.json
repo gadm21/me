@@ -14,7 +14,7 @@
       "destination": "/admin/:path*"
     },
     {
-      "source": "/((?!admin|api).*)",
+      "source": "/((?!admin|api|.*\\.(pdf|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|otf|css|js|json|xml|txt)).*)",
       "destination": "/index.html"
     }
   ],
